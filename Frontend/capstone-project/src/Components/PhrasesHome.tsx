@@ -1,28 +1,33 @@
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import CustomButton from "./CustomButton";
 
 function PhrasesHome() {
   const title: string = "Escape reality, enter imagination.";
-  const titleButton: string = "Endless stories. One platform";
+  const titleButton: string = `Endless stories. One platform`;
 
   return (
     <>
-      <Container className="position-absolute h-100">
+      <Container className="d-flex justify-content-center align-items-center h-100 w-100">
         <div
-          className="d-none d-md-flex mx-2 mx-md-5 d-md-flex align-items-center fixed-bottom"
-          style={{ bottom: "50px" }}
+          className="d-none mx-2 d-md-flex mx-md-0 align-items-center justify-content-center w-100 "
+          style={{ bottom: "150px" }}
         >
           <h1
-            className="text-white ms-5"
-            style={{ maxWidth: "350px", fontFamily: " DM Sans, sans-serif" }}
+            className="text-white m-0"
+            style={{
+              maxWidth: "450px",
+              fontSize: "75px",
+              fontFamily: " DM Sans, sans-serif",
+            }}
           >
             {title}
           </h1>
-          <div className="ms-auto">
+          <div className="ms-auto mt-auto">
             <p
-              className="text-white"
+              className="text-white fw-bold fs-3"
               style={{
                 fontFamily: " DM Sans, sans-serif",
+                maxWidth: "250px",
               }}
             >
               {titleButton}
@@ -55,7 +60,7 @@ function PhrasesHome() {
             />
           </div>
           <div className="mt-auto mb-5">
-            <h1 className="text-white">{title}</h1>
+            <h1 className="text-white text-center">{title}</h1>
           </div>
         </div>
       </Container>

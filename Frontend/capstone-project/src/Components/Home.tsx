@@ -3,7 +3,7 @@ import PhrasesHome from "./PhrasesHome";
 
 function Home() {
   return (
-    <div className="wallpaperHome position-relative">
+    <div className="wallpaperHome ">
       <NavbarHome />
       <PhrasesHome/>
     </div>

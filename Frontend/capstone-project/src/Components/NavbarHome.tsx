@@ -5,7 +5,7 @@ function NavbarHome() {
   const title: string = "Movieverse";
 
   return (
-    <Navbar expand="lg" style={{ backgroundColor: "transparent" }}>
+    <Navbar expand="lg" style={{ backgroundColor: "transparent"}} className="mt-2">
       <Container fluid className="mx-2 mx-md-5">
         <Navbar.Brand
           href="#"
@@ -25,7 +25,7 @@ function NavbarHome() {
             <div className="d-flex justify-content-center align-items-baseline flex-md-row">
               <CustomButton
                 classCustom="me-2 bg-transparent fancy-btn mt-5 mt-md-0"
-                styleCustom={{ border: "1px solid white" }}
+                styleCustom={{ border: "1px solid white", zIndex: "2" }}
                 text="Sign in"
               />
               <CustomButton

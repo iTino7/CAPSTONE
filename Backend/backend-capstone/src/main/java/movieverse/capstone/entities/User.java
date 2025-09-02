@@ -6,15 +6,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import movieverse.capstone.enums.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +45,13 @@ public class User {
         this.role = Role.USER;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
+    }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
 }

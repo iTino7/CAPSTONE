@@ -1,0 +1,76 @@
+package movieverse.capstone.services;
+
+import lombok.extern.slf4j.Slf4j;
+import movieverse.capstone.entities.User;
+import movieverse.capstone.exception.BadRequestExecption;
+import movieverse.capstone.exception.NotFoundException;
+import movieverse.capstone.payloads.NewUserDTO;
+import movieverse.capstone.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Slf4j
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User save(NewUserDTO payload) {
+        this.userRepository.findByEmail(payload.email()).ifPresent(utenti -> {
+            throw new BadRequestExecption("Ops! Email address  " + utenti.getEmail() + " is already in use");
+        });
+
+        User newUser = new User(payload.username(), payload.name(), payload.email(), passwordEncoder.encode(payload.password()));
+
+        return userRepository.save(newUser);
+    }
+
+    public User findById(long id) {
+        return this.userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found with this id " + id));
+    }
+
+    public User findByIdAndUpdate(long userId, NewUserDTO payload) {
+        User found = this.findById(userId);
+        if (!found.getEmail().equals(payload.email()))
+            this.userRepository.findByEmail(payload.email()).ifPresent(user -> {
+                throw new BadRequestExecption("Ops! Email address " + user.getEmail() + " is already in use");
+            });
+
+        found.setUsername(payload.username());
+        found.setName(payload.name());
+        found.setEmail(payload.email());
+        found.setPassword(passwordEncoder.encode(payload.password()));
+
+        User modifiedUser = this.userRepository.save(found);
+
+        log.info("User with id" + found.getId() + " has been modified!");
+
+        return modifiedUser;
+    }
+
+    public Page<User> findAll(int pageNumber, int pageSize, String sortBy) {
+        if (pageSize > 50) pageSize = 50;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+        return this.userRepository.findAll(pageable);
+    }
+
+    public User findByEmail(String email) {
+        return this.userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User with email " + email + " not found!"));
+    }
+
+    public void findByIdAndDelete(long userId) {
+        User found = this.findById(userId);
+        this.userRepository.delete(found);
+    }
+}

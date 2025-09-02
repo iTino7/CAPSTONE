@@ -1,4 +1,5 @@
 import "./App.css";
+import AdvFetchandMovies from "./Components/AdvFetchandMovies";
 import AdvHome from "./Components/AdvHome";
 import Home from "./Components/Home";
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <Home />
       <AdvHome />
+      <AdvFetchandMovies />
     </>
   );
 }

@@ -149,6 +149,7 @@
     position: sticky;
     top: 50px;
     z-index: 2;
+    
 }
 
 .backgroundImageAdv {
@@ -188,4 +189,13 @@
     animation: appear 5s linear;
     animation-timeline: view();
     animation-range: entry 0% cover 40%;
+}
+
+.customTitleAdv {
+    position: absolute;
+    padding-top: 100px;
+    position: sticky;
+    top: 150px;
+    padding-bottom: 100px;
+
 }

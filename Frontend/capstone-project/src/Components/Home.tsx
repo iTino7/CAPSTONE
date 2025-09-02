@@ -5,7 +5,7 @@ function Home() {
   return (
     <div className="wallpaperHome ">
       <NavbarHome />
-      <PhrasesHome/>
+      <PhrasesHome />
     </div>
   );
 }

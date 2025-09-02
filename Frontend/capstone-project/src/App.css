@@ -132,3 +132,60 @@
 .fancy-btn .span-mother span:nth-child(10) {
     transition: 0.11s;
 }
+
+
+.title {
+    font-size: calc(1.425rem + 2.3vw);
+    max-width: 1200px;
+}
+
+@media (min-width: 1200px) {
+    .title {
+        font-size: 4rem;
+    }
+}
+
+.scrollText {
+    position: sticky;
+    top: 50px;
+    z-index: 2;
+}
+
+.backgroundImageAdv {
+    position: relative;
+    background-image: url("/public/st5.jpg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: 50px;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+@media (max-width: 700px) {
+    .backgroundImageAdv {
+        height: 50vh;
+
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        scale: 0.5;
+        transform: translateX(-100px);
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+        transform: translateX(0px);
+    }
+}
+
+.block {
+    animation: appear 5s linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+}

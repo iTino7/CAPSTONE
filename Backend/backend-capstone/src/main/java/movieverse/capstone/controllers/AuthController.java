@@ -9,6 +9,7 @@ import movieverse.capstone.payloads.UserRespDTO;
 import movieverse.capstone.services.AuthService;
 import movieverse.capstone.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +29,7 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserRespDTO register(@RequestBody @Validated NewUserDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
-            throw new ValidationException(validation.getFieldErrors().stream().map(fieldError -> fieldError.getDefaultMessage()).toList());
+            throw new ValidationException(validation.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList());
         } else {
             User newUser = this.userService.save(body);
             return new UserRespDTO(newUser.getId());

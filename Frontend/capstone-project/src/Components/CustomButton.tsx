@@ -4,11 +4,18 @@ interface ButtonCustom {
   classCustom: string;
   styleCustom: object;
   text: string;
+
+  navigate?: () => void;
 }
 
-function CustomButton({ classCustom, styleCustom, text }: ButtonCustom) {
+function CustomButton({
+  classCustom,
+  styleCustom,
+  text,
+  navigate,
+}: ButtonCustom) {
   return (
-    <Button className={classCustom} style={styleCustom}>
+    <Button onClick={navigate} className={classCustom} style={styleCustom}>
       <span className="span-mother">
         {text.split("-").map((letter, i) => (
           <span key={i}> {letter} </span>

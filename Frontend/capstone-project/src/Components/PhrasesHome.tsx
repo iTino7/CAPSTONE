@@ -1,9 +1,21 @@
 import { Container } from "react-bootstrap";
 import CustomButton from "./CustomButton";
+import { useNavigate } from "react-router-dom";
 
 function PhrasesHome() {
   const title: string = "Escape reality, enter imagination.";
   const titleButton: string = `Endless stories. One platform`;
+
+  const navigate = useNavigate();
+
+  const handleClick = (page: string, pageNavigate: string) => {
+    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+    if (isLoggedIn) {
+      navigate(page);
+    } else {
+      navigate(pageNavigate);
+    }
+  };
 
   return (
     <>
@@ -22,7 +34,7 @@ function PhrasesHome() {
           >
             {title}
           </h1>
-          <div className="ms-auto mt-auto">
+          <div className="ms-auto mt-auto d-flex flex-column align-items-start">
             <p
               className="text-white fw-bold fs-3"
               style={{
@@ -33,12 +45,13 @@ function PhrasesHome() {
               {titleButton}
             </p>
             <CustomButton
-              classCustom=" border-0 text-black fancy-btn"
+              navigate={() => handleClick("/catalogue", "/auth/signup")}
+              classCustom=" btn btn-button order-0 text-black fancy-btn"
               styleCustom={{
                 backgroundColor: "#caf0f8",
                 fontFamily: " DM Sans, sans-serif",
               }}
-              text="Sign up"
+              text="movie"
             />
           </div>
         </div>
@@ -51,12 +64,13 @@ function PhrasesHome() {
               {titleButton}
             </h1>
             <CustomButton
-              classCustom="border-0 text-black fancy-btn mt-3"
+              navigate={() => handleClick("/catalogue", "/auth/signup")}
+              classCustom="btn btn-button border-0 text-black fancy-btn mt-3"
               styleCustom={{
                 backgroundColor: "#caf0f8",
                 fontFamily: " DM Sans, sans-serif",
               }}
-              text="Sign up"
+              text="movie"
             />
           </div>
           <div className="mt-auto mb-5">

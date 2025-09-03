@@ -8,7 +8,7 @@ interface TitleRegister {
 }
 
 function BackgroundForm({ children, subTitle }: TitleRegister) {
-  const title: string = "Movieverse";
+  const title: string = "MovieVerse";
 
   return (
     <Container
@@ -22,7 +22,7 @@ function BackgroundForm({ children, subTitle }: TitleRegister) {
           style={{ height: "100vh" }}
         >
           <div className="bg-black text-white mx-3 mx-md-0 rounded-2 p-3">
-            <Link to="/" style={{ textDecoration: "none", cursor: "pointer" }}>
+            <Link to="/" className="text-white" style={{ textDecoration: "none", cursor: "pointer" }}>
               <h1>{title}</h1>
             </Link>
             <h2 className="my-4">{subTitle}</h2>

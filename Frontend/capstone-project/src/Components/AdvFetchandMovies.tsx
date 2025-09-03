@@ -41,10 +41,10 @@ function AdvFetchandMovies() {
   };
 
   return (
-    <Container fluid className="bg-white py-4">
+    <Container fluid className="bg-black py-4">
       <div className="d-flex flex-column align-items-center customTitleAdv">
         <h1
-          className="text-center title"
+          className="text-center title text-white"
           style={{
             fontFamily: " DM Sans, sans-serif",
           }}

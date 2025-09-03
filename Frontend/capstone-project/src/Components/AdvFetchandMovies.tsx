@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Modal, Row } from "react-bootstrap";
 import CustomButton from "./CustomButton";
 import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../Interface/Movie";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
+  const [selectMovie, setSelectedMovie] = useState<Result | null>(null);
 
   const fetchCard = async () => {
     try {
@@ -69,17 +70,17 @@ function AdvFetchandMovies() {
       <Row className="textAdv d-flex justify-content-around">
         {movie.slice(0, 6).map((item) => (
           <>
-            {/* //TODO DA COMPLETARE */}
             <Col key={item.id} xs={12} sm={6} md={4} lg={8}></Col>
             <Col xs={12} sm={6} md={5} lg={4} className="mb-4 mb-sm-4">
               <img
+                onClick={() => setSelectedMovie(item)}
                 className="rounded-3"
                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
                 height={500}
                 alt={item.name}
                 style={{
                   objectFit: "contain",
-                  cursor:"pointer",
+                  cursor: "pointer",
                   zIndex: "2",
                   position: "relative",
                 }}
@@ -88,6 +89,33 @@ function AdvFetchandMovies() {
             <Col xs={12} sm={6} md={4} lg={3}></Col>
           </>
         ))}
+        <Modal
+          show={!!selectMovie}
+          onHide={() => setSelectedMovie(null)}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body
+            className="p-0 d-flex"
+            style={{
+              background: `linear-gradient(180deg,rgba(13, 13, 15, 0.88) 12%,rgba(255, 255, 255, 0) 56%,rgba(0, 0, 0, 100) 100%),url(https://image.tmdb.org/t/p/original${selectMovie?.backdrop_path})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              width: "100%",
+              height: "50vh",
+            }}
+          ></Modal.Body>
+          <Modal.Footer className="bg-black border-0">
+            <div className="">
+              <h4 className=" text-white text-center fs-5 mb-3">
+                {selectMovie?.overview}
+              </h4>
+            </div>
+          </Modal.Footer>
+        </Modal>
       </Row>
     </Container>
   );

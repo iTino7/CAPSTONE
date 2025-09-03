@@ -224,3 +224,7 @@
         text-align: center;
     }
 }
+
+.modal-backdrop {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.99) 0%, rgba(10, 0, 0, 0.99) 100%);
+}

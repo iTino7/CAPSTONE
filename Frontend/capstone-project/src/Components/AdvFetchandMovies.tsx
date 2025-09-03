@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CustomButton from "./CustomButton";
 import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../Interface/Movie";
+import { useNavigate } from "react-router-dom";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
@@ -27,7 +28,16 @@ function AdvFetchandMovies() {
     fetchCard();
   }, []);
 
-  console.log(movie);
+  const navigate = useNavigate();
+
+  const handleClick = (page: string, pageNavigate: string) => {
+    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+    if (isLoggedIn) {
+      navigate(page);
+    } else {
+      navigate(pageNavigate);
+    }
+  };
 
   return (
     <Container fluid className="bg-white py-4">
@@ -41,7 +51,7 @@ function AdvFetchandMovies() {
           "See what's next"
         </h1>
         <CustomButton
-          linkCustom="signin"
+          navigate={() => handleClick("/catalogue", "/auth/signin")}
           text="Sign in"
           classCustom="btn btn-button fancy-btn d-md-flex"
           styleCustom={{
@@ -56,39 +66,26 @@ function AdvFetchandMovies() {
         />
       </div>
 
-      <Row className="textAdv">
+      <Row className="textAdv d-flex justify-content-around">
         {movie.slice(0, 6).map((item) => (
           <>
             {/* //TODO DA COMPLETARE */}
-            <Col key={item.id} xs={0} sm={6} md={6} lg={7}></Col>
-            <Col xs={12} sm={6} md={5} lg={3} className="mb-4 mb-sm-4">
+            <Col key={item.id} xs={12} sm={6} md={4} lg={8}></Col>
+            <Col xs={12} sm={6} md={5} lg={4} className="mb-4 mb-sm-4">
               <img
-                className="rounded-3 "
+                className="rounded-3"
                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
                 height={500}
                 alt={item.name}
                 style={{
                   objectFit: "contain",
+                  cursor:"pointer",
                   zIndex: "2",
                   position: "relative",
                 }}
               />
             </Col>
-
-            <Col xs={12} sm={6} md={3} lg={3}></Col>
-            <Col xs={0} sm={7} md={6} lg={0} className=" mb-4 mb-sm-4 zIndex">
-              <img
-                className="rounded-3 "
-                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                height={500}
-                alt={item.name}
-                style={{
-                  objectFit: "contain",
-                  zIndex: "2",
-                  position: "relative",
-                }}
-              />
-            </Col>
+            <Col xs={12} sm={6} md={4} lg={3}></Col>
           </>
         ))}
       </Row>

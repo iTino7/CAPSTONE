@@ -1,9 +1,21 @@
 import { Container } from "react-bootstrap";
 import CustomButton from "./CustomButton";
+import { useNavigate } from "react-router-dom";
 
 function PhrasesHome() {
   const title: string = "Escape reality, enter imagination.";
   const titleButton: string = `Endless stories. One platform`;
+
+  const navigate = useNavigate();
+
+  const handleClick = (page: string, pageNavigate: string) => {
+    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+    if (isLoggedIn) {
+      navigate(page);
+    } else {
+      navigate(pageNavigate);
+    }
+  };
 
   return (
     <>
@@ -33,7 +45,7 @@ function PhrasesHome() {
               {titleButton}
             </p>
             <CustomButton
-              linkCustom="signup"
+              navigate={() => handleClick("/catalogue", "/auth/signup")}
               classCustom=" btn btn-button order-0 text-black fancy-btn"
               styleCustom={{
                 backgroundColor: "#caf0f8",
@@ -52,7 +64,7 @@ function PhrasesHome() {
               {titleButton}
             </h1>
             <CustomButton
-              linkCustom="signup"
+              navigate={() => handleClick("/catalogue", "/auth/signup")}
               classCustom="btn btn-button border-0 text-black fancy-btn mt-3"
               styleCustom={{
                 backgroundColor: "#caf0f8",

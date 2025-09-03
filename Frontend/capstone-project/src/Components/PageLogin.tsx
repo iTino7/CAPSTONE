@@ -5,7 +5,7 @@ import FormDataUser from "./FormDataUser";
 function PageLogin() {
   return (
     <BackgroundForm subTitle="Sign in">
-      <FormDataUser fetchNavigate="signin" nameForm={false} />
+      <FormDataUser fetchNavigate="login" nameForm={false} />
     </BackgroundForm>
   );
 }

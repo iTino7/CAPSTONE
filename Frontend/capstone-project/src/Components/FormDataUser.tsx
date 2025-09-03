@@ -22,14 +22,14 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
     e.preventDefault();
 
     try {
-      const resp = await fetch(`http://localhost:3001/auth/${fetchNavigate}`, {
+      const resp = await fetch(`http://localhost:3002/auth/${fetchNavigate}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(body),
       });
       if (resp.ok) {
         localStorage.setItem("loggedIn", "true");
-        navigate("/movie");
+        navigate("/catalogue");
       } else {
         console.log("Email già in uso");
       }

@@ -1,20 +1,21 @@
-import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 interface ButtonCustom {
   classCustom: string;
   styleCustom: object;
   text: string;
-  linkCustom: string;
+
+  navigate?: () => void;
 }
 
 function CustomButton({
   classCustom,
   styleCustom,
   text,
-  linkCustom,
+  navigate,
 }: ButtonCustom) {
   return (
-    <Link to={`auth/${linkCustom}`} className={classCustom} style={styleCustom}>
+    <Button onClick={navigate} className={classCustom} style={styleCustom}>
       <span className="span-mother">
         {text.split("-").map((letter, i) => (
           <span key={i}> {letter} </span>
@@ -25,7 +26,7 @@ function CustomButton({
           <span key={i}> {letter} </span>
         ))}
       </span>
-    </Link>
+    </Button>
   );
 }
 

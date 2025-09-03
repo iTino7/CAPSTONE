@@ -1,11 +1,14 @@
 package movieverse.capstone.services;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import movieverse.capstone.entities.CloudinaryResponse;
 import movieverse.capstone.entities.User;
 import movieverse.capstone.exception.BadRequestExecption;
 import movieverse.capstone.exception.NotFoundException;
 import movieverse.capstone.payloads.NewUserDTO;
 import movieverse.capstone.repositories.UserRepository;
+import movieverse.capstone.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -20,6 +24,10 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -73,4 +81,19 @@ public class UserService {
         User found = this.findById(userId);
         this.userRepository.delete(found);
     }
+
+
+    @Transactional
+    public void uploadImage(final Long id, final MultipartFile file) {
+        final User user = this.userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("user not found"));
+        FileUploadUtil.assertAllowed(file, FileUploadUtil.IMAGE_PATTERN);
+        final String fileName = FileUploadUtil.getFileName(file.getOriginalFilename());
+        final CloudinaryResponse response = this.cloudinaryService.uploadFile(file, fileName);
+        user.setAvatar(response.getUrl());
+        user.setAvatar(response.getPublicId());
+        this.userRepository.save(user);
+    }
+
+
 }

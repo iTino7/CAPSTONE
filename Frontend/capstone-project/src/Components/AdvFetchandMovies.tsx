@@ -95,10 +95,10 @@ function AdvFetchandMovies() {
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          className="bg-transparent"
         >
-          <Modal.Header closeButton></Modal.Header>
           <Modal.Body
-            className="p-0 d-flex"
+          className="rounded-3"
             style={{
               background: `linear-gradient(180deg,rgba(13, 13, 15, 0.88) 12%,rgba(255, 255, 255, 0) 56%,rgba(0, 0, 0, 100) 100%),url(https://image.tmdb.org/t/p/original${selectMovie?.backdrop_path})`,
               backgroundSize: "cover",

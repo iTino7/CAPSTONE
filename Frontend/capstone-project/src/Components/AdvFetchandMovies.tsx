@@ -81,14 +81,7 @@ function AdvFetchandMovies() {
             </Col>
 
             <Col xs={12} sm={6} md={3} lg={3}></Col>
-            <Col
-              key={item.id}
-              xs={0}
-              sm={7}
-              md={6}
-              lg={0}
-              className=" mb-4 mb-sm-4 zIndex"
-            >
+            <Col xs={0} sm={7} md={6} lg={0} className=" mb-4 mb-sm-4 zIndex">
               <img
                 className="rounded-3 "
                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}

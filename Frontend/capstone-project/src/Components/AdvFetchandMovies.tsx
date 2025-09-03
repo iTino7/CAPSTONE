@@ -41,8 +41,9 @@ function AdvFetchandMovies() {
           "See what's next"
         </h1>
         <CustomButton
-          text="Accedi"
-          classCustom="fancy-btn d-md-flex"
+          linkCustom="signin"
+          text="Sign in"
+          classCustom="btn btn-button fancy-btn d-md-flex"
           styleCustom={{
             color: "white",
             fontFamily: " DM Sans, sans-serif",
@@ -58,6 +59,7 @@ function AdvFetchandMovies() {
       <Row className="textAdv">
         {movie.slice(0, 6).map((item) => (
           <>
+            {/* //TODO DA COMPLETARE */}
             <Col key={item.id} xs={0} sm={6} md={6} lg={7}></Col>
             <Col xs={12} sm={6} md={5} lg={3} className="mb-4 mb-sm-4">
               <img

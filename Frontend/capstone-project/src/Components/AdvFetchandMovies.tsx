@@ -58,15 +58,8 @@ function AdvFetchandMovies() {
       <Row className="textAdv">
         {movie.slice(0, 6).map((item) => (
           <>
-            <Col xs={0} sm={6} md={6} lg={7}></Col>
-            <Col
-              key={item.id}
-              xs={12}
-              sm={6}
-              md={5}
-              lg={3}
-              className="mb-4 mb-sm-4"
-            >
+            <Col key={item.id} xs={0} sm={6} md={6} lg={7}></Col>
+            <Col xs={12} sm={6} md={5} lg={3} className="mb-4 mb-sm-4">
               <img
                 className="rounded-3 "
                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}

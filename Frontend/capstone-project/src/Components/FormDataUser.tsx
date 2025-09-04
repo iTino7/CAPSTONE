@@ -31,14 +31,16 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
       if (resp.ok) {
         localStorage.setItem("loggedIn", "true");
         navigate("/catalogue");
-      } else if (resp.status === 409) {
+      } else if (resp.status === 400) {
         throw new Error("Ops! email address is already in use!");
-      } else if (resp.status === 500) {
+      } else if (resp.status === 404) {
         throw new Error("Ops! wrong credentials!");
       }
     } catch (error) {
       console.log(error);
       setError((error as Error).message);
+      console.log(error);
+      
     }
   };
 

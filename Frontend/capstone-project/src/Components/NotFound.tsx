@@ -1,28 +1,36 @@
-import FallingText from "./FallingTextProps";
-import Squares from "./Squares";
+import { Col, Container, Row } from "react-bootstrap";
+import FuzzyText from "./FuzzyText";
 
 function NotFound() {
   return (
     <>
-      <Squares
-        speed={0.1}
-        squareSize={40}
-        direction="diagonal"
-        borderColor="#fff"
-        hoverFillColor="#a95d5dff"
-      />
-
-      <FallingText
-        text={`PAGE 404`}
-        highlightWords={["React", "Bits", "animated", "components", "simplify"]}
-        highlightClass="highlighted"
-        trigger="click"
-        backgroundColor="transparent"
-        wireframes={false}
-        gravity={0.56}
-        fontSize="2rem"
-        mouseConstraintStiffness={0.9}
-      />
+      <Container
+        fluid
+        className="bg-black d-flex w-100 justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Row>
+          <Col>
+            <div className="d-flex flex-column">
+              <FuzzyText
+                baseIntensity={0.1}
+                hoverIntensity={0.2}
+                enableHover={true}
+              >
+                404
+              </FuzzyText>
+              <div className="mt-2"></div>
+              <FuzzyText
+                baseIntensity={0.1}
+                hoverIntensity={0.16}
+                enableHover={true}
+              >
+                Not found
+              </FuzzyText>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

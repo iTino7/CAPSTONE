@@ -3,10 +3,12 @@ import PhrasesHome from "./PhrasesHome";
 
 function Home() {
   return (
-    <div className="wallpaperHome ">
-      <NavbarHome />
-      <PhrasesHome />
-    </div>
+    <>
+      <div className="wallpaperHome ">
+        <NavbarHome />
+        <PhrasesHome />
+      </div>
+    </>
   );
 }
 

@@ -161,6 +161,7 @@ const FallingText: React.FC<FallingTextProps> = ({
       Render.stop(render);
       Runner.stop(runner);
       if (render.canvas && canvasContainerRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         canvasContainerRef.current.removeChild(render.canvas);
       }
       World.clear(engine.world, false);

@@ -256,7 +256,10 @@
 }
 
 .falling-text-target {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .word {

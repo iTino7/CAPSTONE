@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import movieverse.capstone.entities.CloudinaryResponse;
 import movieverse.capstone.entities.User;
-import movieverse.capstone.exception.BadRequestExecption;
+import movieverse.capstone.exception.BadRequestException;
 import movieverse.capstone.exception.NotFoundException;
 import movieverse.capstone.payloads.NewUserDTO;
 import movieverse.capstone.repositories.UserRepository;
@@ -34,7 +34,7 @@ public class UserService {
 
     public User save(NewUserDTO payload) {
         this.userRepository.findByEmail(payload.email()).ifPresent(utenti -> {
-            throw new BadRequestExecption("Ops! Email address  " + utenti.getEmail() + " is already in use");
+            throw new BadRequestException("Ops! Email address  " + utenti.getEmail() + " is already in use");
         });
 
         User newUser = new User(payload.username(), payload.name(), payload.email(), passwordEncoder.encode(payload.password()));
@@ -51,7 +51,7 @@ public class UserService {
         User found = this.findById(userId);
         if (!found.getEmail().equals(payload.email()))
             this.userRepository.findByEmail(payload.email()).ifPresent(user -> {
-                throw new BadRequestExecption("Ops! Email address " + user.getEmail() + " is already in use");
+                throw new BadRequestException("Ops! Email address " + user.getEmail() + " is already in use");
             });
 
         found.setUsername(payload.username());

@@ -12,6 +12,7 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const body = nameForm
@@ -31,10 +32,11 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
         localStorage.setItem("loggedIn", "true");
         navigate("/catalogue");
       } else {
-        console.log("Email già in uso");
+        throw new Error("email già in uso");
       }
     } catch (error) {
       console.log(error);
+      setError((error as Error).message);
     }
   };
 
@@ -126,6 +128,7 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
                 </div>
               </>
             )}
+            {error && <p className="text-danger">{error}</p>}
             <Button
               style={{
                 backgroundColor: "#caf0f8",

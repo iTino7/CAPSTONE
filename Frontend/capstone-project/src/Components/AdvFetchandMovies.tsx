@@ -1,4 +1,4 @@
-import { Col, Container, Modal, Row } from "react-bootstrap";
+import { Col, Container, Modal, Row, Toast } from "react-bootstrap";
 import CustomButton from "./CustomButton";
 import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../Interface/Movie";
@@ -6,7 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
+  const [error, setError] = useState<null | string>(null);
   const [selectMovie, setSelectedMovie] = useState<Result | null>(null);
+  const [showA, setShowA] = useState(true);
+  const toggleShowA = () => setShowA(!showA);
 
   const fetchCard = async () => {
     try {
@@ -19,9 +22,11 @@ function AdvFetchandMovies() {
       if (resp.ok) {
         const data: MovieCard = await resp.json();
         setMovie(data.results);
+      } else {
+        throw new Error("Errore nel caricamento dei dati");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      if (err) setError((err as Error).message);
     }
   };
 
@@ -67,6 +72,20 @@ function AdvFetchandMovies() {
         />
       </div>
 
+      {error && (
+        <Toast show={showA} onClose={toggleShowA}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded me-2"
+              alt=""
+            />
+            <strong className="me-auto">MovieVerse</strong>
+            {/* <small>11 mins ago</small> */}
+          </Toast.Header>
+          <Toast.Body>{error}.</Toast.Body>
+        </Toast>
+      )}
       <Row className="textAdv d-flex justify-content-around">
         {movie.slice(0, 6).map((item) => (
           <>
@@ -98,7 +117,7 @@ function AdvFetchandMovies() {
           className="bg-transparent"
         >
           <Modal.Body
-          className="rounded-3"
+            className="rounded-3"
             style={{
               background: `linear-gradient(180deg,rgba(13, 13, 15, 0.88) 12%,rgba(255, 255, 255, 0) 56%,rgba(0, 0, 0, 100) 100%),url(https://image.tmdb.org/t/p/original${selectMovie?.backdrop_path})`,
               backgroundSize: "cover",

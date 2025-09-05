@@ -45,14 +45,16 @@ public class ForgotPasswordController {
                 .subject("OTP for forgot Password")
                 .build();
 
-        ForgotPassword forgotPassword = ForgotPassword.builder()
-                .otp(otp)
-                .expitationTime(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                .user(user)
-                .build();
-
+        // Controlla se esiste già un record per l'utente
+        ForgotPassword forgotPassword = forgotPasswordRepository.findByUser(user)
+                .orElse(ForgotPassword.builder()
+                        .user(user)
+                        .build());
+        forgotPassword.setOtp(otp);
+        forgotPassword.setExpitationTime(new Date(System.currentTimeMillis() + 10 * 60 * 1000));
         emailService.sendMessage(mailBody);
         forgotPasswordRepository.save(forgotPassword);
+
         return ResponseEntity.ok("Email sent for verification");
     }
 

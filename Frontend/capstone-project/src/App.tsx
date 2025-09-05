@@ -11,6 +11,9 @@ import Catalogue from "./Components/Catalogue";
 import NavBarLogin from "./Components/NavBarLogin";
 import Movie from "./Components/Movie";
 import Series from "./Components/Serie";
+import VerifyEmail from "./Components/VerifyEmail";
+import VerifyOtp from "./Components/VerifyOtp";
+import ChangePassword from "./Components/ChangePassword";
 
 function App() {
   return (
@@ -39,6 +42,12 @@ function App() {
               <Route path="/series" element={<Series />} />
             </Route>
           </Route>
+          <Route path="/forgotPassword/verifyEmail" element={<VerifyEmail />} />
+          <Route path="/forgotPassword/verifyOtp" element={<VerifyOtp />} />
+          <Route
+            path="/forgotPassword/changePassword"
+            element={<ChangePassword />}
+          />
         </Routes>
       </BrowserRouter>
     </>

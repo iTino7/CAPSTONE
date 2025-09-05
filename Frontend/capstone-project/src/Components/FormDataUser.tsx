@@ -121,7 +121,7 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
                 <div className="d-flex">
                   <Link
                     target="_blank"
-                    to={"/forgotPassword/verifyMail"}
+                    to={"/forgotPassword/verifyEmail"}
                     style={{ textDecoration: "none" }}
                   >
                     <p>Forgot password ? </p>

@@ -17,7 +17,7 @@ function BackgroundForm({ children, subTitle }: TitleRegister) {
     >
       <Row className="m-0 d-flex justify-content-center">
         <div className=" wallpaperRegister" />
-        <Col xs={10} sm={6} lg={7}
+        <Col xs={10} sm={6} lg={6}
           className="d-flex justify-content-center align-items-center"
           style={{ height: "100vh" }}
         >

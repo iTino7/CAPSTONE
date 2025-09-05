@@ -1,0 +1,72 @@
+import React, { useState } from "react";
+import BackgroundForm from "./BackgroundForm";
+import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
+function ChangePassword() {
+  const title: string = "Repeat password";
+  const email = localStorage.getItem("forgotEmail") || "";
+
+  const [password, SetPassword] = useState("");
+  const [repeatPassword, SetNewPassword] = useState("");
+  const [mess, setMess] = useState("");
+  const navigate = useNavigate();
+
+  const fetchNewPass = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const resp = await fetch(
+        `http://localhost:3002/forgotPassword/changePassword/${email}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ password, repeatPassword }),
+        }
+      );
+      if (resp.ok) {
+        setMess("Password aggiornata!");
+        navigate("/");
+      } else {
+        setMess("Le password non combaciano");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <BackgroundForm>
+      <h2 className="text-white text-center"> {title} </h2>
+      <Form
+        onSubmit={fetchNewPass}
+        className="d-flex flex-column align-items-center"
+      >
+        <Form.Control
+          className="my-4"
+          type="password"
+          placeholder="new password"
+          required
+          value={password}
+          onChange={(e) => SetPassword(e.target.value)}
+        />
+        <Form.Control
+          className="my-4"
+          type="password"
+          placeholder="repeat password"
+          required
+          value={repeatPassword}
+          onChange={(e) => SetNewPassword(e.target.value)}
+        />
+        <Button type="submit" className="px-5">
+          Send
+        </Button>
+        <p className="my-2 text-danger">{mess}</p>
+      </Form>
+    </BackgroundForm>
+  );
+}
+
+export default ChangePassword;

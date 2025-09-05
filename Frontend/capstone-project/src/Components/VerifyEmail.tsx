@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import BlurText from "./BlurText";
+import Silk from "./Silk";
 
 function VerifyEmail() {
   const title: string = "...so you forgot your password? 🙄";
@@ -40,10 +41,19 @@ function VerifyEmail() {
   return (
     <Container
       fluid
-      className="w-100 d-flex align-items-center bg-dark"
+      className="m-0 p-0 w-100 d-flex align-items-center bg-dark"
       style={{ height: "100vh" }}
     >
-      <Container fluid className="form-container">
+      <div className="m-0 w-100 position-absolute" style={{zIndex:"0", height:"100vh"}}>
+        <Silk
+          speed={5}
+          scale={1}
+          color="#471515"
+          noiseIntensity={1.5}
+          rotation={0}
+        />
+      </div>
+      <Container fluid className="form-container" style={{zIndex:"2"}}>
         <NavLink to={"/"} className="btn">
           <h2>MovieVerse</h2>
         </NavLink>

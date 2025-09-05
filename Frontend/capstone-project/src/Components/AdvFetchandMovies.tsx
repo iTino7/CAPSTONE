@@ -3,6 +3,7 @@ import CustomButton from "./CustomButton";
 import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../Interface/Movie";
 import { useNavigate } from "react-router-dom";
+import FuzzyText from "./FuzzyText";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);

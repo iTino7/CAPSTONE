@@ -1,10 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
+import BlurText from "./BlurText";
 
 function CustomAdv() {
-  const titleAdv = (text: string) => {
-    const title = text;
-    return title;
-  };
   return (
     <Container
       fluid
@@ -16,16 +13,30 @@ function CustomAdv() {
     >
       <Row>
         <Col className="d-flex flex-column align-items-center block">
-          <div className="w-100 d-flex justify-content-center scrollText mb-4">
+          <div className="w-100 d-flex justify-content-center align-items-center scrollText mb-4">
             <h1 className="text-white pt-5 mt-2 title w-50 text-center">
-              {titleAdv("Stories and series, anytime, anywhere.")}
+              <BlurText
+                text="Stories and series, anytime, anywhere."
+                delay={150}
+                animateBy="words"
+                direction="top"
+                onAnimationComplete={() => {}}
+                className="text-2xl mb-8 justify-content-center"
+              />
             </h1>
           </div>
           <div className="text-center backgroundImageAdv w-75 mx-auto mb-3"></div>
         </Col>
         <div className="d-flex justify-content-center">
           <h1 className="text-white  text-center">
-            {titleAdv("One click, endless stories.")}
+            <BlurText
+              text="One click, endless stories."
+              delay={150}
+              animateBy="words"
+              direction="top"
+              onAnimationComplete={() => {}}
+              className="text-2xl mb-8 justify-content-center"
+            />
           </h1>
         </div>
       </Row>

@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap";
 import CustomButton from "./CustomButton";
 import { useNavigate } from "react-router-dom";
+import BlurText from "./BlurText";
 
 function PhrasesHome() {
   const title: string = "Escape reality, enter imagination.";
@@ -32,7 +33,14 @@ function PhrasesHome() {
               fontFamily: " DM Sans, sans-serif",
             }}
           >
-            {title}
+            <BlurText
+              text={title}
+              delay={250}
+              animateBy="words"
+              direction="top"
+              onAnimationComplete={() => {}}
+              className="text-2xl mb-8"
+            />
           </h1>
           <div className="ms-auto mt-auto d-flex flex-column align-items-start">
             <p
@@ -42,7 +50,14 @@ function PhrasesHome() {
                 maxWidth: "250px",
               }}
             >
-              {titleButton}
+              <BlurText
+                text={titleButton}
+                delay={150}
+                animateBy="words"
+                direction="top"
+                onAnimationComplete={() => {}}
+                className="text-2xl mb-8"
+              />
             </p>
             <CustomButton
               navigate={() => handleClick("/catalogue", "/auth/signup")}

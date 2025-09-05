@@ -3,6 +3,7 @@ import CustomButton from "./CustomButton";
 import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../Interface/Movie";
 import { useNavigate } from "react-router-dom";
+import SplitText from "./SplitText";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
@@ -52,7 +53,20 @@ function AdvFetchandMovies() {
             fontFamily: " DM Sans, sans-serif",
           }}
         >
-          "See what's next"
+          <SplitText
+            text={`" See what's next "`}
+            className="text-2xl font-semibold text-center"
+            delay={150}
+            duration={1.0}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.4}
+            rootMargin="-100px"
+            textAlign="center"
+            onLetterAnimationComplete={undefined}
+          />
         </h1>
         <CustomButton
           navigate={() => handleClick("/catalogue", "/auth/signin")}

@@ -3,7 +3,6 @@ import CustomButton from "./CustomButton";
 import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../Interface/Movie";
 import { useNavigate } from "react-router-dom";
-import FuzzyText from "./FuzzyText";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
@@ -105,7 +104,7 @@ function AdvFetchandMovies() {
           <Modal.Body
             className="rounded-3"
             style={{
-              background: `linear-gradient(180deg,rgba(13, 13, 15, 0.88) 12%,rgba(255, 255, 255, 0) 56%,rgba(0, 0, 0, 100) 100%),url(https://image.tmdb.org/t/p/original${selectMovie?.backdrop_path})`,
+              background: `linear-gradient(180deg,rgba(13, 13, 15, 0.10) 12%,rgba(255, 255, 255, 0) 56%,rgba(0, 0, 0, 100) 100%),url(https://image.tmdb.org/t/p/original${selectMovie?.backdrop_path})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",

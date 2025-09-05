@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import BlurText from "./BlurText";
 import Silk from "./Silk";
@@ -44,7 +44,10 @@ function VerifyEmail() {
       className="m-0 p-0 w-100 d-flex align-items-center bg-dark"
       style={{ height: "100vh" }}
     >
-      <div className="m-0 w-100 position-absolute" style={{zIndex:"0", height:"100vh"}}>
+      <div
+        className="m-0 w-100 position-absolute"
+        style={{ zIndex: "0", height: "100vh" }}
+      >
         <Silk
           speed={5}
           scale={1}
@@ -53,7 +56,7 @@ function VerifyEmail() {
           rotation={0}
         />
       </div>
-      <Container fluid className="form-container" style={{zIndex:"2"}}>
+      <Container fluid className="form-container" style={{ zIndex: "2" }}>
         <NavLink to={"/"} className="btn">
           <h2>MovieVerse</h2>
         </NavLink>
@@ -77,12 +80,13 @@ function VerifyEmail() {
               placeholder="Enter email"
               required
             />
-            <Button
+
+            <button
               type="submit"
-              className="d-flex justify-content-center w-100 bg-dark border-0"
+              className="d-flex justify-content-center w-100 bg-dark border-0 form-submit-btn"
             >
               Send
-            </Button>
+            </button>
             <p className="text-danger text-center">{mess}</p>
           </Form.Group>
         </Form>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 interface CustomFetch {
@@ -40,7 +40,6 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
       console.log(error);
       setError((error as Error).message);
       console.log(error);
-      
     }
   };
 
@@ -133,16 +132,16 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
               </>
             )}
             {error && <p className="text-danger">{error}</p>}
-            <Button
+            <button
               style={{
                 backgroundColor: "#caf0f8",
                 fontFamily: " DM Sans, sans-serif",
               }}
-              className="border-0 text-dark"
+              className=" btn border-0 text-dark"
               type="submit"
             >
               Send
-            </Button>
+            </button>
           </Col>
         </Row>
       </Form>

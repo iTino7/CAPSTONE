@@ -8,6 +8,9 @@ import PageLogin from "./Components/PageLogin";
 import NotFound from "./Components/NotFound";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Catalogue from "./Components/Catalogue";
+import NavBarLogin from "./Components/NavBarLogin";
+import Movie from "./Components/Movie";
+import Series from "./Components/Serie";
 
 function App() {
   return (
@@ -30,7 +33,11 @@ function App() {
           <Route path="*" element={<NotFound />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/catalogue" element={<Catalogue />} />
+            <Route element={<NavBarLogin />}>
+              <Route path="/catalogue" element={<Catalogue />} />
+              <Route path="/movie" element={<Movie />} />
+              <Route path="/series" element={<Series />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

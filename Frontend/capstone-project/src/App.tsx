@@ -14,6 +14,8 @@ import Series from "./Components/Serie";
 import VerifyEmail from "./Components/VerifyEmail";
 import VerifyOtp from "./Components/VerifyOtp";
 import ChangePassword from "./Components/ChangePassword";
+import SingleMovie from "./Components/SingleMovie";
+import SingleSerie from "./Components/SingleSerie";
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
               <Route path="/catalogue" element={<Catalogue />} />
               <Route path="/movie" element={<Movie />} />
               <Route path="/series" element={<Series />} />
+              <Route path="/movie/:movieId" element={<SingleMovie />} />
+              <Route path="/series/:serieId" element={<SingleSerie />} />
             </Route>
           </Route>
           <Route path="/forgotPassword/verifyEmail" element={<VerifyEmail />} />

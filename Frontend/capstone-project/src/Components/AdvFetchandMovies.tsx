@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../Interface/Movie";
 import { useNavigate } from "react-router-dom";
 import SplitText from "./SplitText";
+import ShinyText from "./ShinyText";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
@@ -126,12 +127,18 @@ function AdvFetchandMovies() {
               height: "50vh",
             }}
           ></Modal.Body>
-          <Modal.Footer className="bg-black border-0">
-            <div className="">
-              <h4 className=" text-white text-center fs-5 mb-3">
-                {selectMovie?.overview}
-              </h4>
+          <Modal.Footer className="bg-black border-0 justify-content-center">
+            <div className="title text-center mb-3">
+              <ShinyText
+                text={selectMovie?.name}
+                disabled={false}
+                speed={4.5}
+                className="custom-class"
+              />
             </div>
+            <h4 className=" text-white text-center fs-5 mb-3">
+              {selectMovie?.overview}
+            </h4>
           </Modal.Footer>
         </Modal>
       </Row>

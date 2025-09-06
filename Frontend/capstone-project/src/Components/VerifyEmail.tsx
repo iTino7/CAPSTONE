@@ -30,7 +30,7 @@ function VerifyEmail() {
 
         navigate(`/forgotPassword/verifyOtp`);
       } else {
-        setMess("Impossibile inviare OTP, inserisci un'email valida!");
+        setMess("Could not send OTP, please type an email valid ");
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

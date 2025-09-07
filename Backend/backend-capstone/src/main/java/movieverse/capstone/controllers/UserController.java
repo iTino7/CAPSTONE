@@ -6,10 +6,12 @@ import movieverse.capstone.exception.ValidationException;
 import movieverse.capstone.payloads.NewUserDTO;
 import movieverse.capstone.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +40,24 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @GetMapping("/me")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public User getProfile(@AuthenticationPrincipal User currentUser) {
+        return currentUser;
+    }
+
+    @PutMapping("/me")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public User updateProfile(@AuthenticationPrincipal User currentUser, @RequestBody @Validated NewUserDTO payload, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new ValidationException(validation.getFieldErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList());
+        }
+        return userService.findByIdAndUpdate(currentUser.getId(), payload);
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public User updateUser(@PathVariable Long id, @RequestBody @Validated NewUserDTO newUserDTO, BindingResult validation) {
@@ -47,6 +67,7 @@ public class UserController {
             return userService.findByIdAndUpdate(id, newUserDTO);
         }
     }
+
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")

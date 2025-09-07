@@ -51,6 +51,7 @@ public class CheckFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return new AntPathMatcher().match("/auth/**", request.getServletPath())
-                || new AntPathMatcher().match("/forgotPassword/**", request.getServletPath());
+                || new AntPathMatcher().match("/forgotPassword/**", request.getServletPath())
+                || new AntPathMatcher().match("/product/v1/**", request.getServletPath());
     }
 }

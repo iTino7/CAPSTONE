@@ -3,19 +3,12 @@ package movieverse.capstone.services;
 
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Price;
-import com.stripe.model.Product;
 import com.stripe.model.checkout.Session;
-import com.stripe.param.PriceListParams;
-import com.stripe.param.ProductListParams;
 import com.stripe.param.checkout.SessionCreateParams;
+import movieverse.capstone.payloads.ProductRequest;
 import movieverse.capstone.payloads.StripeResponse;
-import movieverse.capstone.payloads.SubscriptionDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class StripeService {
@@ -24,91 +17,44 @@ public class StripeService {
     private String secretKey;
 
 
-    public StripeResponse createSubscription(String priceId) {
+    public StripeResponse createSubscription(ProductRequest productRequest) {
         Stripe.apiKey = secretKey;
+
+//        SessionCreateParams.LineItem.PriceData.ProductData productData = SessionCreateParams.LineItem.PriceData.ProductData.builder()
+//                .setName(productRequest.name()).build();
+//
+//        SessionCreateParams.LineItem.PriceData priceData = SessionCreateParams.LineItem.PriceData.builder()
+//                .setCurrency(productRequest.currency() == null ? "EUR" : productRequest.currency())
+//                .setUnitAmount(productRequest.amount())
+//                .setProductData(productData)
+//
+//                .build();
+
+        SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
+                .setQuantity(productRequest.quantity())
+                .setPrice(productRequest.priceId())
+                .build();
 
         SessionCreateParams params = SessionCreateParams.builder()
-                .setMode(SessionCreateParams.Mode.SUBSCRIPTION) // modalità abbonamento
-                .setSuccessUrl("http://localhost:3002/success") // redirect dopo pagamento
-                .setCancelUrl("http://localhost:3002/cancel") // redirect se annullato
-                .addLineItem(
-                        SessionCreateParams.LineItem.builder()
-                                .setPrice(priceId) // id del prezzo già creato su Stripe
-                                .setQuantity(1L)
-                                .build()
-                )
+                .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
+                .setSuccessUrl("http://localhost:3002/success")
+                .setCancelUrl("http://localhost:3002/cancel")
+                .addLineItem(lineItem)
                 .build();
+
+        Session session = null;
 
         try {
-            Session session = Session.create(params);
-            return StripeResponse.builder()
-                    .status("SUCCESS")
-                    .message("Subscription session created")
-                    .sessionId(session.getId())
-                    .sessionUrl(session.getUrl()) // questo URL manda l'utente a Stripe
-                    .build();
-        } catch (StripeException e) {
-            e.printStackTrace();
-            return StripeResponse.builder()
-                    .status("FAILED")
-                    .message(e.getMessage())
-                    .sessionId(null)
-                    .sessionUrl(null)
-                    .build();
-        }
-    }
-
-    public List<Product> getAllProducts() throws StripeException {
-        Stripe.apiKey = secretKey;
-
-        ProductListParams params = ProductListParams.builder()
-                .setLimit(100L) // massimo 100 prodotti
-                .build();
-
-        return Product.list(params).getData();
-    }
-
-    public List<Price> getAllPrices() throws StripeException {
-        Stripe.apiKey = secretKey;
-
-        PriceListParams params = PriceListParams.builder()
-                .setLimit(100L) // massimo 100 prezzi
-                .build();
-
-        return Price.list(params).getData();
-    }
-
-    public List<SubscriptionDTO> getAllSubscriptions() throws StripeException {
-        Stripe.apiKey = secretKey;
-
-        List<Product> products = Product.list(
-                ProductListParams.builder().setLimit(100L).build()
-        ).getData();
-
-        List<Price> prices = Price.list(
-                PriceListParams.builder().setLimit(100L).build()
-        ).getData();
-
-        List<SubscriptionDTO> subscriptions = new ArrayList<>();
-
-        for (Price price : prices) {
-            Product product = products.stream()
-                    .filter(p -> p.getId().equals(price.getProduct()))
-                    .findFirst()
-                    .orElse(null);
-
-            if (product != null && "subscription".equals(price.getType())) {
-                subscriptions.add(new SubscriptionDTO(
-                        product.getId(),
-                        product.getName(),
-                        price.getId(),
-                        price.getUnitAmount() != null ? price.getUnitAmount() : 0,
-                        price.getCurrency(),
-                        price.getRecurring() != null ? price.getRecurring().getInterval() : null
-                ));
-            }
+            session = Session.create(params);
+        } catch (StripeException ex) {
+            System.out.println(ex.getMessage());
         }
 
-        return subscriptions;
+        return StripeResponse.builder()
+                .status("SUCCESS")
+                .message("Subscription created")
+                .sessionId(session.getId())
+                .sessionUrl(session.getUrl())
+                .build();
     }
 }

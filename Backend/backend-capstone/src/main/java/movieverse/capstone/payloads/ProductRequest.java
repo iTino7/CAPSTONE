@@ -1,4 +1,6 @@
 package movieverse.capstone.payloads;
 
-public record ProductRequest(String name, String priceId) {
+public record ProductRequest(
+        Long quantity,
+        String priceId) {
 }

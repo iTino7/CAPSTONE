@@ -94,6 +94,4 @@ public class UserService {
         user.setAvatar(response.getPublicId());
         this.userRepository.save(user);
     }
-
-
 }

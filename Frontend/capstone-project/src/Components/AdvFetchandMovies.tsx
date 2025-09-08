@@ -12,9 +12,9 @@ function AdvFetchandMovies() {
   const [selectMovie, setSelectedMovie] = useState<Result | null>(null);
 
   const quantity: number = 1;
-  const basic:string = "price_1S4qVlCFq5CyryK0LrCJhsa4";
+  //const basic:string = "price_1S4qVlCFq5CyryK0LrCJhsa4";
   const standard:string = "price_1S4qXSCFq5CyryK0cYn1cWYa";
-  const premium: string ="price_1S4qXxCFq5CyryK0NuVAIt0Y";
+  //const premium: string ="price_1S4qXxCFq5CyryK0NuVAIt0Y";
 
   const fetchCard = async () => {
     try {

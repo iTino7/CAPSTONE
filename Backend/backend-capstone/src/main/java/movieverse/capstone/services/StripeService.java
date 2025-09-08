@@ -20,16 +20,6 @@ public class StripeService {
     public StripeResponse createSubscription(ProductRequest productRequest) {
         Stripe.apiKey = secretKey;
 
-//        SessionCreateParams.LineItem.PriceData.ProductData productData = SessionCreateParams.LineItem.PriceData.ProductData.builder()
-//                .setName(productRequest.name()).build();
-//
-//        SessionCreateParams.LineItem.PriceData priceData = SessionCreateParams.LineItem.PriceData.builder()
-//                .setCurrency(productRequest.currency() == null ? "EUR" : productRequest.currency())
-//                .setUnitAmount(productRequest.amount())
-//                .setProductData(productData)
-//
-//                .build();
-
         SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
                 .setQuantity(productRequest.quantity())
                 .setPrice(productRequest.priceId())
@@ -37,8 +27,8 @@ public class StripeService {
 
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
-                .setSuccessUrl("http://localhost:3002/success")
-                .setCancelUrl("http://localhost:3002/cancel")
+                .setSuccessUrl("http://localhost:5173/success")
+                .setCancelUrl("http://localhost:5173/")
                 .addLineItem(lineItem)
                 .build();
 

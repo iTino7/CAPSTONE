@@ -1,6 +1,6 @@
 package movieverse.capstone.services;
 
-import movieverse.capstone.entities.Subscription;
+import movieverse.capstone.entities.SubscriptionEntities;
 import movieverse.capstone.entities.User;
 import movieverse.capstone.repositories.SubscriptionRepository;
 import movieverse.capstone.repositories.UserRepository;
@@ -17,24 +17,22 @@ public class SubscriptionService {
     @Autowired
     private SubscriptionRepository subscriptionRepository;
 
-    public Subscription addSubscriptionToUser(Long userId, String stripeSubscriptionId, String priceId) {
+    public SubscriptionEntities addSubscriptionToUser(Long userId, String stripeSubscriptionId, String priceId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Subscription subscription = user.getSubscription();
+        SubscriptionEntities subscriptionEntities = user.getSubscriptionEntities();
 
-        if (subscription == null) {
-            // primo abbonamento
-            subscription = new Subscription(stripeSubscriptionId, priceId, user);
+        if (subscriptionEntities == null) {
+            subscriptionEntities = new SubscriptionEntities(stripeSubscriptionId, priceId, user);
         } else {
-            // aggiorno l’abbonamento già esistente
-            subscription.setStripeSubscriptionId(stripeSubscriptionId);
-            subscription.setPriceId(priceId);
-            subscription.setStartDate(LocalDateTime.now());
-            subscription.setEndDate(LocalDateTime.now().plusMonths(1));
+            subscriptionEntities.setStripeSubscriptionId(stripeSubscriptionId);
+            subscriptionEntities.setPriceId(priceId);
+            subscriptionEntities.setStartDate(LocalDateTime.now());
+            subscriptionEntities.setEndDate(LocalDateTime.now().plusMonths(1));
         }
 
-        user.setSubscription(subscription);
-        return subscriptionRepository.save(subscription);
+        user.setSubscriptionEntities(subscriptionEntities);
+        return subscriptionRepository.save(subscriptionEntities);
     }
 }

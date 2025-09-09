@@ -16,6 +16,7 @@ import VerifyOtp from "./Components/VerifyOtp";
 import ChangePassword from "./Components/ChangePassword";
 import SingleMovie from "./Components/SingleMovie";
 import SingleSerie from "./Components/SingleSerie";
+import Plans from "./Components/Plans";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
 
           <Route path="/auth/signup" element={<PageRegister />} />
           <Route path="/auth/signin" element={<PageLogin />} />
+          <Route path="/plans" element={<Plans />} />
           <Route path="*" element={<NotFound />} />
 
           <Route element={<ProtectedRoute />}>

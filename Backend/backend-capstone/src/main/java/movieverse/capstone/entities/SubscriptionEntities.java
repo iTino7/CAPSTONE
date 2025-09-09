@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "subscriptions")
-public class Subscription {
+public class SubscriptionEntities {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class Subscription {
     @JsonBackReference
     private User user;
 
-    public Subscription() {
+    public SubscriptionEntities() {
     }
 
-    public Subscription(String stripeSubscriptionId, String priceId, User user) {
+    public SubscriptionEntities(String stripeSubscriptionId, String priceId, User user) {
         this.stripeSubscriptionId = stripeSubscriptionId;
         this.priceId = priceId;
         this.startDate = LocalDateTime.now();

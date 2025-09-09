@@ -5,9 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 interface CustomFetch {
   nameForm?: boolean;
   fetchNavigate: string;
+  navigateCustom: string;
 }
 
-function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
+function FormDataUser({
+  fetchNavigate,
+  nameForm,
+  navigateCustom,
+}: CustomFetch) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -30,8 +35,8 @@ function FormDataUser({ fetchNavigate, nameForm }: CustomFetch) {
       });
       if (resp.ok) {
         localStorage.setItem("loggedIn", "true");
-        navigate("/catalogue");
-      } else if (resp.status === 401) {
+        navigate(`${navigateCustom}`);
+      } else if (resp.status === 400) {
         throw new Error("Ops! email address is already in use!");
       } else if (resp.status === 404) {
         throw new Error("Ops! wrong credentials!");

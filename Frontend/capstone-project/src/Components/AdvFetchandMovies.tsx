@@ -11,9 +11,9 @@ function AdvFetchandMovies() {
   const [error, setError] = useState<null | string>(null);
   const [selectMovie, setSelectedMovie] = useState<Result | null>(null);
 
-  const quantity: number = 1;
+  /* const quantity: number = 1; */
   //const basic:string = "price_1S4qVlCFq5CyryK0LrCJhsa4";
-  const standard:string = "price_1S4qXSCFq5CyryK0cYn1cWYa";
+  /* const standard:string = "price_1S4qXSCFq5CyryK0cYn1cWYa"; */
   //const premium: string ="price_1S4qXxCFq5CyryK0NuVAIt0Y";
 
   const fetchCard = async () => {
@@ -35,7 +35,7 @@ function AdvFetchandMovies() {
     }
   };
 
-  const fetchStripe = async (priceId:string) => {
+  /* const fetchStripe = async (priceId:string) => {
     try {
       const resp = await fetch(
         "http://localhost:3002/subscription/v1/checkout",
@@ -65,6 +65,7 @@ function AdvFetchandMovies() {
       console.log(error);
     }
   };
+  */
 
   useEffect(() => {
     fetchCard();
@@ -178,14 +179,6 @@ function AdvFetchandMovies() {
           </Modal.Footer>
         </Modal>
       </Row>
-      <button
-        formTarget="_blank"
-        onClick={() => {
-          fetchStripe(standard);
-        }}
-      >
-        ciao
-      </button>
     </Container>
   );
 }

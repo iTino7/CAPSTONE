@@ -43,7 +43,7 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Subscription subscription;
+    private SubscriptionEntities subscriptionEntities;
 
     private String stripeCustomerId;
 

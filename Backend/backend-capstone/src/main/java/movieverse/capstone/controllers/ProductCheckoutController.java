@@ -65,11 +65,14 @@ public class ProductCheckoutController {
             plan.put("productId", product.getId());
             plan.put("name", product.getName());
             plan.put("description", product.getDescription());
+            plan.put("metadati", product.getMetadata());
             List<Map<String, Object>> productPrices = new ArrayList<>();
             for (Price price : prices.getData()) {
                 if (price.getProduct().equals(product.getId())) {
                     Map<String, Object> priceMap = new HashMap<>();
                     priceMap.put("priceId", price.getId());
+                    priceMap.put("amount", price.getUnitAmount());
+                    priceMap.put("currency", price.getCurrency());
                     productPrices.add(priceMap);
                 }
             }

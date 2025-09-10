@@ -25,7 +25,6 @@ function Plans() {
   const userId = localStorage.getItem("userId");
 
   console.log(userId);
-  
 
   const fetchStripe = async (priceId: string) => {
     try {
@@ -71,7 +70,7 @@ function Plans() {
     >
       <Row>
         {plans.length > 0 ? (
-          plans.reverse().map((item) => (
+          plans.reverse().slice(0,3).map((item) => (
             <Col
               className="d-flex flex-column justify-content-between"
               key={item.productId}

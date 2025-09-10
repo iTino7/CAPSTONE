@@ -11,11 +11,6 @@ function AdvFetchandMovies() {
   const [error, setError] = useState<null | string>(null);
   const [selectMovie, setSelectedMovie] = useState<Result | null>(null);
 
-  /* const quantity: number = 1; */
-  //const basic:string = "price_1S4qVlCFq5CyryK0LrCJhsa4";
-  /* const standard:string = "price_1S4qXSCFq5CyryK0cYn1cWYa"; */
-  //const premium: string ="price_1S4qXxCFq5CyryK0NuVAIt0Y";
-
   const fetchCard = async () => {
     try {
       const resp = await fetch("http://localhost:3002/movies/card", {
@@ -35,37 +30,6 @@ function AdvFetchandMovies() {
     }
   };
 
-  /* const fetchStripe = async (priceId:string) => {
-    try {
-      const resp = await fetch(
-        "http://localhost:3002/subscription/v1/checkout",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            priceId,
-            quantity,
-          }),
-        }
-      );
-
-      if (!resp.ok) {
-        throw new Error("Errore nella richiesta a Stripe");
-      }
-
-      const data = await resp.json();
-      console.log("Stripe response:", data);
-
-      if (data.sessionUrl) {
-        window.location.href = data.sessionUrl;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  */
 
   useEffect(() => {
     fetchCard();

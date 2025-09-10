@@ -34,7 +34,12 @@ function FormDataUser({
         body: JSON.stringify(body),
       });
       if (resp.ok) {
+        const data = await resp.json();
         localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userId", data.id);
+
+        
+
         navigate(`${navigateCustom}`);
       } else if (resp.status === 400) {
         throw new Error("Ops! email address is already in use!");

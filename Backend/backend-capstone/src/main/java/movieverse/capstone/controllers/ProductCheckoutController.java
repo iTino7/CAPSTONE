@@ -44,8 +44,9 @@ public class ProductCheckoutController {
     @PostMapping("/checkout")
     public ResponseEntity<StripeResponse> createSubscription(@RequestBody ProductRequest productRequest) {
         Stripe.apiKey = secretKey;
-        StripeResponse subscription = stripeService.createSubscription(productRequest);
-
+        User user = userRepository.findById(productRequest.userId())
+                .orElseThrow(() -> new RuntimeException("User non trovato"));
+        StripeResponse subscription = stripeService.createSubscription(productRequest, user);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(subscription);
@@ -83,17 +84,6 @@ public class ProductCheckoutController {
 
         return plans;
 
-    }
-
-    @RequestMapping("/create")
-    public User index(@RequestBody User user) throws StripeException {
-        Stripe.apiKey = secretKey;
-        Map<String, Object> params = new HashMap<>();
-        params.put("name", user.getName());
-        params.put("email", user.getEmail());
-        Customer customer = Customer.create(params);
-        user.setCustomerId(customer.getId());
-        return userRepository.save(user);
     }
 
     @PostMapping("/user/{userId}/subscribe")

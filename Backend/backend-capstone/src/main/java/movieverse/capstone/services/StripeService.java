@@ -5,6 +5,7 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
+import movieverse.capstone.entities.User;
 import movieverse.capstone.payloads.ProductRequest;
 import movieverse.capstone.payloads.StripeResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,7 @@ public class StripeService {
     private String secretKey;
 
 
-    public StripeResponse createSubscription(ProductRequest productRequest) {
+    public StripeResponse createSubscription(ProductRequest productRequest, User user) {
         Stripe.apiKey = secretKey;
 
         SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()

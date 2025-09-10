@@ -22,6 +22,11 @@ function Plans() {
 
   const quantity: number = 1;
 
+  const userId = localStorage.getItem("userId");
+
+  console.log(userId);
+  
+
   const fetchStripe = async (priceId: string) => {
     try {
       const resp = await fetch(
@@ -34,6 +39,7 @@ function Plans() {
           body: JSON.stringify({
             priceId,
             quantity,
+            userId,
           }),
         }
       );

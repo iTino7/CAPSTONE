@@ -1,7 +1,8 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import LightRays from "./LightRays";
+import LightRays from "../LightRays";
+
 
 interface TitleRegister {
   children?: React.ReactNode;

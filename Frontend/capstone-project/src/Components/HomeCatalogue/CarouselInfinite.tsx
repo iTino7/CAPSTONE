@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import type { MovieCard, Result } from "../Interface/Movie";
+import type { MovieCard, Result } from "../../Interface/Movie";
 
 interface FilterSearch {
   filterFetch: string;
@@ -76,6 +76,7 @@ function CarouselInfinite({ filterFetch, popular }: FilterSearch) {
 
   useEffect(() => {
     fetchMovie();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(movie);

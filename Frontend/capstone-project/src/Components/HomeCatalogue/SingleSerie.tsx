@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import type { Result } from "../Interface/Movie";
+import type { Result } from "../../Interface/Movie";
 
 function SingleSerie() {
   const location = useLocation();

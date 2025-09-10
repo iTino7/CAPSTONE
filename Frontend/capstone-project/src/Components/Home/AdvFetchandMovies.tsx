@@ -1,10 +1,10 @@
 import { Col, Container, Modal, Row } from "react-bootstrap";
-import CustomButton from "./CustomButton";
+import CustomButton from "../CustomButton";
 import { useEffect, useState } from "react";
-import type { MovieCard, Result } from "../Interface/Movie";
+import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
-import SplitText from "./SplitText";
-import ShinyText from "./ShinyText";
+import SplitText from "../SplitText";
+import ShinyText from "../ShinyText";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);

@@ -1,22 +1,30 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import AdvFetchandMovies from "./Components/AdvFetchandMovies";
-import AdvHome from "./Components/AdvHome";
-import Home from "./Components/Home";
-import PageRegister from "./Components/PageRegister";
-import PageLogin from "./Components/PageLogin";
+import AdvFetchandMovies from "./Components/Home/AdvFetchandMovies";
+import AdvHome from "./Components/Home/AdvHome";
+import Home from "./Components/Home/Home";
+
+
 import NotFound from "./Components/NotFound";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import Catalogue from "./Components/Catalogue";
-import NavBarLogin from "./Components/NavBarLogin";
-import Movie from "./Components/Movie";
-import Series from "./Components/Serie";
-import VerifyEmail from "./Components/VerifyEmail";
-import VerifyOtp from "./Components/VerifyOtp";
-import ChangePassword from "./Components/ChangePassword";
-import SingleMovie from "./Components/SingleMovie";
-import SingleSerie from "./Components/SingleSerie";
-import Plans from "./Components/Plans";
+import Catalogue from "./Components/HomeCatalogue/Catalogue";
+
+import Movie from "./Components/HomeCatalogue/Movie";
+import Series from "./Components/HomeCatalogue/Serie";
+
+
+
+import SingleMovie from "./Components/HomeCatalogue/SingleMovie";
+import SingleSerie from "./Components/HomeCatalogue/SingleSerie";
+import PageRegister from "./Components/PageLoginAndRegister/PageRegister";
+import PageLogin from "./Components/PageLoginAndRegister/PageLogin";
+
+import NavBarLogin from "./Components/PageLoginAndRegister/NavBarLogin";
+import VerifyEmail from "./Components/PageLoginAndRegister/VerifyEmail";
+import VerifyOtp from "./Components/PageLoginAndRegister/VerifyOtp";
+import ChangePassword from "./Components/PageLoginAndRegister/ChangePassword";
+import Subscription from "./Components/PageLoginAndRegister/Subscription";
+
 
 function App() {
   return (
@@ -36,7 +44,7 @@ function App() {
 
           <Route path="/auth/signup" element={<PageRegister />} />
           <Route path="/auth/signin" element={<PageLogin />} />
-          <Route path="/plans" element={<Plans />} />
+          <Route path="/plans" element={<Subscription />} />
           <Route path="*" element={<NotFound />} />
 
           <Route element={<ProtectedRoute />}>

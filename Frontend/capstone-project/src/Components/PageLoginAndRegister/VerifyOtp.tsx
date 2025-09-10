@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BackgroundForm from "./BackgroundForm";
 
-import { Button, Form } from "react-bootstrap";
+import {  Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function VerifyOtp() {
@@ -54,9 +54,9 @@ function VerifyOtp() {
           placeholder="Enter OTP"
           required
         />
-        <Button type="submit" className="px-5">
+        <button type="submit" className="px-5">
           Send
-        </Button>
+        </button>
         <p className="my-2 text-danger">{mess}</p>
       </Form>
     </BackgroundForm>

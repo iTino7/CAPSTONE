@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
-import BlurText from "./BlurText";
-import Silk from "./Silk";
+import BlurText from "../BlurText";
+import Silk from "../Silk";
 
 function VerifyEmail() {
   const title: string = "...so you forgot your password? 🙄";

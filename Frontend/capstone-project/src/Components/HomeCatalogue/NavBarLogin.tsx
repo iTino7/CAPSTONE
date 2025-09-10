@@ -1,5 +1,4 @@
-import React from "react";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import {
   Link,
   NavLink,
@@ -81,9 +80,9 @@ function NavBarLogin() {
                   Series
                 </NavLink>
               </Nav>
-              <Button onClick={handleLogout} className="ms-auto">
+              <button onClick={handleLogout} className="ms-auto btn btn-primary"> 
                 logout
-              </Button>
+              </button>
             </Navbar.Collapse>
           </Container>
         </Navbar>

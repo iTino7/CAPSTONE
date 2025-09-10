@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import type { Plans } from "../Interface/Plans";
+import type { Plans } from "../../Interface/PlansInterface";
 
-function Plans() {
+
+
+function Subscription() {
   const [plans, setPlans] = useState<Plans[]>([]);
 
   const fetchPlans = async () => {
@@ -139,4 +141,4 @@ function Plans() {
   );
 }
 
-export default Plans;
+export default Subscription;

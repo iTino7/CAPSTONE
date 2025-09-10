@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import BlurText from "./BlurText";
+import BlurText from "../BlurText";
 
 function CustomAdv() {
   return (

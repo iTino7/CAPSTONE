@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
-import type { MovieCard, Result } from "../Interface/Movie";
+import type { MovieCard, Result } from "../../Interface/Movie";
 
 function Series() {
   const [serie, setSeries] = useState<Result[]>([]);

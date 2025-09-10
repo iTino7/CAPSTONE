@@ -1,5 +1,5 @@
 import NavbarHome from "./NavbarHome";
-import PhrasesHome from "./PhrasesHome";
+import PhrasesHome from "../PhrasesHome";
 
 function Home() {
   return (

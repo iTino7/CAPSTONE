@@ -21,7 +21,7 @@ function AdvFetchandMovies() {
       const resp = await fetch("http://localhost:3002/movies/card", {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3NTY4NDE4OTUsImV4cCI6MTc1NzQ0NjY5NSwic3ViIjoiMSJ9.IBt1H5GCPKoGBICveSuER3G2eKjQk7EyXtGKjyEv2ERera6S0_PqQoy6a5m3ejWV",
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNDQzY2EyYzY1OGNkMGJhMjBjODZkMmFjNmRhNjliOSIsIm5iZiI6MTcxNzQwMzExMC45OTEwMDAyLCJzdWIiOiI2NjVkN2RlNjUxZmQ5OGZiNTcyMzI1MWIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.tNTsCdoy_0ySBOuMa8ljh1wqCq3PCQQ-JYFgVTRzgVk",
         },
       });
       if (resp.ok) {

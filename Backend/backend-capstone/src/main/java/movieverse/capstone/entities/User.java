@@ -45,9 +45,6 @@ public class User implements UserDetails {
     @JsonManagedReference
     private SubscriptionEntities subscriptionEntities;
 
-    private String stripeCustomerId;
-
-
     public User() {
     }
 

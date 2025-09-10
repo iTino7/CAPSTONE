@@ -14,6 +14,7 @@ public class JWTTools {
     @Value("${jwt-secret}")
     private String secret;
 
+
     public String createToken(User user) {
         return Jwts.builder()
                 .issuedAt(new Date(System.currentTimeMillis()))

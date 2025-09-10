@@ -3,12 +3,14 @@ package movieverse.capstone.controllers;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
+import movieverse.capstone.entities.SubscriptionEntities;
 import movieverse.capstone.entities.User;
 import movieverse.capstone.exception.ValidationException;
 import movieverse.capstone.payloads.LoginRespDTO;
 import movieverse.capstone.payloads.NewUserDTO;
 import movieverse.capstone.payloads.UserLoginDTO;
 import movieverse.capstone.payloads.UserRespDTO;
+import movieverse.capstone.repositories.SubscriptionRepository;
 import movieverse.capstone.repositories.UserRepository;
 import movieverse.capstone.services.AuthService;
 import movieverse.capstone.services.UserService;
@@ -36,6 +38,9 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
+
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public UserRespDTO register(@RequestBody @Validated NewUserDTO body, BindingResult validation) throws StripeException {
@@ -52,7 +57,12 @@ public class AuthController {
             params.put("email", newUser.getEmail());
             Customer customer = Customer.create(params);
             newUser.setCustomerId(customer.getId());
-            userRepository.save(newUser);
+            User savedUser = userRepository.save(newUser);
+
+            SubscriptionEntities subscriptionEntities = new SubscriptionEntities();
+            subscriptionEntities.setUser(savedUser);
+
+            subscriptionRepository.save(subscriptionEntities);
 
             return new UserRespDTO(newUser.getId());
         }

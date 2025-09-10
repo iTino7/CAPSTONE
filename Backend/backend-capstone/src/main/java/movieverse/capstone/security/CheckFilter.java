@@ -52,6 +52,7 @@ public class CheckFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return new AntPathMatcher().match("/auth/**", request.getServletPath())
                 || new AntPathMatcher().match("/forgotPassword/**", request.getServletPath())
-                || new AntPathMatcher().match("/subscription/v1/**", request.getServletPath());
+                || new AntPathMatcher().match("/subscription/v1/**", request.getServletPath())
+                || new AntPathMatcher().match("/movies/**", request.getServletPath());
     }
 }

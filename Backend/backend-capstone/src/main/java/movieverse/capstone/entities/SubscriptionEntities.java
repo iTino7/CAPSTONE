@@ -37,4 +37,8 @@ public class SubscriptionEntities {
         this.endDate = this.startDate.plusMonths(1);
         this.user = user;
     }
+
+    public LocalDateTime getCurrentPeriodEnd() {
+        return this.endDate;
+    }
 }

@@ -19,7 +19,7 @@ import SingleSerie from "./Components/HomeCatalogue/SingleSerie";
 import PageRegister from "./Components/PageLoginAndRegister/PageRegister";
 import PageLogin from "./Components/PageLoginAndRegister/PageLogin";
 
-import NavBarLogin from "./Components/PageLoginAndRegister/NavBarLogin";
+import NavBarLogin from "./Components/HomeCatalogue/NavBarLogin";
 import VerifyEmail from "./Components/PageLoginAndRegister/VerifyEmail";
 import VerifyOtp from "./Components/PageLoginAndRegister/VerifyOtp";
 import ChangePassword from "./Components/PageLoginAndRegister/ChangePassword";

@@ -86,6 +86,7 @@ public class ProductCheckoutController {
 
     }
 
+    
     @PostMapping("/user/{userId}/subscribe")
     public ResponseEntity<Subscription> subscribeUser(
             @PathVariable Long userId,

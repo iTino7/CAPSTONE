@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import movieverse.capstone.enums.Role;
+import movieverse.capstone.enums.Subscriptions;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +38,11 @@ public class User implements UserDetails {
     private LocalDateTime lastLogin;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Enumerated(EnumType.STRING)
+    private Subscriptions subscriptions;
+
+    @Column(unique = true)
+    private String stripeCustomerId;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private ForgotPassword forgotPassword;
@@ -54,6 +60,7 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.role = Role.USER;
+        this.subscriptions = Subscriptions.FREE;
     }
 
     @Override

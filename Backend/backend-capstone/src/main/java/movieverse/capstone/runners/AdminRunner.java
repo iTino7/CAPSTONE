@@ -2,6 +2,7 @@ package movieverse.capstone.runners;
 
 import movieverse.capstone.entities.User;
 import movieverse.capstone.enums.Role;
+import movieverse.capstone.enums.Subscriptions;
 import movieverse.capstone.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +29,7 @@ public class AdminRunner implements CommandLineRunner {
             admin.setEmail("admin@netflix.com");
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setRole(Role.ADMIN);
+            admin.setSubscriptions(Subscriptions.PREMIUM);
 
             userRepository.save(admin);
             System.out.println("✅ Admin creato: email=admin@netflix.com, password=admin123");

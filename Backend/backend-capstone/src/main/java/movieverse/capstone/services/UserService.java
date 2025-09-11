@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import movieverse.capstone.entities.CloudinaryResponse;
 import movieverse.capstone.entities.User;
+import movieverse.capstone.enums.Subscriptions;
 import movieverse.capstone.exception.BadRequestException;
 import movieverse.capstone.exception.NotFoundException;
 import movieverse.capstone.payloads.NewUserDTO;
@@ -93,5 +94,13 @@ public class UserService {
         user.setAvatar(response.getUrl());
         user.setAvatar(response.getPublicId());
         this.userRepository.save(user);
+    }
+
+    public void updateSubscription(Long userId, Subscriptions subscription) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setSubscriptions(subscription);
+        userRepository.save(user);
     }
 }

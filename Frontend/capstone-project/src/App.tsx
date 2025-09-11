@@ -4,15 +4,12 @@ import AdvFetchandMovies from "./Components/Home/AdvFetchandMovies";
 import AdvHome from "./Components/Home/AdvHome";
 import Home from "./Components/Home/Home";
 
-
 import NotFound from "./Components/NotFound";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Catalogue from "./Components/HomeCatalogue/Catalogue";
 
 import Movie from "./Components/HomeCatalogue/Movie";
 import Series from "./Components/HomeCatalogue/Serie";
-
-
 
 import SingleMovie from "./Components/HomeCatalogue/SingleMovie";
 import SingleSerie from "./Components/HomeCatalogue/SingleSerie";
@@ -24,7 +21,7 @@ import VerifyEmail from "./Components/PageLoginAndRegister/VerifyEmail";
 import VerifyOtp from "./Components/PageLoginAndRegister/VerifyOtp";
 import ChangePassword from "./Components/PageLoginAndRegister/ChangePassword";
 import Subscription from "./Components/PageLoginAndRegister/Subscription";
-
+import PlansHome from "./Components/Home/PlansHome";
 
 function App() {
   return (
@@ -38,6 +35,7 @@ function App() {
                 <Home />
                 <AdvHome />
                 <AdvFetchandMovies />
+                <PlansHome />
               </>
             }
           />

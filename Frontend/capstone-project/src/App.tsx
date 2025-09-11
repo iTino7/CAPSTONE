@@ -22,6 +22,7 @@ import VerifyOtp from "./Components/PageLoginAndRegister/VerifyOtp";
 import ChangePassword from "./Components/PageLoginAndRegister/ChangePassword";
 import Subscription from "./Components/PageLoginAndRegister/Subscription";
 import PlansHome from "./Components/Home/PlansHome";
+import FAQ from "./Components/Home/Faq";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 <AdvHome />
                 <AdvFetchandMovies />
                 <PlansHome />
+                <FAQ />
               </>
             }
           />

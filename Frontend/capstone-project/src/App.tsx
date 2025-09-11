@@ -23,6 +23,7 @@ import ChangePassword from "./Components/PageLoginAndRegister/ChangePassword";
 import Subscription from "./Components/PageLoginAndRegister/Subscription";
 import PlansHome from "./Components/Home/PlansHome";
 import FAQ from "./Components/Home/Faq";
+import FooterMovieVerse from "./Components/Footer/FooterMovieVerse";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
                 <AdvFetchandMovies />
                 <PlansHome />
                 <FAQ />
+                <FooterMovieVerse />
               </>
             }
           />

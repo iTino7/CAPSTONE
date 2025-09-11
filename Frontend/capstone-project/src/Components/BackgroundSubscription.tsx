@@ -94,37 +94,37 @@ function BackgroundSubscription({
                 sm={12}
                 md={3}
               >
-                <h1 className={` ${textColorCustom} text-center my-3`}>
+                <h1 className={` ${textColorCustom} text-center fs-3 mb-5 mt-3`}>
                   {item.name}
                 </h1>
                 <p className={` ${textColorCustom} mb-0 fw-bolder`}>
-                  Quota mensile
+                  Monthly price
                 </p>
                 <p className={` ${textColorCustom} mb-1`}>
-                  {item.metadati.Quota_mensile}
+                  {item.metadati.Monthly_price}
                 </p>
                 <span className="border-bottom mt-0 mb-3"></span>
                 <p className={` ${textColorCustom} mb-0 fw-bolder`}>
-                  Qualità audio e video
+                  Video and sound quality
                 </p>
                 <p className={` ${textColorCustom} mb-1`}>
-                  {item.metadati.Qualità_audio_e_video}
+                  {item.metadati.Video_and_sound_quality}
                 </p>
                 <span className="border-bottom mt-0 mb-3"></span>
                 <p className={` ${textColorCustom} mb-0 fw-bolder`}>
-                  Risoluzione
+                  Resolution
                 </p>
                 <p className={` ${textColorCustom} mb-1`}>
-                  {item.metadati.Risoluzione}
+                  {item.metadati.Resolution}
                 </p>
                 <span className="border-bottom mt-0 mb-3"></span>
-                {item.metadati?.Audio_spaziale ? (
+                {item.metadati?.Spatial_audio ? (
                   <>
                     <p className={` ${textColorCustom} mb-0 fw-bolder`}>
-                      Audio spaziale
+                      Spatial audio
                     </p>
                     <p className={` ${textColorCustom} mb-1`}>
-                      {item.metadati.Audio_spaziale}
+                      {item.metadati.Spatial_audio}
                     </p>
                     <span className="border-bottom mt-0 mb-3"></span>
                   </>
@@ -132,32 +132,29 @@ function BackgroundSubscription({
                   <></>
                 )}
                 <p className={` ${textColorCustom} mb-0 fw-bolder`}>
-                  Dispositivi supportati
+                  Supported devices
                 </p>
                 <p className={` ${textColorCustom} mb-1`}>
-                  {item.metadati.Dispositivi_supportati}
+                  {item.metadati.Supported_devices}
                 </p>
                 <span className="border-bottom mt-0 mb-3"></span>
                 <p className={` ${textColorCustom} mb-0 fw-bolder`}>
-                  Dispositivi su cui il tuo nucleo domestico può guardare
-                  Netflix contemporaneamente
+                  Devices your household can watch at the same time
                 </p>
                 <p className={` ${textColorCustom} mb-1`}>
-                  {item.metadati.Dispositivi_connessi_contemporaneamente}
+                  {item.metadati.Devices_same_time}
                 </p>
                 <span className="border-bottom mt-0 mb-3"></span>
                 <p className={` ${textColorCustom} mb-0 fw-bolder`}>
-                  Dispositivi su cui sono consentiti i download
+                  Download devices
                 </p>
                 <p className={` ${textColorCustom} mb-1`}>
-                  {item.metadati.Dispositivi_per_i_download}
+                  {item.metadati.Download_devices}
                 </p>
                 <span className="border-bottom mt-0 mb-3"></span>
-                <p className={` ${textColorCustom} mb-0 fw-bolder`}>
-                  Pubblicità
-                </p>
+                <p className={` ${textColorCustom} mb-0 fw-bolder`}>Ads</p>
                 <p className={` ${textColorCustom} mb-1`}>
-                  {item.metadati.Pubblicità}
+                  {item.metadati.Ads}
                 </p>
                 <button
                   onClick={() => {
@@ -166,7 +163,7 @@ function BackgroundSubscription({
                   className="btn text-white my-3"
                   style={{ backgroundColor: "#e50914" }}
                 >
-                  Continua
+                  Next
                 </button>
               </Col>
             ))

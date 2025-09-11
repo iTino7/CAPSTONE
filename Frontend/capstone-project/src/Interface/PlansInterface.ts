@@ -1,20 +1,20 @@
 export interface Plans {
   productId: string;
   name: string;
-  description: null;
+  description: null | string;
   metadati: Metadati;
   prices: Price[];
 }
 
 export interface Metadati {
-  Audio_spaziale?: string;
-  Dispositivi_connessi_contemporaneamente: string;
-  Dispositivi_per_i_download: string;
-  Dispositivi_supportati: string;
-  Pubblicità: string;
-  Qualità_audio_e_video: string;
-  Quota_mensile: string;
-  Risoluzione: string;
+  Ads?: string;
+  Devices_same_time?: string;
+  Download_devices?: string;
+  Monthly_price?: string;
+  Resolution?: string;
+  Spatial_audio?: string;
+  Supported_devices?: string;
+  Video_and_sound_quality?: string;
 }
 
 export interface Price {

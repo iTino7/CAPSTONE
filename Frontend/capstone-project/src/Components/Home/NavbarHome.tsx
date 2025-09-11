@@ -3,7 +3,7 @@ import CustomButton from "../CustomButton";
 import { Link, useNavigate } from "react-router-dom";
 
 function NavbarHome() {
-  const title: string = "Movieverse";
+  const title: string = "MovieVerse";
 
   const navigate = useNavigate();
 

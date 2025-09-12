@@ -8,15 +8,9 @@ function Catalogue() {
         <Row>
           <Col>
             <CarouselInfinite filterFetch="movie" />
-            <CarouselInfinite filterFetch="tv" />
-            <CarouselInfinite
-              filterFetch="movie"
-              popular="sort_by=popularity.desc&"
-            />
-            <CarouselInfinite
-              filterFetch="tv"
-              popular="sort_by=popularity.desc&"
-            />
+            <CarouselInfinite filterFetch="serie" />
+            <CarouselInfinite filterFetch="moviePopular" />
+            <CarouselInfinite filterFetch="seriePopular" />
           </Col>
         </Row>
       </Container>

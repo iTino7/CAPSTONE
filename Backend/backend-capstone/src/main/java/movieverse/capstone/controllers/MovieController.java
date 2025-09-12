@@ -17,4 +17,26 @@ public class MovieController {
     public String getCardsMovie() {
         return tmdbService.getCardsMovie();
     }
+
+    @GetMapping(value = "/movie", produces = "application/json")
+    public String getCatalogueMovie() {
+        return tmdbService.getCatalogueMovie();
+    }
+
+    @GetMapping(value = "/moviePopular", produces = "application/json")
+    public String getCatalogueMoviePopular() {
+        return tmdbService.getCatalogueMoviePopular();
+    }
+
+    @GetMapping(value = "/serie", produces = "application/json")
+    public String getCatalogueSerie() {
+        return tmdbService.getCatalogueSerie();
+    }
+
+    @GetMapping(value = "/seriePopular", produces = "application/json")
+    public String getCatalogueSeriePopular() {
+        return tmdbService.getCatalogueSeriePopular();
+    }
+
+
 }

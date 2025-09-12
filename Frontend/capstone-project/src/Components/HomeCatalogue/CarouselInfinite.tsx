@@ -7,10 +7,9 @@ import type { MovieCard, Result } from "../../Interface/Movie";
 
 interface FilterSearch {
   filterFetch: string;
-  popular?: string;
 }
 
-function CarouselInfinite({ filterFetch, popular }: FilterSearch) {
+function CarouselInfinite({ filterFetch }: FilterSearch) {
   const [movie, setMovie] = useState<Result[]>([]);
 
   const settings = {
@@ -55,7 +54,7 @@ function CarouselInfinite({ filterFetch, popular }: FilterSearch) {
   const fetchMovie = async () => {
     try {
       const resp = await fetch(
-        `https://api.themoviedb.org/3/discover/${filterFetch}?&with_watch_providers=8&watch_region=US&${popular}page=1`,
+        `http://localhost:3002/movies/${filterFetch}`,
         {
           headers: {
             Authorization:

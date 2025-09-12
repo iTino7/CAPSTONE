@@ -36,7 +36,7 @@ function BackgroundSubscription({
   console.log(userId);
 
   const fetchStripe = async (priceId: string) => {
-    if (userId === "undefined") {
+    if (userId === "undefined" || userId === null) {
       navigate("/auth/signup");
       return;
     }
@@ -94,7 +94,9 @@ function BackgroundSubscription({
                 sm={12}
                 md={3}
               >
-                <h1 className={` ${textColorCustom} text-center fs-3 mb-5 mt-3`}>
+                <h1
+                  className={` ${textColorCustom} text-center fs-3 mb-5 mt-3`}
+                >
                   {item.name}
                 </h1>
                 <p className={` ${textColorCustom} mb-0 fw-bolder`}>

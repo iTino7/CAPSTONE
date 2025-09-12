@@ -9,6 +9,7 @@ import com.stripe.param.PriceListParams;
 import com.stripe.param.ProductListParams;
 import com.stripe.param.checkout.SessionRetrieveParams;
 import movieverse.capstone.entities.User;
+
 import movieverse.capstone.enums.Subscriptions;
 import movieverse.capstone.payloads.ProductRequest;
 import movieverse.capstone.payloads.StripeResponse;
@@ -93,7 +94,7 @@ public class ProductCheckoutController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid webhook");
         }
 
-        if ("checkout.session.completed".equals(event.getType())) {
+        if ("checkout.session.completed" .equals(event.getType())) {
             Session session = (Session) event.getDataObjectDeserializer().getObject().orElseThrow(() -> new RuntimeException("Unable to deserialize session"));
 
             String customerId = session.getClientReferenceId();

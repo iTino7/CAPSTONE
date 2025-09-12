@@ -50,5 +50,21 @@ public class TmdbService {
                 .block();
     }
 
+    public String getMovie() {
+        return webClient.get()
+                .uri("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
+    public String getSerie() {
+        return webClient.get()
+                .uri("https://api.themoviedb.org/3/trending/tv/day?language=en-US")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
 
 }

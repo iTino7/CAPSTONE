@@ -16,7 +16,7 @@ function Series() {
   const fetchSerie = async () => {
     try {
       const resp = await fetch(
-        "https://api.themoviedb.org/3/trending/tv/day?language=en-US",
+        "http://localhost:3002/movies/series",
         {
           headers: {
             Authorization:

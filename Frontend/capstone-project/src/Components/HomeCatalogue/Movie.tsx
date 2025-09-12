@@ -15,7 +15,7 @@ function Movie() {
   const fetchMovie = async () => {
     try {
       const resp = await fetch(
-        "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+        "http://localhost:3002/movies/movies",
         {
           headers: {
             Authorization:

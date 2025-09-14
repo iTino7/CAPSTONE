@@ -61,11 +61,7 @@ function NavBarLogin() {
   return (
     <>
       <Container fluid style={{ backgroundColor: "#121212" }}>
-<<<<<<< Updated upstream
-        <Navbar expand="lg">
-=======
         <Navbar expand="lg" style={{ zIndex: 2 }}>
->>>>>>> Stashed changes
           <Container fluid>
             <Navbar.Brand>
               <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -116,16 +112,11 @@ function NavBarLogin() {
                   Series
                 </NavLink>
               </Nav>
-<<<<<<< Updated upstream
-              <button onClick={handleLogout} className="ms-auto btn btn-primary"> 
-                logout
-=======
               <button
                 onClick={handleLogout}
                 className="ms-auto btn btn-primary"
               >
                 {user?.name}
->>>>>>> Stashed changes
               </button>
             </Navbar.Collapse>
           </Container>

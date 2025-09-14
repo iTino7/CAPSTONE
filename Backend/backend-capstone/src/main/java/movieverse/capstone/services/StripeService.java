@@ -30,8 +30,11 @@ public class StripeService {
                 .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
                 .setSuccessUrl("http://localhost:5173/success")
                 .setCancelUrl("http://localhost:5173/")
+                .setSubscriptionData(SessionCreateParams.SubscriptionData.builder()
+                        .setTrialPeriodDays(30L).build())
                 .addLineItem(lineItem)
                 .build();
+
 
         Session session = null;
 

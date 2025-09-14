@@ -28,8 +28,8 @@ function NavBarLogin() {
 
   return (
     <>
-      <Container fluid style={{ backgroundColor: "#121212" }}>
-        <Navbar expand="lg">
+      <Container fluid style={{ backgroundColor: "#121212"}}>
+        <Navbar expand="lg" style={{ zIndex: 2 }}>
           <Container fluid>
             <Navbar.Brand>
               <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -80,7 +80,10 @@ function NavBarLogin() {
                   Series
                 </NavLink>
               </Nav>
-              <button onClick={handleLogout} className="ms-auto btn btn-primary"> 
+              <button
+                onClick={handleLogout}
+                className="ms-auto btn btn-primary"
+              >
                 logout
               </button>
             </Navbar.Collapse>

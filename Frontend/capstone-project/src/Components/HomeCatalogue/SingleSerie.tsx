@@ -1,10 +1,12 @@
 import { useLocation } from "react-router-dom";
 import type { Result } from "../../Interface/Movie";
+import MovieandSerieBackground from "./MovieandSerieBackground";
 
 function SingleSerie() {
   const location = useLocation();
   const series: Result = location.state as Result;
-  return <h1 className="text-white">{series.name}</h1>;
+
+  return <MovieandSerieBackground img={series.backdrop_path} />;
 }
 
 export default SingleSerie;

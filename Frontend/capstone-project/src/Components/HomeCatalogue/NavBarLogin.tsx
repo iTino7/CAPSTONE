@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Nav, Navbar } from "react-bootstrap";
 import {
   Link,
@@ -6,14 +7,21 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import type { User } from "../../Interface/User";
+import { useEffect, useState } from "react";
 
 function NavBarLogin() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState<User | null>(null);
+
+  const token = localStorage.getItem("token");
+  console.log(token);
 
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("userType");
+    localStorage.removeItem("token");
     navigate("/");
   };
 
@@ -26,10 +34,38 @@ function NavBarLogin() {
       : "nav-link";
   };
 
+  const fetchProfile = async () => {
+    try {
+      const resp = await fetch("http://localhost:3002/users/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        setUser(data);
+      } else {
+        console.error("Failed to fetch user profile");
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  console.log(user);
+
   return (
     <>
       <Container fluid style={{ backgroundColor: "#121212" }}>
+<<<<<<< Updated upstream
         <Navbar expand="lg">
+=======
+        <Navbar expand="lg" style={{ zIndex: 2 }}>
+>>>>>>> Stashed changes
           <Container fluid>
             <Navbar.Brand>
               <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -80,8 +116,16 @@ function NavBarLogin() {
                   Series
                 </NavLink>
               </Nav>
+<<<<<<< Updated upstream
               <button onClick={handleLogout} className="ms-auto btn btn-primary"> 
                 logout
+=======
+              <button
+                onClick={handleLogout}
+                className="ms-auto btn btn-primary"
+              >
+                {user?.name}
+>>>>>>> Stashed changes
               </button>
             </Navbar.Collapse>
           </Container>

@@ -35,10 +35,9 @@ function FormDataUser({
       });
       if (resp.ok) {
         const data = await resp.json();
+        console.log(data);
         localStorage.setItem("loggedIn", "true");
-        localStorage.setItem("userId", data.id);
-
-        
+        localStorage.setItem("token", data.accessToken);
 
         navigate(`${navigateCustom}`);
       } else if (resp.status === 400) {

@@ -60,7 +60,7 @@ function NavBarLogin() {
 
   return (
     <>
-      <Container fluid style={{ backgroundColor: "#121212" }}>
+      <Container fluid style={{ backgroundColor: "#121212"}}>
         <Navbar expand="lg" style={{ zIndex: 2 }}>
           <Container fluid>
             <Navbar.Brand>

@@ -1,6 +1,6 @@
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import CustomButton from "../CustomButton";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
 import SplitText from "../SplitText";
@@ -29,7 +29,6 @@ function AdvFetchandMovies() {
       if (err) setError((err as Error).message);
     }
   };
-
 
   useEffect(() => {
     fetchCard();
@@ -89,7 +88,7 @@ function AdvFetchandMovies() {
       {error && <h2 className="text-danger text-center">{error}.</h2>}
       <Row className="textAdv d-flex justify-content-around">
         {movie.slice(0, 6).map((item) => (
-          <>
+          <React.Fragment key={item.id}>
             <Col key={item.id} xs={12} sm={6} md={4} lg={8}></Col>
             <Col xs={12} sm={6} md={5} lg={4} className="mb-4 mb-sm-4">
               <img
@@ -107,7 +106,7 @@ function AdvFetchandMovies() {
               />
             </Col>
             <Col xs={12} sm={6} md={4} lg={3}></Col>
-          </>
+          </React.Fragment>
         ))}
         <Modal
           show={!!selectMovie}

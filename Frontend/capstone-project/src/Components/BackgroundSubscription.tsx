@@ -33,8 +33,6 @@ function BackgroundSubscription({
 
   const userId = localStorage.getItem("userId");
 
-  console.log(userId);
-
   const fetchStripe = async (priceId: string) => {
     if (userId === "undefined" || userId === null) {
       navigate("/auth/signup");

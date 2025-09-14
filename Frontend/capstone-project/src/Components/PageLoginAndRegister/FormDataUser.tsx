@@ -38,6 +38,7 @@ function FormDataUser({
         console.log(data);
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("userId", data.userId);
 
         navigate(`${navigateCustom}`);
       } else if (resp.status === 400) {

@@ -33,7 +33,7 @@ function BackgroundSubscription({
 
   const userId = localStorage.getItem("userId");
 
-  const fetchStripe = async (priceId: string) => {
+  const fetchStripe = async (priceId: string, plan: string) => {
     if (userId === "undefined" || userId === null) {
       navigate("/auth/signup");
       return;
@@ -51,6 +51,7 @@ function BackgroundSubscription({
             priceId,
             quantity,
             userId,
+            plan,
           }),
         }
       );
@@ -158,7 +159,11 @@ function BackgroundSubscription({
                 </p>
                 <button
                   onClick={() => {
-                    fetchStripe(item.prices[0].priceId);
+                    fetchStripe(
+                      item.prices[0].priceId,
+                      item.name.toUpperCase().replace(/ /g, "_")
+                    );
+                    console.log(item.name.toUpperCase().replace(/ /g, "_"));
                   }}
                   className="btn text-white my-3"
                   style={{ backgroundColor: "#e50914" }}

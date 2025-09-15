@@ -28,7 +28,7 @@ public class StripeService {
 
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
-                .setSuccessUrl("http://localhost:5173/success")
+                .setSuccessUrl("http://localhost:5173/")
                 .setCancelUrl("http://localhost:5173/")
                 .setSubscriptionData(SessionCreateParams.SubscriptionData.builder()
                         .setTrialPeriodDays(30L).build())

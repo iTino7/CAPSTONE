@@ -38,7 +38,7 @@ function FormDataUser({
         console.log(data);
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("token", data.accessToken);
-        localStorage.setItem("userId", data.userId);
+        console.log(localStorage.setItem("userId", data.id));
 
         navigate(`${navigateCustom}`);
       } else if (resp.status === 400) {
@@ -52,6 +52,8 @@ function FormDataUser({
       console.log(error);
     }
   };
+
+  
 
   return (
     <>

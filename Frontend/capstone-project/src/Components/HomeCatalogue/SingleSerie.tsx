@@ -6,7 +6,7 @@ function SingleSerie() {
   const location = useLocation();
   const series: Result = location.state as Result;
 
-  return <MovieandSerieBackground img={series.backdrop_path} />;
+  return <MovieandSerieBackground img={series.backdrop_path} description={series.overview} />;
 }
 
 export default SingleSerie;

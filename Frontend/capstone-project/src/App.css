@@ -473,3 +473,8 @@
 .word {
     display: inline-block;
 }
+
+.textHover:hover {
+    background-color: transparent;
+    cursor: pointer;
+}

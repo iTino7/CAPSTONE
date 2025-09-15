@@ -2,13 +2,14 @@ import { Col, Container, Row } from "react-bootstrap";
 
 interface MovieandSerieProps {
   img: string;
+  description: string;
 }
 
-function MovieandSerieBackground({ img }: MovieandSerieProps) {
+function MovieandSerieBackground({ img, description }: MovieandSerieProps) {
   return (
     <Container
       fluid
-      className="no-padding-container"
+      className="no-padding-container relative"
       style={{
         background: `
       linear-gradient(180deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%),
@@ -27,7 +28,14 @@ function MovieandSerieBackground({ img }: MovieandSerieProps) {
       }}
     >
       <Row className="p-0 m-0">
-        <Col className="p-0 m-0"></Col>
+        <Col className="p-0 m-0">
+          <h4
+            className="text-white fw-light mb-0 w-50 mb-5 ms-4"
+            style={{ position: "absolute", bottom: 20, left: 0, right: 0 }}
+          >
+            {description}
+          </h4>
+        </Col>
       </Row>
     </Container>
   );

@@ -9,6 +9,7 @@ import com.stripe.model.ProductCollection;
 import com.stripe.param.PriceListParams;
 import com.stripe.param.ProductListParams;
 import movieverse.capstone.entities.User;
+import movieverse.capstone.enums.Subscriptions;
 import movieverse.capstone.payloads.ProductRequest;
 import movieverse.capstone.payloads.StripeResponse;
 import movieverse.capstone.repositories.UserRepository;
@@ -47,6 +48,9 @@ public class ProductCheckoutController {
         Stripe.apiKey = secretKey;
         User user = userRepository.findById(productRequest.userId()).orElseThrow(() -> new RuntimeException("User non trovato"));
         StripeResponse subscription = stripeService.createSubscription(productRequest, user);
+
+        user.setSubscriptions(Subscriptions.valueOf(productRequest.plan()));
+        userRepository.save(user);
         return ResponseEntity.status(HttpStatus.OK).body(subscription);
     }
 

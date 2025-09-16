@@ -305,10 +305,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.slick-slide {
-    padding: 0 8px;
-
-}
 
 .scroll-reveal {
     margin: 20px 0;
@@ -477,4 +473,22 @@
 .textHover:hover {
     background-color: transparent;
     cursor: pointer;
+}
+
+.slick-slide {
+    padding-right: 30px;
+
+}
+
+.slick-next {
+    display: none !important;
+}
+
+.customPlaceholder {
+    opacity: 1;
+}
+
+.customPlaceholder::placeholder {
+    color: #ccc;
+    opacity: 0.4;
 }

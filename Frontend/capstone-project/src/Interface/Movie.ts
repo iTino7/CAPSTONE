@@ -3,6 +3,7 @@ export interface MovieCard {
   results: Result[];
   total_pages: number;
   total_results: number;
+  parts?: Result[];
 }
 
 export interface Result {
@@ -17,6 +18,7 @@ export interface Result {
   popularity: number;
   poster_path: string;
   first_air_date: Date;
+  release_date: Date;
   name: string;
   title: string;
   vote_average: number;

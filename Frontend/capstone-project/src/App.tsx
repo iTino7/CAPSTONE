@@ -24,6 +24,8 @@ import Subscription from "./Components/PageLoginAndRegister/Subscription";
 import PlansHome from "./Components/Home/PlansHome";
 import FAQ from "./Components/Home/Faq";
 import FooterMovieVerse from "./Components/Footer/FooterMovieVerse";
+import Search from "./Components/HomeCatalogue/Search";
+
 
 function App() {
   return (
@@ -54,6 +56,7 @@ function App() {
               <Route path="/catalogue" element={<Catalogue />} />
               <Route path="/movie" element={<Movie />} />
               <Route path="/series" element={<Series />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/movie/:movieId" element={<SingleMovie />} />
               <Route path="/series/:serieId" element={<SingleSerie />} />
             </Route>

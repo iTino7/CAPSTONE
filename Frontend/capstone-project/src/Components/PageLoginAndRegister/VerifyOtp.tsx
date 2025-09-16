@@ -31,7 +31,7 @@ function VerifyOtp() {
         localStorage.setItem("forgotEmail", email);
         navigate("/forgotPassword/changePassword");
       } else {
-        setMess("OTP Scaduto o non valido!");
+        setMess("OTP not correct!");
       }
     } catch (error) {
       console.log(error);
@@ -40,7 +40,7 @@ function VerifyOtp() {
 
   return (
     <BackgroundForm>
-      <h2 className="text-white text-center"> {title} </h2>
+      <h2 className="text-center"> {title} </h2>
       <Form
         onSubmit={verifyOtp}
         className="d-flex flex-column align-items-center"
@@ -54,7 +54,7 @@ function VerifyOtp() {
           placeholder="Enter OTP"
           required
         />
-        <button type="submit" className="px-5">
+        <button type="submit" className="px-5 btn" style={{ backgroundColor: "#E50914", color: "white" }}>
           Send
         </button>
         <p className="my-2 text-danger">{mess}</p>

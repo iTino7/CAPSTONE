@@ -4,13 +4,17 @@ import Slider from "react-slick";
 import { Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
+import { useNavigate } from "react-router-dom";
 
 interface FilterSearch {
   filterFetch: string;
+  filterCategory: string;
 }
 
-function CarouselInfinite({ filterFetch }: FilterSearch) {
+function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
   const [movie, setMovie] = useState<Result[]>([]);
+
+  const navigate = useNavigate();
 
   const settings = {
     dots: true,
@@ -51,6 +55,10 @@ function CarouselInfinite({ filterFetch }: FilterSearch) {
     ],
   };
 
+  const handleClick = (item: Result) => {
+    navigate(`/${filterCategory}/${item.name}`, { state: item });
+  };
+
   const fetchMovie = async () => {
     try {
       const resp = await fetch(`http://localhost:3002/movies/${filterFetch}`, {
@@ -84,9 +92,10 @@ function CarouselInfinite({ filterFetch }: FilterSearch) {
           <div key={item.id}>
             <img
               className="imgHover"
+              onClick={() => handleClick(item)}
               src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
               width={"100%"}
-              style={{ objectFit: "cover", borderRadius: "6px" }}
+              style={{ objectFit: "cover", borderRadius: "6px", cursor: "pointer" }}
             />
           </div>
         ))}

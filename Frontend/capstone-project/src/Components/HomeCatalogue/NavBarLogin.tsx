@@ -26,8 +26,8 @@ function NavBarLogin() {
   };
 
   const check = (path: string) => {
-    if (path === "/") {
-      return location.pathname === "/" ? "nav-link text-white" : "nav-link";
+    if (path === "/catalogue") {
+      return location.pathname === "/catalogue" ? "nav-link text-white" : "nav-link";
     }
     return location.pathname.startsWith(path)
       ? "nav-link text-white"
@@ -64,7 +64,7 @@ function NavBarLogin() {
         <Navbar expand="lg" style={{ zIndex: 2 }}>
           <Container fluid>
             <Navbar.Brand>
-              <Link to={"/"} style={{ textDecoration: "none" }}>
+              <Link to={"/catalogue"} style={{ textDecoration: "none" }}>
                 <h1 className="mb-0 text-white">MovieVerse</h1>
               </Link>
             </Navbar.Brand>
@@ -74,7 +74,7 @@ function NavBarLogin() {
                 <NavLink
                   to={"/catalogue"}
                   className={` ${check(
-                    "/catalogo"
+                    "/catalogue"
                   )} nav-link me-2 fs-5 text-secondary`}
                 >
                   Home

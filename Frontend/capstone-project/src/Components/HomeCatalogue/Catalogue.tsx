@@ -7,10 +7,10 @@ function Catalogue() {
       <Container fluid style={{ backgroundColor: "#121212" }}>
         <Row>
           <Col>
-            <CarouselInfinite filterFetch="movie" />
-            <CarouselInfinite filterFetch="serie" />
-            <CarouselInfinite filterFetch="moviePopular" />
-            <CarouselInfinite filterFetch="seriePopular" />
+            <CarouselInfinite filterFetch="movie" filterCategory="movie" />
+            <CarouselInfinite filterFetch="serie" filterCategory="series" />
+            <CarouselInfinite filterFetch="moviePopular" filterCategory="movie" />
+            <CarouselInfinite filterFetch="seriePopular" filterCategory="series" />
           </Col>
         </Row>
       </Container>

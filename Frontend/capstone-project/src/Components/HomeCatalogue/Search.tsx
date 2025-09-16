@@ -59,7 +59,6 @@ function Search() {
                 <ComponentSearch
                   fetchCategory={`search/movie?&query=${searchInput}`}
                   filterCategory="movie"
-                  filterYear={new Date("2023-01-01")}
                 />
               </div>
             </Col>
@@ -69,7 +68,6 @@ function Search() {
               title="Popular searches"
               fetchCategory="trending/movie/week"
               filterCategory="movie"
-              filterYear={new Date("2020-01-01")}
             />
           </Col>
           <Col>
@@ -77,7 +75,6 @@ function Search() {
               title="Trending searches"
               fetchCategory="discover/tv"
               filterCategory="series"
-              filterYear={new Date("2020-01-01")}
             />
           </Col>
           <Col>
@@ -85,7 +82,6 @@ function Search() {
               title="Featured"
               fetchCategory="trending/tv/week"
               filterCategory="series"
-              filterYear={new Date("2020-01-01")}
             />
           </Col>
           <Col>
@@ -93,7 +89,6 @@ function Search() {
               title="All collections"
               fetchCategory={`collection/${arrayNumber[randomNumber]}`}
               filterCategory="movie"
-              filterYear={new Date("2020-01-01")}
             />
           </Col>
         </div>

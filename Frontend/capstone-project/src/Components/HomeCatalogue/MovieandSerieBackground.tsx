@@ -1,5 +1,5 @@
-import { Col, Container, Row } from "react-bootstrap";
-import { StarFill } from "react-bootstrap-icons";
+import { Col, Container, Row, Toast } from "react-bootstrap";
+import { Star } from "react-bootstrap-icons";
 import type { Content } from "../../Interface/Watchlist";
 import { useState } from "react";
 
@@ -11,10 +11,22 @@ interface MovieandSerieProps {
   poster: string;
 }
 
-function MovieandSerieBackground({ img, description, movieId, title, poster }: MovieandSerieProps) {
+function MovieandSerieBackground({
+  img,
+  description,
+  movieId,
+  title,
+  poster,
+}: MovieandSerieProps) {
   const [, setWatchlist] = useState<Content[]>([]);
+  const [showA, setShowA] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
 
-  const fetchWishlist = async (movieId: string, title: string,  poster: string) => {
+  const fetchWishlist = async (
+    movieId: string,
+    title: string,
+    poster: string
+  ) => {
     try {
       const resp = await fetch("http://localhost:3002/watchlist/watchlist", {
         method: "POST",
@@ -32,7 +44,6 @@ function MovieandSerieBackground({ img, description, movieId, title, poster }: M
       console.log(error);
     }
   };
-
 
   return (
     <Container
@@ -62,11 +73,24 @@ function MovieandSerieBackground({ img, description, movieId, title, poster }: M
             style={{ position: "absolute", bottom: 20, left: 0, right: 0 }}
           >
             {description}
-            <button className="btn" onClick={() => fetchWishlist(movieId, title, poster)}>
-              <StarFill className="mb-1" style={{ color: "	#ffd250" }} />
+            <button className="btn border-0">
+              <Star
+                onClick={() => {
+                  fetchWishlist(movieId, title, poster);
+                  toggleShowA();
+                }}
+                className="mb-1"
+                style={{ color: "	#ffd250" }}
+              />
             </button>
           </h4>
         </Col>
+        <Toast style={{position:"absolute", bottom:"40px", right:"40px"}} show={showA} onClose={toggleShowA}>
+          <Toast.Header className="bg-transparent border-0">
+            <strong className="me-auto">MovieVerse</strong>
+          </Toast.Header>
+          <Toast.Body>{title} è stato aggiunto ai film preferiti!</Toast.Body>
+        </Toast>
       </Row>
     </Container>
   );

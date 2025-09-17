@@ -38,7 +38,7 @@ function NavBarLogin() {
     try {
       const resp = await fetch("http://localhost:3002/users/me", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${process.env.API_KEY}`,
         },
       });
       if (resp.ok) {

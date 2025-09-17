@@ -64,7 +64,7 @@ function ComponentSearch({
         `https://api.themoviedb.org/3/${fetchCategory}`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.API_KEY}`,
+            Authorization: `Bearer ${import.meta.env.API_KEY}`
           },
         }
       );

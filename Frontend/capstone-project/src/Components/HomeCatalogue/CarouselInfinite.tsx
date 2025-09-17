@@ -64,7 +64,7 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
       const resp = await fetch(`http://localhost:3002/movies/${filterFetch}`, {
         headers: {
           Authorization:
-            `Bearer ${process.env.API_KEY}`,
+            `Bearer ${import.meta.env.API_KEY}`,
         },
       });
       if (resp.ok) {

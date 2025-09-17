@@ -20,7 +20,7 @@ function Series() {
         {
           headers: {
             Authorization:
-              `Bearer ${process.env.API_KEY}`,
+              `Bearer ${import.meta.env.API_KEY}`,
           },
         }
       );

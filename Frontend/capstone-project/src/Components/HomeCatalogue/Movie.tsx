@@ -17,7 +17,7 @@ function Movie() {
       const resp = await fetch("http://localhost:3002/movies/movies", {
         headers: {
           Authorization:
-            `Bearer ${process.env.API_KEY}`,
+            `Bearer ${import.meta.env.API_KEY}`,
         },
       });
       if (resp.ok) {

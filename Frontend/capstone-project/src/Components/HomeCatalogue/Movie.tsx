@@ -16,8 +16,7 @@ function Movie() {
     try {
       const resp = await fetch("http://localhost:3002/movies/movies", {
         headers: {
-          Authorization:
-            `Bearer ${import.meta.env.API_KEY}`,
+          Authorization: `Bearer ${import.meta.env.API_KEY}`,
         },
       });
       if (resp.ok) {
@@ -39,7 +38,7 @@ function Movie() {
 
   return (
     <>
-      <Container fluid>
+      <Container fluid style={{ position: "relative" }}>
         <Row>
           {movie?.map((item) => (
             <Col

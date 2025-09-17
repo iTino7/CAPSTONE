@@ -1,11 +1,39 @@
 import { Col, Container, Row } from "react-bootstrap";
+import { StarFill } from "react-bootstrap-icons";
+import type { Content } from "../../Interface/Watchlist";
+import { useState } from "react";
 
 interface MovieandSerieProps {
   img: string;
   description: string;
+  title: string;
+  movieId: string;
+  poster: string;
 }
 
-function MovieandSerieBackground({ img, description }: MovieandSerieProps) {
+function MovieandSerieBackground({ img, description, movieId, title, poster }: MovieandSerieProps) {
+  const [, setWatchlist] = useState<Content[]>([]);
+
+  const fetchWishlist = async (movieId: string, title: string,  poster: string) => {
+    try {
+      const resp = await fetch("http://localhost:3002/watchlist/watchlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ movieId, title, poster }),
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        setWatchlist((prev) => [...prev, data]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <Container
       fluid
@@ -34,6 +62,9 @@ function MovieandSerieBackground({ img, description }: MovieandSerieProps) {
             style={{ position: "absolute", bottom: 20, left: 0, right: 0 }}
           >
             {description}
+            <button className="btn" onClick={() => fetchWishlist(movieId, title, poster)}>
+              <StarFill className="mb-1" style={{ color: "	#ffd250" }} />
+            </button>
           </h4>
         </Col>
       </Row>

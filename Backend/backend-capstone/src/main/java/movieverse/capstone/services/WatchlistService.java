@@ -4,6 +4,7 @@ package movieverse.capstone.services;
 import movieverse.capstone.entities.User;
 import movieverse.capstone.entities.Watchlist;
 import movieverse.capstone.exception.NotFoundException;
+import movieverse.capstone.payloads.NewMovieFromWatchlistDTO;
 import movieverse.capstone.repositories.WatchlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,22 +26,18 @@ public class WatchlistService {
                 .orElseThrow(() -> new NotFoundException("User not found with this id " + id));
     }
 
-    public Watchlist addMovie(String movieId, User user) {
-        // Controllo duplicati
-        Optional<Watchlist> existing = watchlistRepository.findByUserIdAndMovieId(user.getId(), movieId);
+    public Watchlist addMovie(NewMovieFromWatchlistDTO payload, User user) {
+        Optional<Watchlist> existing = watchlistRepository.findByUserIdAndMovieId(user.getId(), payload.movieId());
         if (existing.isPresent()) {
-            // Se vuoi, ritorna l’oggetto già presente
             return existing.get();
-            // oppure lancia eccezione:
-            // throw new RuntimeException("Film già presente nella watchlist");
         }
 
-        // Creo la nuova watchlist
         Watchlist watchlist = new Watchlist();
-        watchlist.setMovieId(movieId);
+        watchlist.setMovieId(payload.movieId());
+        watchlist.setTitle(payload.title());
+        watchlist.setPoster(payload.poster());
         watchlist.setUser(user);
 
-        // Salvo nel DB
         return watchlistRepository.save(watchlist);
     }
 

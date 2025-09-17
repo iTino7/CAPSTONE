@@ -18,6 +18,8 @@ public class Watchlist {
     private Long id;
 
     private String movieId;
+    private String title;
+    private String poster;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -26,7 +28,9 @@ public class Watchlist {
     public Watchlist() {
     }
 
-    public Watchlist(String movieId) {
+    public Watchlist(String movieId, String poster, String title) {
         this.movieId = movieId;
+        this.poster = poster;
+        this.title = title;
     }
 }

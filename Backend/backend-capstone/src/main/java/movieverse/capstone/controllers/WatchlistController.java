@@ -9,7 +9,6 @@ import movieverse.capstone.repositories.UserRepository;
 import movieverse.capstone.services.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -48,15 +47,12 @@ public class WatchlistController {
             );
         }
 
-        return watchlistService.addMovie(payload.movieId(), currentUser);
+        return watchlistService.addMovie(payload, currentUser);
     }
 
 
     @DeleteMapping("/{id}")
-    public void removeFromWatchlist(@PathVariable Long id, Authentication authentication) {
-        String email = authentication.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User non trovato"));
-        watchlistService.removeFromWatchlist(id, user);
+    public void removeFromWatchlist(@PathVariable Long id, @AuthenticationPrincipal User currentUser) {
+        watchlistService.removeFromWatchlist(id, currentUser);
     }
 }

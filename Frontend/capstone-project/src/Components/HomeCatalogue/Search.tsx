@@ -66,28 +66,28 @@ function Search() {
           <Col>
             <ComponentSearch
               title="Popular searches"
-              fetchCategory="trending/movie/week"
+              fetchCategory="searchMovie"
               filterCategory="movie"
             />
           </Col>
           <Col>
             <ComponentSearch
               title="Trending searches"
-              fetchCategory="discover/tv"
+              fetchCategory="trendingSeries"
               filterCategory="series"
             />
           </Col>
           <Col>
             <ComponentSearch
               title="Featured"
-              fetchCategory="trending/tv/week"
+              fetchCategory="featuredSeries"
               filterCategory="series"
             />
           </Col>
           <Col>
             <ComponentSearch
               title="All collections"
-              fetchCategory={`collection/${arrayNumber[randomNumber]}`}
+              fetchCategory="collection"
               filterCategory="movie"
             />
           </Col>

@@ -66,5 +66,37 @@ public class TmdbService {
                 .block();
     }
 
+    public String getMoviePopular() {
+        return webClient.get()
+                .uri("https://api.themoviedb.org/3/discover/tv")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
+    public String getSeriesTrending() {
+        return webClient.get()
+                .uri("https://api.themoviedb.org/3/trending/movie/week")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
+    public String getSeriesFeatured() {
+        return webClient.get()
+                .uri("https://api.themoviedb.org/3/trending/tv/week")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
+    public String getCollectionMovie() {
+        return webClient.get()
+                .uri("https://api.themoviedb.org/3/collection/86311")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
 
 }

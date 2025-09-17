@@ -48,4 +48,25 @@ public class MovieController {
         return tmdbService.getMovie();
     }
 
+    @GetMapping(value = "/searchMovie", produces = "application/json")
+    public String getMovieSearch() {
+        return tmdbService.getMoviePopular();
+    }
+
+    @GetMapping(value = "/trendingSeries", produces = "application/json")
+    public String getTrendingSeries() {
+        return tmdbService.getSeriesTrending();
+    }
+
+    @GetMapping(value = "/featuredSeries", produces = "application/json")
+    public String getFeaturedSeries() {
+        return tmdbService.getSeriesFeatured();
+    }
+
+    @GetMapping(value = "/collection", produces = "application/json")
+    public String getCollection() {
+        return tmdbService.getCollectionMovie();
+    }
+
+
 }

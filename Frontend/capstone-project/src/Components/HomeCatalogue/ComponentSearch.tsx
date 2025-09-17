@@ -61,7 +61,7 @@ function ComponentSearch({
   const fetchData = async () => {
     try {
       const resp = await fetch(
-        `https://api.themoviedb.org/3/${fetchCategory}`,
+        `http://localhost:3002/movies/${fetchCategory}`,
         {
           headers: {
             Authorization: `Bearer ${import.meta.env.API_KEY}`

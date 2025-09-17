@@ -25,6 +25,7 @@ import PlansHome from "./Components/Home/PlansHome";
 import FAQ from "./Components/Home/Faq";
 import FooterMovieVerse from "./Components/Footer/FooterMovieVerse";
 import Search from "./Components/HomeCatalogue/Search";
+import Watchlist from "./Components/HomeCatalogue/Watchlist";
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
               <Route path="/movie" element={<Movie />} />
               <Route path="/series" element={<Series />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/watchlist" element={<Watchlist />} />
               <Route path="/movie/:movieId" element={<SingleMovie />} />
               <Route path="/series/:serieId" element={<SingleSerie />} />
             </Route>

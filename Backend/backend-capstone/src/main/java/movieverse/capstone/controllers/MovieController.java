@@ -1,15 +1,10 @@
 package movieverse.capstone.controllers;
 
-import movieverse.capstone.entities.User;
-import movieverse.capstone.entities.Watchlist;
-import movieverse.capstone.payloads.WatchlistDTO;
 import movieverse.capstone.services.TmdbService;
-import movieverse.capstone.services.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/movies")
@@ -17,9 +12,6 @@ public class MovieController {
 
     @Autowired
     private TmdbService tmdbService;
-
-    @Autowired
-    private WatchlistService watchlistService;
 
     @GetMapping(value = "/card", produces = "application/json")
     public String getCardsMovie() {
@@ -54,22 +46,6 @@ public class MovieController {
     @GetMapping(value = "/movies", produces = "application/json")
     public String getMovie() {
         return tmdbService.getMovie();
-    }
-
-    @PostMapping
-    public Watchlist addMovie(@RequestBody WatchlistDTO dto,
-                              @AuthenticationPrincipal User user) {
-        return watchlistService.addMovie(dto.movieId(), user);
-    }
-
-    @GetMapping
-    public List<Watchlist> getUserWatchlist(@AuthenticationPrincipal User user) {
-        return watchlistService.getUserWatchlist(user.getId());
-    }
-
-    @DeleteMapping("/{id}")
-    public void removeFromWatchlist(@PathVariable Long id, @AuthenticationPrincipal User user) {
-        watchlistService.removeFromWatchlist(id, user);
     }
 
 }

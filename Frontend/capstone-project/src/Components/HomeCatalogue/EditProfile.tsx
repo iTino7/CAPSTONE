@@ -88,7 +88,7 @@ function EditProfile() {
             width={250}
             height={250}
             className="rounded-circle"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", objectFit:"cover" }}
           />
         </Col>
       </Row>

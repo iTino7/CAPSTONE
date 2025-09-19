@@ -133,6 +133,7 @@ function NavBarLogin() {
                       alt=""
                       width={45}
                       height={45}
+                      style={{objectFit:"cover"}}
                       className="rounded-circle ms-0 ms-md-3"
                     />
                   ) : (

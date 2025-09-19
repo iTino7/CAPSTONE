@@ -8,6 +8,7 @@ import movieverse.capstone.enums.Subscriptions;
 import movieverse.capstone.exception.BadRequestException;
 import movieverse.capstone.exception.NotFoundException;
 import movieverse.capstone.payloads.NewUserDTO;
+import movieverse.capstone.payloads.UpdateUserDTO;
 import movieverse.capstone.repositories.UserRepository;
 import movieverse.capstone.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,17 +49,26 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("User not found with this id " + id));
     }
 
-    public User findByIdAndUpdate(long userId, NewUserDTO payload) {
+    public User findByIdAndUpdate(long userId, UpdateUserDTO payload) {
         User found = this.findById(userId);
         if (!found.getEmail().equals(payload.email()))
             this.userRepository.findByEmail(payload.email()).ifPresent(user -> {
                 throw new BadRequestException("Ops! Email address " + user.getEmail() + " is already in use");
             });
 
-        found.setUsername(payload.username());
-        found.setName(payload.name());
-        found.setEmail(payload.email());
-        found.setPassword(passwordEncoder.encode(payload.password()));
+
+        if (payload.username() != null && !payload.username().isBlank()) {
+            found.setUsername(payload.username());
+        }
+        if (payload.name() != null && !payload.name().isBlank()) {
+            found.setName(payload.name());
+        }
+        if (payload.email() != null && !payload.email().isBlank()) {
+            found.setEmail(payload.email());
+        }
+        if (payload.password() != null && !payload.password().isBlank()) {
+            found.setPassword(passwordEncoder.encode(payload.password()));
+        }
 
         User modifiedUser = this.userRepository.save(found);
 
@@ -92,7 +102,6 @@ public class UserService {
         final String fileName = FileUploadUtil.getFileName(file.getOriginalFilename());
         final CloudinaryResponse response = this.cloudinaryService.uploadFile(file, fileName);
         user.setAvatar(response.getUrl());
-        user.setAvatar(response.getPublicId());
         this.userRepository.save(user);
     }
 

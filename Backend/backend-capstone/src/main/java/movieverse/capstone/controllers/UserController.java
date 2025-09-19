@@ -3,7 +3,7 @@ package movieverse.capstone.controllers;
 
 import movieverse.capstone.entities.User;
 import movieverse.capstone.exception.ValidationException;
-import movieverse.capstone.payloads.NewUserDTO;
+import movieverse.capstone.payloads.UpdateUserDTO;
 import movieverse.capstone.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -48,7 +48,7 @@ public class UserController {
 
     @PutMapping("/me")
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-    public User updateProfile(@AuthenticationPrincipal User currentUser, @RequestBody @Validated NewUserDTO payload, BindingResult validation) {
+    public User updateProfile(@AuthenticationPrincipal User currentUser, @RequestBody @Validated UpdateUserDTO payload, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new ValidationException(validation.getFieldErrors()
                     .stream()
@@ -60,7 +60,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public User updateUser(@PathVariable Long id, @RequestBody @Validated NewUserDTO newUserDTO, BindingResult validation) {
+    public User updateUser(@PathVariable Long id, @RequestBody @Validated UpdateUserDTO newUserDTO, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new ValidationException(validation.getFieldErrors().stream().map(fieldError -> fieldError.getDefaultMessage()).toList());
         } else {

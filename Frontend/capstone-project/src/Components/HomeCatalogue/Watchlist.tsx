@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Toast } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import type { Content, Wishlist } from "../../Interface/Watchlist";
 import { XCircleFill } from "react-bootstrap-icons";
 

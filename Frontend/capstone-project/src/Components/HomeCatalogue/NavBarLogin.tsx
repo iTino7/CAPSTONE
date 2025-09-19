@@ -25,6 +25,10 @@ function NavBarLogin() {
     navigate("/");
   };
 
+  const handleProfile = () => {
+    navigate("/editProfile");
+  }
+
   const check = (path: string) => {
     if (path === "/catalogue") {
       return location.pathname === "/catalogue" ? "nav-link text-white" : "nav-link";
@@ -128,6 +132,7 @@ function NavBarLogin() {
                       src={user?.avatar}
                       alt=""
                       width={45}
+                      height={45}
                       className="rounded-circle ms-0 ms-md-3"
                     />
                   ) : (
@@ -135,7 +140,7 @@ function NavBarLogin() {
                   )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="bg-dark py-3 m-0 ">
-                  <Dropdown.Item className="text-white textHover fw-light pb-3">
+                  <Dropdown.Item onClick={handleProfile} className="text-white textHover fw-light pb-3">
                     Edit profile
                   </Dropdown.Item>
                   <Dropdown.Item

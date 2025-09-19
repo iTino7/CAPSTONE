@@ -28,6 +28,4 @@ public class CloudinaryService {
             throw new FuncErrorException("filed to upload file");
         }
     }
-
-
 }

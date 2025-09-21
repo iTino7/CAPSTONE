@@ -492,3 +492,7 @@
     color: #ccc;
     opacity: 0.4;
 }
+
+.editProfile::placeholder {
+    color: rgba(255, 255, 255, 0.429);
+}

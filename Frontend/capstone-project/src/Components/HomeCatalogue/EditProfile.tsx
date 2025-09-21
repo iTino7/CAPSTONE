@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 import type { Profile } from "../../Interface/Profile";
+import { PencilSquare } from "react-bootstrap-icons";
 
 function EditProfile() {
   const [profile, setProfile] = useState<Profile>();
@@ -60,36 +61,62 @@ function EditProfile() {
       fluid
       className="min-vh-100 d-flex justify-content-center align-items-center "
     >
-      <Row>
+      <Row className="d-flex flex-column flex-md-row align-items-center justify-content-center">
         <Col>
-          <h2 className="text-white">Edit profile</h2>
+          <h2 className="text-white mb-4">Edit profile</h2>
           <p className="mb-0 text-white">
             This is your primary profile. It cannot be deleted.
           </p>
           <Form onSubmit={fetchUpdateProfile}>
             <Form.Group className="mb-3">
-              <Form.Label className="text-white">Name</Form.Label>
               <Form.Control
+                style={{
+                  backgroundColor: "transparent",
+                  border: "0",
+                  borderBottom: "1px solid white",
+                  borderRadius: "0px",
+                  color: "white",
+                }}
+                className="editProfile px-0 ps-1 mt-3"
                 type="text"
                 placeholder={`${profile?.name}`}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
+            <FormGroup>
+              <div className="bg-dark my-3 d-flex justify-content-center align-items-center">
+                <h4 className="text-white">setting</h4>
+              </div>
+            </FormGroup>
             <button className="btn btn-primary" type="submit">
               Save Changes
             </button>
           </Form>
         </Col>
         <Col>
-          <img
-            src={`${profile?.avatar}`}
-            alt=""
-            width={250}
-            height={250}
-            className="rounded-circle"
-            style={{ cursor: "pointer", objectFit:"cover" }}
-          />
+          <div style={{ position: "relative" }} className="text-center">
+            <img
+              src={`${profile?.avatar}`}
+              alt=""
+              width={250}
+              height={250}
+              className="rounded-circle"
+              style={{
+                cursor: "pointer",
+                objectFit: "cover",
+              }}
+            />
+            <PencilSquare
+              style={{
+                position: "absolute",
+                bottom: "0",
+                right: "50%",
+                color: "white",
+                fontSize: "20px",
+              }}
+            />
+          </div>
         </Col>
       </Row>
     </Container>

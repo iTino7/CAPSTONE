@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Form, FormGroup, Row } from "react-bootstrap";
+import { Col, Container, Form, FormGroup, Modal, Row } from "react-bootstrap";
 import type { Profile } from "../../Interface/Profile";
 import { PencilSquare } from "react-bootstrap-icons";
+import { useNavigate, type NavigateFunction } from "react-router-dom";
 
 function EditProfile() {
   const [profile, setProfile] = useState<Profile>();
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const navigate: NavigateFunction = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/`);
+  };
+
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
   const fetchProfile = async () => {
     try {
@@ -29,7 +44,7 @@ function EditProfile() {
     e.preventDefault();
 
     try {
-      const update: Partial<Profile> = { name };
+      const update: Partial<Profile> = { name, username };
       const resp = await fetch("http://localhost:3002/users/me", {
         method: "PUT",
         headers: {
@@ -41,7 +56,6 @@ function EditProfile() {
       if (resp.ok) {
         const data: Profile = await resp.json();
         setProfile(data);
-        window.location.reload();
       } else {
         throw new Error("error");
       }
@@ -54,6 +68,24 @@ function EditProfile() {
     fetchProfile();
   }, []);
 
+  const fetchDelete = async () => {
+    try {
+      const resp = await fetch(`http://localhost:3002/users/${profile?.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (resp.ok) {
+        handleClick();
+      } else {
+        throw new Error("Error delete account!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   console.log(profile);
 
   return (
@@ -65,33 +97,69 @@ function EditProfile() {
         <Col>
           <h2 className="text-white mb-4">Edit profile</h2>
           <p className="mb-0 text-white">
-            This is your primary profile. It cannot be deleted.
+            this is your main account, update it to see the changes.
           </p>
           <Form onSubmit={fetchUpdateProfile}>
             <Form.Group className="mb-3">
+              <p className="mt-3 mb-0 text-white">Name</p>
               <Form.Control
                 style={{
-                  backgroundColor: "transparent",
+                  backgroundColor: "gray",
                   border: "0",
                   borderBottom: "1px solid white",
                   borderRadius: "0px",
                   color: "white",
                 }}
-                className="editProfile px-0 ps-1 mt-3"
+                className="editProfile px-0 ps-1 mt-1 rounded-1"
                 type="text"
                 placeholder={`${profile?.name}`}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
+              <p className="mb-0 mt-3 text-white">Username</p>
+              <Form.Control
+                style={{
+                  backgroundColor: "gray",
+                  border: "0",
+                  borderBottom: "1px solid white",
+                  borderRadius: "0px",
+                  color: "white",
+                }}
+                className="editProfile px-0 ps-1 mt-1 rounded-1"
+                type="text"
+                placeholder={`${profile?.username}`}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </Form.Group>
             <FormGroup>
-              <div className="bg-dark my-3 d-flex justify-content-center align-items-center">
-                <h4 className="text-white">setting</h4>
-              </div>
+              <p className="mb-0 text-white">Subscription</p>
+              <Form.Control
+                type="text"
+                placeholder={`${profile?.subscriptions}`}
+                disabled
+                readOnly
+                className="mb-3 mt-1 border-0 customPlaceholder"
+                style={{ backgroundColor: "#343A40" }}
+              />
+              <p className="mb-0 text-white">Email</p>
+              <Form.Control
+                type="text"
+                placeholder={`${profile?.email}`}
+                disabled
+                readOnly
+                className="mb-3 mt-1 border-0 customPlaceholder"
+                style={{ backgroundColor: "#343A40" }}
+              />
             </FormGroup>
-            <button className="btn btn-primary" type="submit">
-              Save Changes
-            </button>
+            <div className="d-flex">
+              <button className="btn btn-danger" onClick={handleShow}>
+                Delete account
+              </button>
+              <button className="btn btn-primary ms-auto" onClick={refreshPage}>
+                Save Changes
+              </button>
+            </div>
           </Form>
         </Col>
         <Col>
@@ -99,8 +167,8 @@ function EditProfile() {
             <img
               src={`${profile?.avatar}`}
               alt=""
-              width={250}
-              height={250}
+              width={200}
+              height={200}
               className="rounded-circle"
               style={{
                 cursor: "pointer",
@@ -119,6 +187,25 @@ function EditProfile() {
           </div>
         </Col>
       </Row>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header style={{ backgroundColor: "#212529" }}>
+          <Modal.Title className="text-white">Delete account</Modal.Title>
+        </Modal.Header>
+        <Modal.Body
+          className="text-white"
+          style={{ backgroundColor: "#212529" }}
+        >
+          Are you really sure you want to delete your account?
+        </Modal.Body>
+        <Modal.Footer style={{ backgroundColor: "#212529" }}>
+          <button className="btn btn-secondary" onClick={handleClose}>
+            Close
+          </button>
+          <button className="btn btn-danger" onClick={fetchDelete}>
+            Delete account
+          </button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

@@ -77,7 +77,7 @@ function Watchlist() {
           ))
         ) : (
           <h4 className="text-white mt-4 fw-semibold">
-            Aggiungi un film o una serie...
+            add an film or series...
           </h4>
         )}
       </Row>

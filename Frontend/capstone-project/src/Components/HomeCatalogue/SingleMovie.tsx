@@ -11,6 +11,7 @@ function SingleMovie() {
       img={movie.backdrop_path}
       description={movie.overview}
       title={movie.title}
+      name={movie.name}
       movieId={movie.id.toString()}
       poster={movie.poster_path}
     />

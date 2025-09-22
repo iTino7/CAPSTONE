@@ -36,6 +36,7 @@ public class WatchlistService {
         watchlist.setMovieId(payload.movieId());
         watchlist.setTitle(payload.title());
         watchlist.setPoster(payload.poster());
+        watchlist.setName(payload.name());
         watchlist.setUser(user);
 
         return watchlistRepository.save(watchlist);

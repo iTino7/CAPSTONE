@@ -31,7 +31,7 @@ public class StripeService {
                 .setSuccessUrl("http://localhost:5173/")
                 .setCancelUrl("http://localhost:5173/")
                 .setSubscriptionData(SessionCreateParams.SubscriptionData.builder()
-                        .setTrialPeriodDays(30L).build())
+                        .setTrialPeriodDays(7L).build())
                 .addLineItem(lineItem)
                 .build();
 

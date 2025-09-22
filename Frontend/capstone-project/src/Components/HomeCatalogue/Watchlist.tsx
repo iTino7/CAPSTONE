@@ -8,6 +8,7 @@ function Watchlist() {
   const [watchlist, setWatchlist] = useState<Content[]>([]);
   const [showA, setShowA] = useState(false);
   const toggleShowB = () => setShowA(!showA);
+  
 
   const fetchWishlist = async () => {
     try {

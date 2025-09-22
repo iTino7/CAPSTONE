@@ -496,3 +496,21 @@
 .editProfile::placeholder {
     color: white;
 }
+
+.falling-text-target {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+.falling-text-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 1em;
+}

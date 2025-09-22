@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { Content, Wishlist } from "../../Interface/Watchlist";
 import { XCircleFill } from "react-bootstrap-icons";
+import FallingText from "../FallingTextProps";
 
 function Watchlist() {
   const [watchlist, setWatchlist] = useState<Content[]>([]);
@@ -77,7 +78,21 @@ function Watchlist() {
           ))
         ) : (
           <h4 className="text-white mt-4 fw-semibold">
-            add an film or series...
+            <FallingText
+              text={`Add a movie or series...`}
+              highlightWords={[
+                "React",
+                "Bits",
+                "animated",
+                "components",
+                "simplify",
+              ]}
+              highlightClass="highlighted"
+              trigger="hover"
+              gravity={0.39}
+              fontSize="2rem"
+              mouseConstraintStiffness={0.1}
+            />
           </h4>
         )}
       </Row>

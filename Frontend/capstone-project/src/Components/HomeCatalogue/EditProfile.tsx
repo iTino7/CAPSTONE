@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Form, FormGroup, Modal, Row } from "react-bootstrap";
 import type { Profile } from "../../Interface/Profile";
-import { PencilSquare } from "react-bootstrap-icons";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 
 function EditProfile() {
@@ -39,6 +38,8 @@ function EditProfile() {
       if (resp.ok) {
         const data: Profile = await resp.json();
         setProfile(data);
+        setName(data.name)
+        setUsername(data.username)
       } else {
         throw new Error("error");
       }
@@ -71,8 +72,7 @@ function EditProfile() {
     }
   };
 
-  const fetchUpdateImage = async (e: React.MouseEvent) => {
-    e.preventDefault();
+  const fetchUpdateImage = async () => {
     if (!file) return;
 
     try {
@@ -91,8 +91,8 @@ function EditProfile() {
       );
 
       if (resp.ok) {
-        const data: Profile = await resp.json();
-        setProfile(data);
+        const message = await resp.text();
+        console.log(message);
         setFile(null);
         refreshPage();
       } else {
@@ -202,27 +202,20 @@ function EditProfile() {
           </Form>
         </Col>
         <Col>
-          <div style={{ position: "relative" }} className="text-center">
-            <img
-              src={`${profile?.avatar}`}
-              alt=""
-              width={200}
-              height={200}
-              className="rounded-circle"
-              style={{
-                cursor: "pointer",
-                objectFit: "cover",
-              }}
-            />
+          <div
+            style={{ position: "relative" }}
+            className="text-center d-flex flex-column "
+          >
             <label htmlFor="fileInput">
-              <PencilSquare
+              <img
+                src={`${profile?.avatar}`}
+                alt=""
+                width={200}
+                height={200}
+                className="rounded-circle"
                 style={{
-                  position: "absolute",
-                  bottom: "0",
-                  right: "50%",
-                  color: "white",
-                  fontSize: "20px",
                   cursor: "pointer",
+                  objectFit: "cover",
                 }}
               />
             </label>
@@ -235,7 +228,8 @@ function EditProfile() {
             />
             {file && (
               <button
-                className="btn btn-primary mt-2"
+                type="button"
+                className="btn text-white border-bottom rounded-0 bg-transparent border-0 mt-2"
                 onClick={fetchUpdateImage}
               >
                 Upload Image

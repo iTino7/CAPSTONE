@@ -8,6 +8,7 @@ function EditProfile() {
   const [profile, setProfile] = useState<Profile>();
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -22,9 +23,15 @@ function EditProfile() {
     window.location.reload();
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  };
+
   const fetchProfile = async () => {
     try {
-      const resp = await fetch("http://localhost:3002/users/me", {
+      const resp = await fetch(`http://localhost:3002/users/me`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -45,7 +52,7 @@ function EditProfile() {
 
     try {
       const update: Partial<Profile> = { name, username };
-      const resp = await fetch("http://localhost:3002/users/me", {
+      const resp = await fetch(`http://localhost:3002/users/me`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -58,6 +65,38 @@ function EditProfile() {
         setProfile(data);
       } else {
         throw new Error("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchUpdateImage = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!file) return;
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const resp = await fetch(
+        `http://localhost:3002/users/image/${profile?.id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (resp.ok) {
+        const data: Profile = await resp.json();
+        setProfile(data);
+        setFile(null);
+        refreshPage();
+      } else {
+        throw new Error("Error uploading image");
       }
     } catch (error) {
       console.log(error);
@@ -175,15 +214,33 @@ function EditProfile() {
                 objectFit: "cover",
               }}
             />
-            <PencilSquare
-              style={{
-                position: "absolute",
-                bottom: "0",
-                right: "50%",
-                color: "white",
-                fontSize: "20px",
-              }}
+            <label htmlFor="fileInput">
+              <PencilSquare
+                style={{
+                  position: "absolute",
+                  bottom: "0",
+                  right: "50%",
+                  color: "white",
+                  fontSize: "20px",
+                  cursor: "pointer",
+                }}
+              />
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: "none" }}
+              accept="image/*"
+              onChange={handleFileChange}
             />
+            {file && (
+              <button
+                className="btn btn-primary mt-2"
+                onClick={fetchUpdateImage}
+              >
+                Upload Image
+              </button>
+            )}
           </div>
         </Col>
       </Row>

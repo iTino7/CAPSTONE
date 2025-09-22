@@ -8,6 +8,7 @@ interface MovieandSerieProps {
   description: string;
   title: string;
   movieId: string;
+  name: string;
   poster: string;
 }
 
@@ -16,6 +17,7 @@ function MovieandSerieBackground({
   description,
   movieId,
   title,
+  name,
   poster,
 }: MovieandSerieProps) {
   const [, setWatchlist] = useState<Content[]>([]);
@@ -25,6 +27,7 @@ function MovieandSerieBackground({
   const fetchWishlist = async (
     movieId: string,
     title: string,
+    name: string,
     poster: string
   ) => {
     try {
@@ -34,7 +37,11 @@ function MovieandSerieBackground({
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ movieId, title, poster }),
+        body: JSON.stringify({
+          movieId,
+          title: title || name,
+          poster: poster,
+        }),
       });
       if (resp.ok) {
         const data = await resp.json();
@@ -76,7 +83,7 @@ function MovieandSerieBackground({
             <button className="btn border-0">
               <Star
                 onClick={() => {
-                  fetchWishlist(movieId, title, poster);
+                  fetchWishlist(movieId, title, name, poster);
                   toggleShowA();
                 }}
                 className="mb-1"
@@ -85,11 +92,17 @@ function MovieandSerieBackground({
             </button>
           </h4>
         </Col>
-        <Toast style={{position:"absolute", bottom:"40px", right:"40px"}} show={showA} onClose={toggleShowA}>
+        <Toast
+          style={{ position: "absolute", bottom: "40px", right: "40px" }}
+          show={showA}
+          onClose={toggleShowA}
+        >
           <Toast.Header className="bg-transparent border-0">
             <strong className="me-auto">MovieVerse</strong>
           </Toast.Header>
-          <Toast.Body>{title} è stato aggiunto ai film preferiti!</Toast.Body>
+          <Toast.Body>
+            {title || name} has been added to the list!
+          </Toast.Body>
         </Toast>
       </Row>
     </Container>

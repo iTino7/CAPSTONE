@@ -8,6 +8,7 @@ public record NewMovieFromWatchlistDTO(
         @NotBlank(message = "the title is mandatory")
         String title,
         @NotBlank(message = "the poster is mandatory")
-        String poster
+        String poster,
+        String name
 ) {
 }

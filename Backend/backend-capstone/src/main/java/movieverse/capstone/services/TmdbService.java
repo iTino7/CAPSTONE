@@ -20,7 +20,7 @@ public class TmdbService {
 
     public String getCatalogueMovie() {
         return webClient.get()
-                .uri("https://api.themoviedb.org/3/discover/movie?&with_watch_providers=8&watch_region=US&page=1")
+                .uri("https://api.themoviedb.org/3/discover/movie?&with_watch_providers=8&watch_region=US&page=2")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
@@ -44,7 +44,7 @@ public class TmdbService {
 
     public String getCatalogueSeriePopular() {
         return webClient.get()
-                .uri("https://api.themoviedb.org/3/discover/tv?&with_watch_providers=8&watch_region=US&$sort_by=popularity.desc&page=1")
+                .uri("https://api.themoviedb.org/3/discover/tv?&with_watch_providers=8&watch_region=US&$sort_by=popularity.desc&page=2")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
@@ -68,7 +68,7 @@ public class TmdbService {
 
     public String getMoviePopular() {
         return webClient.get()
-                .uri("https://api.themoviedb.org/3/discover/tv")
+                .uri("https://api.themoviedb.org/3/movie/upcoming")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
@@ -84,7 +84,7 @@ public class TmdbService {
 
     public String getSeriesFeatured() {
         return webClient.get()
-                .uri("https://api.themoviedb.org/3/trending/tv/week")
+                .uri("https://api.themoviedb.org/3/tv/popular")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();

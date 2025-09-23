@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
 import SplitText from "../SplitText";
-import ShinyText from "../ShinyText";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
@@ -15,8 +14,7 @@ function AdvFetchandMovies() {
     try {
       const resp = await fetch("http://localhost:3002/movies/card", {
         headers: {
-          Authorization:
-            `Bearer ${import.meta.env.API_KEY}`,
+          Authorization: `Bearer ${import.meta.env.API_KEY}`,
         },
       });
       if (resp.ok) {
@@ -128,12 +126,19 @@ function AdvFetchandMovies() {
             }}
           ></Modal.Body>
           <Modal.Footer className="bg-black border-0 justify-content-center">
-            <div className="title text-center mb-3">
-              <ShinyText
-                text={selectMovie?.name}
-                disabled={false}
-                speed={4.5}
-                className="custom-class"
+            <div className="title text-center mb-3 text-white">
+              <SplitText
+                text={`${selectMovie?.title || selectMovie?.name}`}
+                className="text-2xl font-semibold text-center"
+                delay={100}
+                duration={0.6}
+                ease="power3.out"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.1}
+                rootMargin="-100px"
+                textAlign="center"
               />
             </div>
             <h4 className=" text-white text-center fs-5 mb-3">

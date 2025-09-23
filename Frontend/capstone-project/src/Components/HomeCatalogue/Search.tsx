@@ -74,7 +74,7 @@ function Search() {
             <ComponentSearch
               title="Trending searches"
               fetchCategory="trendingSeries"
-              filterCategory="series"
+              filterCategory="movie"
             />
           </Col>
           <Col>

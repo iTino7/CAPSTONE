@@ -77,7 +77,7 @@ function BackgroundSubscription({
   return (
     <Container
       fluid
-      className=" d-flex justify-content-center align-items-center "
+      className=" d-flex justify-content-center align-items-center my-3 "
       style={{ minHeight: "100vh" }}
     >
       <Row className=" d-flex justify-content-center ">

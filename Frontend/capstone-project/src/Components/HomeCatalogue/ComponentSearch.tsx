@@ -6,14 +6,16 @@ import { useNavigate } from "react-router-dom";
 
 interface SearchProps {
   title?: string;
-  fetchCategory: string;
+  fetchCategory?: string;
   filterCategory?: string;
+  results?: Result[]; 
 }
 
 function ComponentSearch({
   title,
   fetchCategory,
   filterCategory,
+  results
 }: SearchProps) {
   const [data, setData] = useState<Result[]>([]);
 
@@ -59,6 +61,7 @@ function ComponentSearch({
   };
 
   const fetchData = async () => {
+    if (!fetchCategory) return;
     try {
       const resp = await fetch(
         `http://localhost:3002/movies/${fetchCategory}`,
@@ -79,10 +82,14 @@ function ComponentSearch({
     }
   };
 
-  useEffect(() => {
-    fetchData();
+   useEffect(() => {
+    if (!results) { 
+      fetchData();
+    } else {
+      setData(results);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchCategory]);
+  }, [fetchCategory, results]);
 
   console.log(data);
 

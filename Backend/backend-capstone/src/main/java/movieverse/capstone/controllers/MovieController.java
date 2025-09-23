@@ -68,5 +68,4 @@ public class MovieController {
         return tmdbService.getCollectionMovie();
     }
 
-
 }

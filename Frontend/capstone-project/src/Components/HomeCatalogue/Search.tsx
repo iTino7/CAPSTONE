@@ -1,20 +1,21 @@
 import { Col, Container, Form, FormControl, Row } from "react-bootstrap";
 import ComponentSearch from "./ComponentSearch";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 
 function Search() {
   const [searchInput, setSearchInput] = useState("");
   const [data, setData] = useState<Result[]>([]);
 
-  const handleChange = async () => {
+  const handleChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     try {
       const resp = await fetch(
-        `https://api.themoviedb.org/3/search/movie?&query=${searchInput}`,
+        `https://api.themoviedb.org/3/search/multi?query=${searchInput}`,
         {
           headers: {
-            Authorization:
-              `Bearer ${import.meta.env.API_KEY}`,
+            Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
           },
         }
       );
@@ -27,20 +28,13 @@ function Search() {
     }
   };
 
-  useEffect(() => {
-    if (searchInput) handleChange();
-  }, [searchInput]);
-
   console.log(data);
-  const arrayNumber = [1241, 86311, 10, 328, 8864];
-  const randomNumber = Math.floor(Math.random() * arrayNumber.length);
-  console.log(arrayNumber[randomNumber]);
 
   return (
     <Container fluid style={{ backgroundColor: "#121212", minHeight: "100vh" }}>
       <Row>
         <div className="mt-3">
-          <Form onSubmit={(e) => e.preventDefault()}>
+          <Form onSubmit={handleChange}>
             <Row>
               <Col xs={12}>
                 <FormControl
@@ -57,8 +51,9 @@ function Search() {
             <Col>
               <div className="slider-container mb-5">
                 <ComponentSearch
-                  fetchCategory={`search/movie?&query=${searchInput}`}
+                  title="Search results"
                   filterCategory="movie"
+                  results={data}
                 />
               </div>
             </Col>

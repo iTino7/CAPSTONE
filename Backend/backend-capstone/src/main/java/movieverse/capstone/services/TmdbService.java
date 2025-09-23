@@ -97,6 +97,4 @@ public class TmdbService {
                 .bodyToMono(String.class)
                 .block();
     }
-
-
 }

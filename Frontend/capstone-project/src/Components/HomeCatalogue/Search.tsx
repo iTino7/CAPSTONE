@@ -28,7 +28,7 @@ function Search() {
     }
   };
 
-  console.log(data);
+  
 
   return (
     <Container fluid style={{ backgroundColor: "#121212", minHeight: "100vh" }}>

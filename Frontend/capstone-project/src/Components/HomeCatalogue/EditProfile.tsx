@@ -125,7 +125,7 @@ function EditProfile() {
     }
   };
 
-  console.log(profile);
+  
 
   return (
     <Container

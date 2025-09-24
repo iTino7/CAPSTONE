@@ -83,7 +83,7 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(movie);
+  
 
   return (
     <Container fluid className="slider-container mt-5">

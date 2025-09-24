@@ -16,7 +16,6 @@ function NavBarLogin() {
   const [user, setUser] = useState<User | null>(null);
 
   const token = localStorage.getItem("token");
-  console.log(token);
 
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
@@ -27,11 +26,13 @@ function NavBarLogin() {
 
   const handleProfile = () => {
     navigate("/editProfile");
-  }
+  };
 
   const check = (path: string) => {
     if (path === "/catalogue") {
-      return location.pathname === "/catalogue" ? "nav-link text-white" : "nav-link";
+      return location.pathname === "/catalogue"
+        ? "nav-link text-white"
+        : "nav-link";
     }
     return location.pathname.startsWith(path)
       ? "nav-link text-white"
@@ -133,7 +134,7 @@ function NavBarLogin() {
                       alt=""
                       width={45}
                       height={45}
-                      style={{objectFit:"cover"}}
+                      style={{ objectFit: "cover" }}
                       className="rounded-circle ms-0 ms-md-3"
                     />
                   ) : (
@@ -141,7 +142,10 @@ function NavBarLogin() {
                   )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="bg-dark py-3 m-0 ">
-                  <Dropdown.Item onClick={handleProfile} className="text-white textHover fw-light pb-3">
+                  <Dropdown.Item
+                    onClick={handleProfile}
+                    className="text-white textHover fw-light pb-3"
+                  >
                     Edit profile
                   </Dropdown.Item>
                   <Dropdown.Item

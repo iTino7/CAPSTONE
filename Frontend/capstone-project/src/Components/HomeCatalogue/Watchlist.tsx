@@ -47,7 +47,7 @@ function Watchlist() {
     }
   };
 
-  console.log(watchlist);
+  
 
   return (
     <Container fluid className="min-vh-100">

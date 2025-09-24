@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 interface ButtonCustom {
   classCustom: string;
   styleCustom: object;
-  text: string;
+  text?: string;
 
   navigate?: () => void;
 }

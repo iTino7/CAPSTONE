@@ -22,7 +22,7 @@ function PhrasesHome() {
     <>
       <Container className="d-flex justify-content-center align-items-center h-100 w-100">
         <div
-          className="d-none mx-2 d-md-flex mx-md-0 align-items-center justify-content-center w-100 "
+          className="mx-2 d-md-flex mx-md-0 align-items-center justify-content-center w-100 "
           style={{ bottom: "150px" }}
         >
           <h1
@@ -42,7 +42,7 @@ function PhrasesHome() {
               className="text-2xl mb-8"
             />
           </h1>
-          <div className="ms-auto mt-auto d-flex flex-column align-items-start">
+          <div className="ms-auto  d-flex flex-column justify-content-end align-items-start">
             <p
               className="text-white fw-bold fs-3"
               style={{
@@ -68,28 +68,6 @@ function PhrasesHome() {
               }}
               text="movie"
             />
-          </div>
-        </div>
-        <div className="h-100 d-flex flex-column justify-content-center align-items-center d-md-none">
-          <div className="mt-auto d-flex flex-column align-items-center">
-            <h1
-              style={{ fontSize: "50px", color: "white" }}
-              className="text-center"
-            >
-              {titleButton}
-            </h1>
-            <CustomButton
-              navigate={() => handleClick("/catalogue", "/auth/signup")}
-              classCustom="btn btn-button border-0 text-black fancy-btn mt-3"
-              styleCustom={{
-                backgroundColor: "#9e2a2b",
-                fontFamily: " DM Sans, sans-serif",
-              }}
-              text="movie"
-            />
-          </div>
-          <div className="mt-auto mb-5">
-            <h1 className="text-white text-center">{title}</h1>
           </div>
         </div>
       </Container>

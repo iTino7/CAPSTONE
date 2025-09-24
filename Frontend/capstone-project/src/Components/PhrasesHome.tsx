@@ -61,9 +61,9 @@ function PhrasesHome() {
             </p>
             <CustomButton
               navigate={() => handleClick("/catalogue", "/auth/signup")}
-              classCustom=" btn btn-button order-0 text-black fancy-btn"
+              classCustom=" btn btn-button py-2 order-0 text-white fancy-btn"
               styleCustom={{
-                backgroundColor: "#caf0f8",
+                backgroundColor: "#9e2a2b",
                 fontFamily: " DM Sans, sans-serif",
               }}
               text="movie"
@@ -82,7 +82,7 @@ function PhrasesHome() {
               navigate={() => handleClick("/catalogue", "/auth/signup")}
               classCustom="btn btn-button border-0 text-black fancy-btn mt-3"
               styleCustom={{
-                backgroundColor: "#caf0f8",
+                backgroundColor: "#9e2a2b",
                 fontFamily: " DM Sans, sans-serif",
               }}
               text="movie"

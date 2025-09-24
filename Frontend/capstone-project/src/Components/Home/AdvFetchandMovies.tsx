@@ -74,7 +74,7 @@ function AdvFetchandMovies() {
           styleCustom={{
             color: "white",
             fontFamily: " DM Sans, sans-serif",
-            backgroundColor: "red",
+            backgroundColor: "#9e2a2b",
             fontSize: "28px",
             marginRight: "10px",
             borderRadius: "8px",

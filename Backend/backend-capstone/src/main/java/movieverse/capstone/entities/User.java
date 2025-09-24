@@ -45,6 +45,7 @@ public class User implements UserDetails {
     private String stripeCustomerId;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private ForgotPassword forgotPassword;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

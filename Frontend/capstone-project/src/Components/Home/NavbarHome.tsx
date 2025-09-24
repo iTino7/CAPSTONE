@@ -48,9 +48,9 @@ function NavbarHome() {
 
               <Link to={"/auth/signup"} style={{ textDecoration: "none" }}>
                 <CustomButton
-                  classCustom=" btn btn-button border-0 text-black fancy-btn"
+                  classCustom=" btn btn-button py-2 border-0 text-white fancy-btn"
                   styleCustom={{
-                    backgroundColor: "#caf0f8",
+                    backgroundColor: "#9e2a2b",
                     fontFamily: " DM Sans, sans-serif",
                   }}
                   text="Sign up"

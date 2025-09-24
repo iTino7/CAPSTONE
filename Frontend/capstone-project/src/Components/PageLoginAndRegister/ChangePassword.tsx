@@ -67,7 +67,7 @@ function ChangePassword() {
         >
           Send
         </button>
-        <p className="my-2 text-danger">{mess}</p>
+        <p className="my-2 text-black">{mess}</p>
       </Form>
     </BackgroundForm>
   );

@@ -26,10 +26,11 @@ public class WatchlistController {
 
     @GetMapping("/watchlist")
     public Page<Watchlist> getUserWatchlist(
+            @AuthenticationPrincipal User currentUser,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy) {
-        return watchlistService.getUserWatchlist(page, size, sortBy);
+        return watchlistService.getUserWatchlist(currentUser, page, size, sortBy);
     }
 
     @PostMapping("/watchlist")

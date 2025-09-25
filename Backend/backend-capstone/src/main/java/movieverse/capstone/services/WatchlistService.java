@@ -42,10 +42,10 @@ public class WatchlistService {
         return watchlistRepository.save(watchlist);
     }
 
-    public Page<Watchlist> getUserWatchlist(int pageNumber, int pageSize, String sortBy) {
+    public Page<Watchlist> getUserWatchlist(User user, int pageNumber, int pageSize, String sortBy) {
         if (pageSize > 50) pageSize = 50;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
-        return watchlistRepository.findAll(pageable);
+        return watchlistRepository.findByUser(user, pageable);
     }
 
     public void removeFromWatchlist(Long id, User user) {

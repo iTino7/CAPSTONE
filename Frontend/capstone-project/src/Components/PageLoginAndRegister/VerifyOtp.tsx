@@ -54,7 +54,7 @@ function VerifyOtp() {
           placeholder="Enter OTP"
           required
         />
-        <button type="submit" className="px-5 btn" style={{ backgroundColor: "#E50914", color: "white" }}>
+        <button type="submit" className="px-5 btn" style={{ backgroundColor: "#9e2a2b", color: "white" }}>
           Send
         </button>
         <p className="my-2 text-danger">{mess}</p>

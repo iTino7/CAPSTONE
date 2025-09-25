@@ -96,7 +96,7 @@ function ComponentSearch({
   return (
     <Col>
       <h3 className="text-white mb-4 fs-3">{title}</h3>
-      <div className="slider-container mb-5">
+      <div className="slider-container mb-5" style={{cursor:"pointer"}}>
         <Slider {...settings}>
           {data.map((item) => (
             <img

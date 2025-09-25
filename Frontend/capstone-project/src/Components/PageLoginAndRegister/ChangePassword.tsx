@@ -14,7 +14,7 @@ function ChangePassword() {
 
   const getTime = () => {
     setTimeout(() => {
-      navigate("/");
+      navigate("/auth/signin");
     }, 2000);
   };
 
@@ -69,7 +69,7 @@ function ChangePassword() {
         <button
           type="submit"
           className="px-5 btn"
-          style={{ backgroundColor: "#E50914", color: "white" }}
+          style={{ backgroundColor: "#893346", color: "white" }}
         >
           Send
         </button>

@@ -42,7 +42,7 @@ function FormDataUser({
         navigate(`${navigateCustom}`);
       } else if (resp.status === 400) {
         throw new Error("Ops! email address is already in use!");
-      } else if (resp.status === 404) {
+      } else if (resp.status === 401) {
         throw new Error("Ops! wrong credentials!");
       }
     } catch (error) {
@@ -142,7 +142,7 @@ function FormDataUser({
                 </div>
               </>
             )}
-            {error && <p className="text-danger">{error}</p>}
+            {error && <p className="text-danger text-center">{error}</p>}
             <button
               style={{
                 backgroundColor: "#9e2a2b",

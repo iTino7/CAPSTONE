@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Plans } from "../Interface/PlansInterface";
 import { useNavigate } from "react-router-dom";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 
 interface BackgroundSubscriptionProps {
   textColorCustom: string;
@@ -173,7 +173,9 @@ function BackgroundSubscription({
               </Col>
             ))
         ) : (
-          <p>...</p>
+          <div>
+            <Spinner animation="border" />
+          </div>
         )}
       </Row>
     </Container>

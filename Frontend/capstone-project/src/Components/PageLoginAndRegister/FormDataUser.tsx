@@ -145,10 +145,10 @@ function FormDataUser({
             {error && <p className="text-danger">{error}</p>}
             <button
               style={{
-                backgroundColor: "#caf0f8",
+                backgroundColor: "#9e2a2b",
                 fontFamily: " DM Sans, sans-serif",
               }}
-              className=" btn border-0 text-dark"
+              className=" btn border-0 text-white"
               type="submit"
             >
               Send

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
 import SplitText from "../SplitText";
+import Magnet from "../Magnet";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
@@ -46,41 +47,43 @@ function AdvFetchandMovies() {
   return (
     <Container fluid className="bg-black py-4">
       <div className="d-flex flex-column align-items-center customTitleAdv">
-        <h1
-          className="text-center title text-white"
-          style={{
-            fontFamily: " DM Sans, sans-serif",
-          }}
-        >
-          <SplitText
-            text={`" See what's next "`}
-            className="text-2xl font-semibold text-center"
-            delay={150}
-            duration={1.0}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 40 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.4}
-            rootMargin="-100px"
-            textAlign="center"
-            onLetterAnimationComplete={undefined}
+        <Magnet padding={200} disabled={false} magnetStrength={5}>
+          <h1
+            className="text-center title text-white"
+            style={{
+              fontFamily: " DM Sans, sans-serif",
+            }}
+          >
+            <SplitText
+              text={`" See what's next "`}
+              className="text-2xl font-semibold text-center"
+              delay={150}
+              duration={1.0}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.4}
+              rootMargin="-100px"
+              textAlign="center"
+              onLetterAnimationComplete={undefined}
+            />
+          </h1>
+          <CustomButton
+            navigate={() => handleClick("/catalogue", "/auth/signin")}
+            text="Sign in"
+            classCustom="btn btn-button fancy-btn d-md-flex"
+            styleCustom={{
+              color: "white",
+              fontFamily: " DM Sans, sans-serif",
+              backgroundColor: "#9e2a2b",
+              fontSize: "28px",
+              marginRight: "10px",
+              borderRadius: "8px",
+              padding: ".2rem .7rem",
+            }}
           />
-        </h1>
-        <CustomButton
-          navigate={() => handleClick("/catalogue", "/auth/signin")}
-          text="Sign in"
-          classCustom="btn btn-button fancy-btn d-md-flex"
-          styleCustom={{
-            color: "white",
-            fontFamily: " DM Sans, sans-serif",
-            backgroundColor: "red",
-            fontSize: "28px",
-            marginRight: "10px",
-            borderRadius: "8px",
-            padding: ".2rem .7rem",
-          }}
-        />
+        </Magnet>
       </div>
 
       {error && <h2 className="text-danger text-center">{error}.</h2>}

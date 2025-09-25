@@ -21,14 +21,22 @@ function Search() {
       );
       if (resp.ok) {
         const data: MovieCard = await resp.json();
-        setData(data.results);
+
+        const filtered = data.results.filter((item: Result) => {
+          const dateStr = item.release_date || item.first_air_date;
+          if (!dateStr) return false;
+          if (!item.poster_path) return false;
+
+          const year = new Date(dateStr).getFullYear();
+          return year > 2012 && year < 2025;
+        });
+
+        setData(filtered);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  
 
   return (
     <Container fluid style={{ backgroundColor: "#121212", minHeight: "100vh" }}>

@@ -12,6 +12,12 @@ function ChangePassword() {
   const [mess, setMess] = useState("");
   const navigate = useNavigate();
 
+  const getTime = () => {
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  };
+
   const fetchNewPass = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -27,10 +33,10 @@ function ChangePassword() {
         }
       );
       if (resp.ok) {
-        setMess("Password aggiornata!");
-        navigate("/");
+        setMess("Password updated!");
+        getTime();
       } else {
-        setMess("Le password non combaciano");
+        setMess("password don't match!");
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +73,7 @@ function ChangePassword() {
         >
           Send
         </button>
-        <p className="my-2 text-danger">{mess}</p>
+        <p className="my-2 text-black">{mess}</p>
       </Form>
     </BackgroundForm>
   );

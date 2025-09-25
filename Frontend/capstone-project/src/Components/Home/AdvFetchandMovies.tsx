@@ -3,8 +3,9 @@ import CustomButton from "../CustomButton";
 import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
-import SplitText from "../SplitText";
+
 import Magnet from "../Magnet";
+import SplitText from "../SplitText";
 
 function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);

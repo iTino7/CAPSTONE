@@ -43,17 +43,20 @@ Permette agli utenti di navigare tra film e serie TV, scegliere un piano di abbo
 ## 🛠️ Tecnologie Utilizzate
 
 ### Frontend
-- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)  
-- [React-Bootstrap]([https://react-bootstrap.github.io/](https://react-bootstrap.netlify.app/)) per l’interfaccia grafica  
-- [TMDB API](https://developer.themoviedb.org/) per i dati su film e serie TV
-- [React-slick] (https://react-slick.neostack.com/) per le immagini
-- [React-Bits] (https://www.reactbits.dev) per il testo
-- [Stripe] (https://www.stripe.com) interfaccia e richiesta pagamento
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+- [TMDB API](https://developer.themoviedb.org/) per i dati su film e serie TV  
+- [React-slick](https://react-slick.neostack.com/) per gli slider  
+- [React-Bits](https://www.reactbits.dev) per animazioni di testo  
+- [Stripe](https://stripe.com) interfaccia e richiesta pagamento  
 
 ### Backend
-- [Java](https://www.java.com/)  
-- [Spring Boot](https://spring.io/projects/spring-boot) per le API REST  
-- [Spring Security](https://spring.io/projects/spring-security) per autenticazione e autorizzazione  
-- [JPA/Hibernate](https://hibernate.org/) per l’accesso al database  
-- [PostgreSQL](https://www.postgresql.org/) per il database
-- [Stripe] (https://www.stripe.com) logica di pagamento e gestione abbonamenti
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white)
+![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+- [Stripe](https://stripe.com) logica di pagamento e gestione abbonamenti

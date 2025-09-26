@@ -1,9 +1,6 @@
 ## 📸 Screenshots
 
-![Screenshot Home](https://github.com/user-attachments/assets/59c8c6fe-8df4-466a-8759-2d3d3215d213)
-
-
-
+![Screenshot Home](https://github.com/user-attachments/assets/8af33dd0-8ac6-44c6-a44c-e1301ec91d8b)
 
 
 

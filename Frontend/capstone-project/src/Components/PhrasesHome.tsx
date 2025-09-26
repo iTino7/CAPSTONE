@@ -2,6 +2,7 @@ import { Container } from "react-bootstrap";
 import CustomButton from "./CustomButton";
 import { useNavigate } from "react-router-dom";
 import BlurText from "./BlurText";
+import { useEffect, useState } from "react";
 
 function PhrasesHome() {
   const title: string = "Escape reality, enter imagination.";
@@ -17,6 +18,13 @@ function PhrasesHome() {
       navigate(pageNavigate);
     }
   };
+
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowButton(true), 600);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -59,15 +67,23 @@ function PhrasesHome() {
                 className="text-2xl mb-8"
               />
             </p>
-            <CustomButton
-              navigate={() => handleClick("/catalogue", "/auth/signup")}
-              classCustom=" btn btn-button py-2 order-0 text-white fancy-btn"
-              styleCustom={{
-                backgroundColor: "#9e2a2b",
-                fontFamily: " DM Sans, sans-serif",
+            <div
+              style={{
+                opacity: showButton ? 1 : 0,
+                transform: showButton ? "translateY(0)" : "translateY(20px)",
+                transition: "opacity 0.5s ease, transform 0.5s ease",
               }}
-              text="movie"
-            />
+            >
+              <CustomButton
+                navigate={() => handleClick("/catalogue", "/auth/signup")}
+                classCustom=" btn btn-button py-2 order-0 text-white fancy-btn"
+                styleCustom={{
+                  backgroundColor: "#9e2a2b",
+                  fontFamily: " DM Sans, sans-serif",
+                }}
+                text="movie"
+              />
+            </div>
           </div>
         </div>
       </Container>

@@ -131,19 +131,7 @@ function AdvFetchandMovies() {
           ></Modal.Body>
           <Modal.Footer className="bg-black border-0 justify-content-center">
             <div className="title text-center mb-3 text-white">
-              <SplitText
-                text={`${selectMovie?.title || selectMovie?.name}`}
-                className="text-2xl font-semibold text-center"
-                delay={100}
-                duration={0.6}
-                ease="power3.out"
-                splitType="chars"
-                from={{ opacity: 0, y: 40 }}
-                to={{ opacity: 1, y: 0 }}
-                threshold={0.1}
-                rootMargin="-100px"
-                textAlign="center"
-              />
+              <h1>{selectMovie?.name || selectMovie?.title}</h1>
             </div>
             <h4 className=" text-white text-center fs-5 mb-3">
               {selectMovie?.overview}

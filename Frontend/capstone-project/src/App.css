@@ -1,3 +1,7 @@
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .wallpaperHome {
     background:
         linear-gradient(180deg,

@@ -42,7 +42,7 @@ function FormDataUser({
         navigate(`${navigateCustom}`);
       } else if (resp.status === 400) {
         throw new Error("Ops! email address is already in use!");
-      } else if (resp.status === 401) {
+      } else if (resp.status === 404) {
         throw new Error("Ops! wrong credentials!");
       }
     } catch (error) {

@@ -1,7 +1,7 @@
 import { Col, Container, Row, Toast } from "react-bootstrap";
-import { Star } from "react-bootstrap-icons";
+import { Star, StarFill } from "react-bootstrap-icons";
 import type { Content } from "../../Interface/Watchlist";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface MovieandSerieProps {
   img: string;
@@ -20,32 +20,74 @@ function MovieandSerieBackground({
   name,
   poster,
 }: MovieandSerieProps) {
-  const [, setWatchlist] = useState<Content[]>([]);
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
+  const [watchlistItemId, setWatchlistItemId] = useState<number | null>(null);
   const [showA, setShowA] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const toggleShowA = () => setShowA(!showA);
 
-  const fetchWishlist = async (
-    movieId: string,
-    title: string,
-    name: string,
-    poster: string
-  ) => {
+  // Controlla se il film è già nella watchlist
+  const checkIfInWatchlist = useCallback(async () => {
     try {
       const resp = await fetch("http://localhost:3002/watchlist/watchlist", {
-        method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({
-          movieId,
-          title: title || name,
-          poster: poster,
-        }),
       });
       if (resp.ok) {
         const data = await resp.json();
-        setWatchlist((prev) => [...prev, data]);
+        const foundItem = data.content.find((item: Content) => item.movieId === movieId);
+        if (foundItem) {
+          setIsInWatchlist(true);
+          setWatchlistItemId(foundItem.id);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [movieId]);
+
+  useEffect(() => {
+    checkIfInWatchlist();
+  }, [movieId, checkIfInWatchlist]);
+
+  const toggleWatchlist = async () => {
+    try {
+      if (isInWatchlist && watchlistItemId) {
+        // Rimuovi dalla watchlist
+        const resp = await fetch(`http://localhost:3002/watchlist/${watchlistItemId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        if (resp.ok) {
+          setIsInWatchlist(false);
+          setWatchlistItemId(null);
+          setToastMessage(`${title || name} has been removed from the list!`);
+          toggleShowA();
+        }
+      } else {
+        // Aggiungi alla watchlist
+        const resp = await fetch("http://localhost:3002/watchlist/watchlist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            movieId,
+            title: title || name,
+            poster: poster,
+          }),
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          setIsInWatchlist(true);
+          setWatchlistItemId(data.id);
+          setToastMessage(`${title || name} has been added to the list!`);
+          toggleShowA();
+        }
       }
     } catch (error) {
       console.log(error);
@@ -81,14 +123,19 @@ function MovieandSerieBackground({
           >
             {description}
             <button className="btn border-0">
-              <Star
-                onClick={() => {
-                  fetchWishlist(movieId, title, name, poster);
-                  toggleShowA();
-                }}
-                className="mb-1"
-                style={{ color: "	#ffd250" }}
-              />
+              {isInWatchlist ? (
+                <StarFill
+                  onClick={toggleWatchlist}
+                  className="mb-1"
+                  style={{ color: "#ffd250" }}
+                />
+              ) : (
+                <Star
+                  onClick={toggleWatchlist}
+                  className="mb-1"
+                  style={{ color: "#ffd250" }}
+                />
+              )}
             </button>
           </h4>
         </Col>
@@ -101,7 +148,7 @@ function MovieandSerieBackground({
             <strong className="me-auto">MovieVerse</strong>
           </Toast.Header>
           <Toast.Body>
-            {title || name} has been added to the list!
+            {toastMessage}
           </Toast.Body>
         </Toast>
       </Row>

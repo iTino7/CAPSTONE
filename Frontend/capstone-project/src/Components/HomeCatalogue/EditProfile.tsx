@@ -9,6 +9,7 @@ function EditProfile() {
   const [username, setUsername] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -38,13 +39,15 @@ function EditProfile() {
       if (resp.ok) {
         const data: Profile = await resp.json();
         setProfile(data);
-        setName(data.name)
-        setUsername(data.username)
+        setName(data.name || "");
+        setUsername(data.username || "");
+        setIsLoading(false);
       } else {
         throw new Error("error");
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -151,7 +154,7 @@ function EditProfile() {
                 }}
                 className="editProfile px-0 ps-1 mt-1 rounded-1"
                 type="text"
-                placeholder={`${profile?.name}`}
+                placeholder={isLoading ? "Loading..." : profile?.name || "Enter your name"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -166,7 +169,7 @@ function EditProfile() {
                 }}
                 className="editProfile px-0 ps-1 mt-1 rounded-1"
                 type="text"
-                placeholder={`${profile?.username}`}
+                placeholder={isLoading ? "Loading..." : profile?.username || "Enter your username"}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -208,14 +211,17 @@ function EditProfile() {
           >
             <label htmlFor="fileInput">
               <img
-                src={`${profile?.avatar}`}
-                alt=""
+                src={profile?.avatar || "/default-avatar.png"}
+                alt="Profile"
                 width={200}
                 height={200}
                 className="rounded-circle"
                 style={{
                   cursor: "pointer",
                   objectFit: "cover",
+                }}
+                onError={(e) => {
+                  e.currentTarget.src = "/default-avatar.png";
                 }}
               />
             </label>

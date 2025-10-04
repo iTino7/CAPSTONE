@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import type { MovieCard, Result } from "../../Interface/Movie";
+import LoadingSpinner from "../LoadingSpinner";
 
 function Series() {
   const [serie, setSeries] = useState<Result[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate: NavigateFunction = useNavigate();
 
@@ -15,6 +17,7 @@ function Series() {
 
   const fetchSerie = async () => {
     try {
+      setIsLoading(true);
       const resp = await fetch(
         "http://localhost:3002/movies/series",
         {
@@ -32,12 +35,18 @@ function Series() {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchSerie();
   }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner className="min-vh-100" text="Loading series..." />;
+  }
 
   return (
     <Container fluid>

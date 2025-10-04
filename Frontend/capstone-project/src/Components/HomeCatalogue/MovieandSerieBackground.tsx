@@ -2,7 +2,7 @@ import { Col, Container, Row, Toast } from "react-bootstrap";
 import { Star, StarFill } from "react-bootstrap-icons";
 import type { Content } from "../../Interface/Watchlist";
 import { useState, useEffect, useCallback } from "react";
-
+import LoadingSpinner from "../LoadingSpinner";
 interface MovieandSerieProps {
   img: string;
   description: string;
@@ -24,7 +24,10 @@ function MovieandSerieBackground({
   const [watchlistItemId, setWatchlistItemId] = useState<number | null>(null);
   const [showA, setShowA] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [isImageLoading, setIsImageLoading] = useState(true);
   const toggleShowA = () => setShowA(!showA);
+
+  
 
   // Controlla se il film è già nella watchlist
   const checkIfInWatchlist = useCallback(async () => {
@@ -50,6 +53,22 @@ function MovieandSerieBackground({
   useEffect(() => {
     checkIfInWatchlist();
   }, [movieId, checkIfInWatchlist]);
+
+  // Pre-carica l'immagine di sfondo
+  useEffect(() => {
+    const imageUrl = `https://image.tmdb.org/t/p/original${img}`;
+    const image = new Image();
+    
+    image.onload = () => {
+      setIsImageLoading(false);
+    };
+    
+    image.onerror = () => {
+      setIsImageLoading(false);
+    };
+    
+    image.src = imageUrl;
+  }, [img]);
 
   const toggleWatchlist = async () => {
     try {
@@ -110,11 +129,29 @@ function MovieandSerieBackground({
         height: "100vh",
         width: "100%",
         position: "absolute",
-
         top: 0,
         left: 0,
       }}
     >
+      {/* Loading Overlay */}
+      {isImageLoading && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 10,
+          }}
+        >
+          <LoadingSpinner text="Loading content..." />
+        </div>
+      )}
       <Row className="p-0 m-0">
         <Col className="p-0 m-0">
           <h4

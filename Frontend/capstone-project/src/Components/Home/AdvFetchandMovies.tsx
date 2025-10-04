@@ -3,6 +3,7 @@ import CustomButton from "../CustomButton";
 import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../LoadingSpinner";
 
 import Magnet from "../Magnet";
 import SplitText from "../SplitText";
@@ -11,9 +12,11 @@ function AdvFetchandMovies() {
   const [movie, setMovie] = useState<Result[]>([]);
   const [error, setError] = useState<null | string>(null);
   const [selectMovie, setSelectedMovie] = useState<Result | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchCard = async () => {
     try {
+      setIsLoading(true);
       const resp = await fetch("http://localhost:3002/movies/card", {
         headers: {
           Authorization: `Bearer ${import.meta.env.API_KEY}`,
@@ -27,6 +30,8 @@ function AdvFetchandMovies() {
       }
     } catch (err) {
       if (err) setError((err as Error).message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,8 +93,12 @@ function AdvFetchandMovies() {
       </div>
 
       {error && <h2 className="text-danger text-center">{error}.</h2>}
-      <Row className="textAdv d-flex justify-content-around">
-        {movie.slice(0, 6).map((item) => (
+      
+      {isLoading ? (
+        <LoadingSpinner className="py-5" text="Loading featured content..." />
+      ) : (
+        <Row className="textAdv d-flex justify-content-around">
+          {movie.slice(0, 6).map((item) => (
           <React.Fragment key={item.id}>
             <Col key={item.id} xs={12} sm={6} md={4} lg={8}></Col>
             <Col xs={12} sm={6} md={5} lg={4} className="mb-4 mb-sm-4">
@@ -109,8 +118,11 @@ function AdvFetchandMovies() {
             </Col>
             <Col xs={12} sm={6} md={4} lg={3}></Col>
           </React.Fragment>
-        ))}
-        <Modal
+          ))}
+        </Row>
+      )}
+      
+      <Modal
           show={!!selectMovie}
           onHide={() => setSelectedMovie(null)}
           size="lg"
@@ -138,7 +150,6 @@ function AdvFetchandMovies() {
             </h4>
           </Modal.Footer>
         </Modal>
-      </Row>
     </Container>
   );
 }

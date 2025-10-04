@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../LoadingSpinner";
 
 interface FilterSearch {
   filterFetch: string;
@@ -13,6 +14,7 @@ interface FilterSearch {
 
 function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
   const [movie, setMovie] = useState<Result[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -61,6 +63,7 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
 
   const fetchMovie = async () => {
     try {
+      setIsLoading(true);
       const resp = await fetch(`http://localhost:3002/movies/${filterFetch}`, {
         headers: {
           Authorization:
@@ -75,6 +78,8 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -83,7 +88,9 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
+  if (isLoading) {
+    return <LoadingSpinner className="py-5" text="Loading content..." />;
+  }
 
   return (
     <Container fluid className="slider-container mt-5">

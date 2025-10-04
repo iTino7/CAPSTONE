@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import type { MovieCard, Result } from "../../Interface/Movie";
+import LoadingSpinner from "../LoadingSpinner";
 
 function Movie() {
   const [movie, setMovie] = useState<Result[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate: NavigateFunction = useNavigate();
 
@@ -14,6 +16,7 @@ function Movie() {
 
   const fetchMovie = async () => {
     try {
+      setIsLoading(true);
       const resp = await fetch("http://localhost:3002/movies/movies", {
         headers: {
           Authorization: `Bearer ${import.meta.env.API_KEY}`,
@@ -27,6 +30,8 @@ function Movie() {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -35,6 +40,10 @@ function Movie() {
   }, []);
 
   
+
+  if (isLoading) {
+    return <LoadingSpinner className="min-vh-100" text="Loading movies..." />;
+  }
 
   return (
     <>

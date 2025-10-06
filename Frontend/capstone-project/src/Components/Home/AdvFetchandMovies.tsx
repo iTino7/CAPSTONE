@@ -131,14 +131,10 @@ function AdvFetchandMovies() {
           className="bg-transparent"
         >
           <Modal.Body
-            className="rounded-3"
+            className="rounded-3 modal-background-responsive"
             style={{
               background: `linear-gradient(180deg,rgba(13, 13, 15, 0.10) 12%,rgba(255, 255, 255, 0) 56%,rgba(0, 0, 0, 100) 100%),url(https://image.tmdb.org/t/p/original${selectMovie?.backdrop_path})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
               width: "100%",
-              height: "50vh",
             }}
           ></Modal.Body>
           <Modal.Footer className="bg-black border-0 justify-content-center">

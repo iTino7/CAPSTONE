@@ -1,10 +1,10 @@
 import { Button } from "react-bootstrap";
+import type { MouseEvent } from "react";
 
 interface ButtonCustom {
   classCustom: string;
-  styleCustom: object;
+  styleCustom: React.CSSProperties;
   text?: string;
-
   navigate?: () => void;
 }
 
@@ -14,10 +14,24 @@ function CustomButton({
   text,
   navigate,
 }: ButtonCustom) {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (navigate) {
+      navigate();
+    }
+  };
+
+  // Cast Button to any to avoid TS2590 error with complex union types
+  const ButtonComponent = Button as any;
+
   return (
-    <Button onClick={navigate} className={classCustom} style={styleCustom}>
+    <ButtonComponent
+      onClick={handleClick}
+      className={classCustom}
+      style={styleCustom}
+    >
       <span className="span-mother">
-        {text.split("-").map((letter, i) => (
+        {text?.split("-").map((letter, i) => (
           <span key={i}> {letter} </span>
         ))}
       </span>
@@ -26,7 +40,7 @@ function CustomButton({
           <span key={i}> {letter} </span>
         ))}
       </span>
-    </Button>
+    </ButtonComponent>
   );
 }
 

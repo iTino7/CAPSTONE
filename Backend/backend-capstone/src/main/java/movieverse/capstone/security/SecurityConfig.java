@@ -23,7 +23,6 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.formLogin(AbstractHttpConfigurer::disable);
@@ -43,11 +42,19 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Permetti sia sviluppo locale che produzione Vercel
-        configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5173",
-                "https://capstone-git-main-itino7s-projects.vercel.app"
-        ));
+        // Leggi gli origin permessi dalle variabili d'ambiente o usa default
+        String allowedOriginsEnv = System.getenv("CORS_ALLOWED_ORIGINS");
+
+        if (allowedOriginsEnv != null && !allowedOriginsEnv.isEmpty()) {
+            // Produzione: usa variabile d'ambiente
+            configuration.setAllowedOrigins(Arrays.asList(allowedOriginsEnv.split(",")));
+        } else {
+            // Sviluppo locale: default
+            configuration.setAllowedOrigins(Arrays.asList(
+                    "http://localhost:5173",
+                    "http://localhost:3000"
+            ));
+        }
 
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
@@ -58,5 +65,4 @@ public class SecurityConfig {
 
         return source;
     }
-
 }

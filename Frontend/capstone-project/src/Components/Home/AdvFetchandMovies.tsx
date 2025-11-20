@@ -112,7 +112,7 @@ function AdvFetchandMovies() {
                 style={{
                   objectFit: "contain",
                   cursor: "pointer",
-                  zIndex: "2",
+                  zIndex: "10",
                   position: "relative",
                 }}
               />

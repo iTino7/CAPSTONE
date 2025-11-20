@@ -1,7 +1,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";

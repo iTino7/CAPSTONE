@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
+import { API_URL } from "../../config/api";
 
 import Magnet from "../Magnet";
 import SplitText from "../SplitText";
@@ -17,7 +18,7 @@ function AdvFetchandMovies() {
   const fetchCard = async () => {
     try {
       setIsLoading(true);
-      const resp = await fetch("http://localhost:3002/movies/card", {
+      const resp = await fetch(`${API_URL}/movies/card`, {
         headers: {
           Authorization: `Bearer ${import.meta.env.API_KEY}`,
         },

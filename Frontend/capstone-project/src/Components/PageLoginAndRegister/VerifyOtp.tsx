@@ -3,6 +3,7 @@ import BackgroundForm from "./BackgroundForm";
 
 import {  Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../config/api";
 
 function VerifyOtp() {
   const email = localStorage.getItem("forgotEmail") || "";
@@ -17,7 +18,7 @@ function VerifyOtp() {
 
     try {
       const resp = await fetch(
-        `http://localhost:3002/forgotPassword/verifyOtp/${otp}/${email}`,
+        `${API_URL}/forgotPassword/verifyOtp/${otp}/${email}`,
         {
           method: "POST",
           headers: {

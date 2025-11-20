@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import type { User } from "../../Interface/User";
 import { useEffect, useState } from "react";
+import { API_URL } from "../../config/api";
 
 function NavBarLogin() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function NavBarLogin() {
 
   const fetchProfile = async () => {
     try {
-      const resp = await fetch("http://localhost:3002/users/me", {
+      const resp = await fetch(`${API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

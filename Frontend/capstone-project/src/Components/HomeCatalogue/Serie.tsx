@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import LoadingSpinner from "../LoadingSpinner";
+import { API_URL } from "../../config/api";
 
 function Series() {
   const [serie, setSeries] = useState<Result[]>([]);
@@ -19,7 +20,7 @@ function Series() {
     try {
       setIsLoading(true);
       const resp = await fetch(
-        "http://localhost:3002/movies/series",
+        `${API_URL}/movies/series`,
         {
           headers: {
             Authorization:

@@ -3,6 +3,7 @@ import { Container, Form } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import BlurText from "../BlurText";
 import Silk from "../Silk";
+import { API_URL } from "../../config/api";
 
 function VerifyEmail() {
   const title: string = "...so you forgot your password? 🙄";
@@ -15,7 +16,7 @@ function VerifyEmail() {
 
     try {
       const resp = await fetch(
-        `http://localhost:3002/forgotPassword/verifyMail/${email}`,
+        `${API_URL}/forgotPassword/verifyMail/${email}`,
         {
           method: "POST",
           headers: {

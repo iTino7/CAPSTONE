@@ -3,6 +3,7 @@ import { Star, StarFill } from "react-bootstrap-icons";
 import type { Content } from "../../Interface/Watchlist";
 import { useState, useEffect, useCallback } from "react";
 import LoadingSpinner from "../LoadingSpinner";
+import { API_URL } from "../../config/api";
 interface MovieandSerieProps {
   img: string;
   description: string;
@@ -32,7 +33,7 @@ function MovieandSerieBackground({
   // Controlla se il film è già nella watchlist
   const checkIfInWatchlist = useCallback(async () => {
     try {
-      const resp = await fetch("http://localhost:3002/watchlist/watchlist", {
+      const resp = await fetch(`${API_URL}/watchlist/watchlist`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -74,7 +75,7 @@ function MovieandSerieBackground({
     try {
       if (isInWatchlist && watchlistItemId) {
         // Rimuovi dalla watchlist
-        const resp = await fetch(`http://localhost:3002/watchlist/${watchlistItemId}`, {
+        const resp = await fetch(`${API_URL}/watchlist/${watchlistItemId}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -88,7 +89,7 @@ function MovieandSerieBackground({
         }
       } else {
         // Aggiungi alla watchlist
-        const resp = await fetch("http://localhost:3002/watchlist/watchlist", {
+        const resp = await fetch(`${API_URL}/watchlist/watchlist`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

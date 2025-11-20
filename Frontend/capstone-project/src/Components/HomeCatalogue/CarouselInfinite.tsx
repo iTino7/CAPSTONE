@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
+import { API_URL } from "../../config/api";
 
 interface FilterSearch {
   filterFetch: string;
@@ -64,7 +65,7 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
   const fetchMovie = async () => {
     try {
       setIsLoading(true);
-      const resp = await fetch(`http://localhost:3002/movies/${filterFetch}`, {
+      const resp = await fetch(`${API_URL}/movies/${filterFetch}`, {
         headers: {
           Authorization:
             `Bearer ${import.meta.env.API_KEY}`,

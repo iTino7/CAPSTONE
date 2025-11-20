@@ -29,7 +29,7 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.sessionManagement(sessions -> sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authorizeHttpRequests(h -> h.requestMatchers("/**").permitAll());
-        httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+        httpSecurity.cors(Customizer.withDefaults());
         return httpSecurity.build();
     }
 
@@ -44,7 +44,10 @@ public class SecurityConfig {
 
         // Leggi gli origin permessi dalle variabili d'ambiente o usa default
         String allowedOriginsEnv = System.getenv("CORS_ALLOWED_ORIGINS");
-        
+
+        // Log per debugging (rimuovere dopo il fix)
+        System.out.println("CORS_ALLOWED_ORIGINS env variable: " + allowedOriginsEnv);
+
         // Log per debugging (rimuovere dopo il fix)
         System.out.println("CORS_ALLOWED_ORIGINS env variable: " + allowedOriginsEnv);
 

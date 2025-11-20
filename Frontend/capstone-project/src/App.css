@@ -216,12 +216,7 @@ body::-webkit-scrollbar {
     top: 100px;
     padding-bottom: 100px;
     z-index: 1;
-}
 
-@media (max-width: 768px) {
-    .customTitleAdv {
-        z-index: 0;
-    }
 }
 
 .textAdv {

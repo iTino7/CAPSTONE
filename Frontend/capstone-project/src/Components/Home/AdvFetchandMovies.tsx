@@ -52,8 +52,8 @@ function AdvFetchandMovies() {
   };
 
   return (
-    <Container fluid className="bg-black py-4">
-      <div className="d-flex flex-column align-items-center customTitleAdv">
+    <Container fluid className="bg-black py-4" style={{ position: "relative", isolation: "isolate" }}>
+      <div className="d-flex flex-column align-items-center customTitleAdv" style={{ isolation: "auto" }}>
         <Magnet padding={200} disabled={false} magnetStrength={5}>
           <h1
             className="text-center title text-white"
@@ -98,7 +98,7 @@ function AdvFetchandMovies() {
       {isLoading ? (
         <LoadingSpinner className="py-5" text="Loading featured content..." />
       ) : (
-        <Row className="textAdv d-flex justify-content-around">
+        <Row className="textAdv d-flex justify-content-around" style={{ position: "relative", zIndex: 2 }}>
           {movie.slice(0, 6).map((item) => (
           <React.Fragment key={item.id}>
             <Col key={item.id} xs={12} sm={6} md={4} lg={8}></Col>
@@ -112,7 +112,7 @@ function AdvFetchandMovies() {
                 style={{
                   objectFit: "contain",
                   cursor: "pointer",
-                  zIndex: "10",
+                  zIndex: "2",
                   position: "relative",
                 }}
               />

@@ -81,6 +81,12 @@ function FormDataUser({
           // Mostra il messaggio del backend se disponibile
           const errorMessage = errorData.message || "Server error. Please try again later.";
           console.error("Backend Error Details:", errorData);
+          console.error("Full error response:", {
+            status: resp.status,
+            statusText: resp.statusText,
+            headers: Object.fromEntries(resp.headers.entries()),
+            body: errorData
+          });
           throw new Error(errorMessage);
         } else {
           throw new Error(errorData.message || `An error occurred (${resp.status}). Please try again.`);

@@ -208,7 +208,7 @@ function ComponentSearch({
               }}
             >
               <img
-                onClick={(e) => {
+                onClick={() => {
                   if (!hasMoved) {
                     handleClick(item);
                   }

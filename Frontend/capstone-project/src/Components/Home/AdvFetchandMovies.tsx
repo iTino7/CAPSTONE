@@ -107,7 +107,7 @@ function AdvFetchandMovies() {
                 onClick={() => setSelectedMovie(item)}
                 className="rounded-3"
                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                height={500}
+                height={400}
                 alt={item.name}
                 style={{
                   objectFit: "contain",
@@ -126,7 +126,7 @@ function AdvFetchandMovies() {
       <Modal
           show={!!selectMovie}
           onHide={() => setSelectedMovie(null)}
-          size="lg"
+          size="sm"
           aria-labelledby="contained-modal-title-vcenter"
           centered
           className="bg-transparent"
@@ -143,7 +143,7 @@ function AdvFetchandMovies() {
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
-              minHeight: "350px",
+              minHeight: "300px",
               width: "100%",
               position: "relative",
             }}

@@ -5,7 +5,7 @@ function PageLogin() {
   return (
     <BackgroundForm subTitle="Sign in">
       <FormDataUser
-        fetchNavigate="login"
+        fetchNavigate="signin"
         nameForm={false}
         navigateCustom="/catalogue"
       />

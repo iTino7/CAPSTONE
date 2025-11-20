@@ -28,28 +28,68 @@ function FormDataUser({
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const url = `${API_URL}/auth/${fetchNavigate}`;
+    const requestBody = JSON.stringify(body);
+    
+    // Debug logging
+    console.log("=== LOGIN REQUEST DEBUG ===");
+    console.log("URL:", url);
+    console.log("Method: POST");
+    console.log("Body:", body);
+    console.log("Stringified Body:", requestBody);
+    console.log("API_URL:", API_URL);
+    console.log("fetchNavigate:", fetchNavigate);
+
     try {
-      const resp = await fetch(`${API_URL}/auth/${fetchNavigate}`, {
+      const resp = await fetch(url, {
         method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+        body: requestBody,
       });
+      
+      console.log("Response Status:", resp.status);
+      console.log("Response Headers:", Object.fromEntries(resp.headers.entries()));
+      
       if (resp.ok) {
         const data = await resp.json();
+        console.log("Response Data:", data);
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("token", data.accessToken);
-        console.log(localStorage.setItem("userId", data.id));
+        if (data.id) {
+          localStorage.setItem("userId", data.id.toString());
+        }
 
         navigate(`${navigateCustom}`);
-      } else if (resp.status === 400) {
-        throw new Error("Ops! email address is already in use!");
-      } else if (resp.status === 404) {
-        throw new Error("Ops! wrong credentials!");
+      } else {
+        let errorData;
+        try {
+          const text = await resp.text();
+          console.log("Error Response Text:", text);
+          errorData = text ? JSON.parse(text) : { message: "Unknown error" };
+        } catch (parseError) {
+          console.log("Failed to parse error response:", parseError);
+          errorData = { message: "Unknown error" };
+        }
+        
+        console.log("Error Data:", errorData);
+        
+        if (resp.status === 400) {
+          throw new Error(errorData.message || "Ops! email address is already in use!");
+        } else if (resp.status === 404) {
+          throw new Error(errorData.message || "Ops! wrong credentials!");
+        } else if (resp.status === 500) {
+          throw new Error(errorData.message || "Server error. Please try again later.");
+        } else {
+          throw new Error(errorData.message || `An error occurred (${resp.status}). Please try again.`);
+        }
       }
     } catch (error) {
-      console.log(error);
-      setError((error as Error).message);
-      console.log(error);
+      console.error("Request Error:", error);
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        setError("Network error. Please check your connection.");
+      } else {
+        setError((error as Error).message);
+      }
     }
   };
 

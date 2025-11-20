@@ -28,8 +28,8 @@ public class StripeService {
 
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
-                .setSuccessUrl("http://localhost:5173/")
-                .setCancelUrl("http://localhost:5173/")
+                .setSuccessUrl("https://capstone-six-azure.vercel.app/")
+                .setCancelUrl("https://capstone-six-azure.vercel.app/")
                 .setSubscriptionData(SessionCreateParams.SubscriptionData.builder()
                         .setTrialPeriodDays(7L).build())
                 .addLineItem(lineItem)

@@ -115,25 +115,40 @@ function MovieandSerieBackground({
   };
 
   return (
-    <Container
-      fluid
-      className="no-padding-container relative"
-      style={{
-        background: `
-      linear-gradient(180deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%),
-      linear-gradient(0deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%),
-      url(https://image.tmdb.org/t/p/original${img})
-    `,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        height: "100vh",
-        width: "100%",
-        position: "absolute",
-        top: 0,
-        left: 0,
-      }}
-    >
+    <>
+      <style>
+        {`
+          .movie-background-container {
+            background: linear-gradient(180deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%),
+                         linear-gradient(0deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%),
+                         url(https://image.tmdb.org/t/p/original${img});
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+          
+          @media (max-width: 767px) {
+            .movie-background-container {
+              background: linear-gradient(180deg, rgba(13, 13, 15, 0.4) 0%, rgba(13, 13, 15, 0.6) 40%, rgba(0, 0, 0, 0.95) 100%),
+                           url(https://image.tmdb.org/t/p/w780${poster || img});
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: center top;
+            }
+          }
+        `}
+      </style>
+      <Container
+        fluid
+        className="no-padding-container relative movie-background-container"
+        style={{
+          height: "100vh",
+          width: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
+      >
       {/* Loading Overlay */}
       {isImageLoading && (
         <div
@@ -155,27 +170,46 @@ function MovieandSerieBackground({
       )}
       <Row className="p-0 m-0">
         <Col className="p-0 m-0">
-          <h4
-            className="text-white fw-light mb-0 w-50 mb-5 ms-4"
-            style={{ position: "absolute", bottom: 20, left: 0, right: 0 }}
+          <div
+            className="text-white fw-light movie-description-scroll"
+            style={{ 
+              position: "absolute", 
+              bottom: 0, 
+              left: 0, 
+              right: 0,
+              padding: "20px",
+              background: "linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0) 100%)",
+              maxHeight: "50vh",
+              overflowY: "auto"
+            }}
           >
-            {description}
-            <button className="btn border-0">
-              {isInWatchlist ? (
-                <StarFill
-                  onClick={toggleWatchlist}
-                  className="mb-1"
-                  style={{ color: "#ffd250" }}
-                />
-              ) : (
-                <Star
-                  onClick={toggleWatchlist}
-                  className="mb-1"
-                  style={{ color: "#ffd250" }}
-                />
-              )}
-            </button>
-          </h4>
+            <div className="mb-2">
+              <h4 
+              className="text-white fw-light mb-0 text-center"
+              style={{
+                fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)",
+                lineHeight: "1.5",
+                width: "100%",
+                display: "inline-block"
+              }}
+            >
+              {description}
+              <button className="btn border-0 p-0 ms-2" style={{ verticalAlign: "middle", display: "inline-block" }}>
+                {isInWatchlist ? (
+                  <StarFill
+                    onClick={toggleWatchlist}
+                    style={{ color: "#ffd250", fontSize: "1rem", marginBottom: "0.25rem" }}
+                  />
+                ) : (
+                  <Star
+                    onClick={toggleWatchlist}
+                    style={{ color: "#ffd250", fontSize: "1rem", marginBottom: "0.25rem" }}
+                  />
+                )}
+              </button>
+            </h4>
+            </div>
+          </div>
         </Col>
         <Toast
           style={{ position: "absolute", bottom: "40px", right: "40px" }}
@@ -191,6 +225,7 @@ function MovieandSerieBackground({
         </Toast>
       </Row>
     </Container>
+    </>
   );
 }
 

@@ -161,15 +161,32 @@ function AdvFetchandMovies() {
             />
           </Modal.Body>
           <Modal.Footer 
-            className="bg-black border-0 justify-content-center flex-column"
-            style={{ position: "relative", zIndex: 2 }}
+            className="border-0 justify-content-center flex-column p-0"
+            style={{ 
+              position: "relative", 
+              zIndex: 2,
+              background: "linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0) 100%)",
+              paddingTop: "20px",
+              paddingBottom: "20px"
+            }}
           >
-            <div className="title text-center mb-3 text-white">
-              <h1>{selectMovie?.name || selectMovie?.title}</h1>
+            <div className="title text-center mb-3 text-white px-3">
+              <h1 style={{ fontSize: "clamp(1.2rem, 4vw, 1.8rem)" }}>
+                {selectMovie?.name || selectMovie?.title}
+              </h1>
             </div>
-            <h4 className="text-white text-center fs-5 mb-3">
+            <div 
+              className="text-white text-center px-3 movie-description-scroll"
+              style={{ 
+                fontSize: "clamp(0.85rem, 2.5vw, 1rem)",
+                lineHeight: "1.6",
+                maxHeight: "40vh",
+                overflowY: "auto",
+                paddingBottom: "10px"
+              }}
+            >
               {selectMovie?.overview}
-            </h4>
+            </div>
           </Modal.Footer>
         </Modal>
     </Container>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9e2a2b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c92a2b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#grad1)" stroke="#fff" stroke-width="2"/>
+  
+  <!-- Movie camera design -->
+  <!-- Camera body -->
+  <rect x="30" y="40" width="40" height="25" fill="none" stroke="#fff" stroke-width="2.5" rx="3"/>
+  
+  <!-- Camera lens -->
+  <circle cx="50" cy="52.5" r="8" fill="none" stroke="#fff" stroke-width="2.5"/>
+  <circle cx="50" cy="52.5" r="5" fill="#fff" opacity="0.2"/>
+  
+  <!-- Viewfinder -->
+  <rect x="35" y="42" width="8" height="6" fill="none" stroke="#fff" stroke-width="1.5"/>
+  
+  <!-- Film reel on the side -->
+  <circle cx="65" cy="45" r="4" fill="none" stroke="#fff" stroke-width="2"/>
+  <circle cx="65" cy="45" r="2" fill="#fff"/>
+  
+  <!-- Light rays effect -->
+  <path d="M 50 30 L 45 40 L 50 38 L 55 40 Z" fill="#fff" opacity="0.8"/>
+  <path d="M 50 30 L 48 35 L 50 33 L 52 35 Z" fill="#fff" opacity="0.6"/>
+</svg>

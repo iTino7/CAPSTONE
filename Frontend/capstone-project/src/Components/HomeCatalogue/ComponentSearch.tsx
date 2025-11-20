@@ -3,6 +3,7 @@ import { Col } from "react-bootstrap";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../config/api";
 
 interface SearchProps {
   title?: string;
@@ -64,7 +65,7 @@ function ComponentSearch({
     if (!fetchCategory) return;
     try {
       const resp = await fetch(
-        `http://localhost:3002/movies/${fetchCategory}`,
+        `${API_URL}/movies/${fetchCategory}`,
         {
           headers: {
             Authorization: `Bearer ${import.meta.env.API_KEY}`

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../../config/api";
 
 interface CustomFetch {
   nameForm?: boolean;
@@ -28,7 +29,7 @@ function FormDataUser({
     e.preventDefault();
 
     try {
-      const resp = await fetch(`http://localhost:3002/auth/${fetchNavigate}`, {
+      const resp = await fetch(`${API_URL}/auth/${fetchNavigate}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(body),

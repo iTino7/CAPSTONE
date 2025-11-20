@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Col, Container, Form, FormGroup, Modal, Row, Toast } from "react-bootstrap";
 import type { Profile } from "../../Interface/Profile";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
+import { API_URL } from "../../config/api";
 
 function EditProfile() {
   const [profile, setProfile] = useState<Profile>();
@@ -86,7 +87,7 @@ function EditProfile() {
 
   const fetchProfile = async () => {
     try {
-      const resp = await fetch(`http://localhost:3002/users/me`, {
+      const resp = await fetch(`${API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -111,7 +112,7 @@ function EditProfile() {
 
     try {
       const update: Partial<Profile> = { name, username };
-      const resp = await fetch(`http://localhost:3002/users/me`, {
+      const resp = await fetch(`${API_URL}/users/me`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -136,7 +137,7 @@ function EditProfile() {
     try {
       // Prima aggiorna i dati del profilo
       const update: Partial<Profile> = { name, username };
-      const profileResp = await fetch(`http://localhost:3002/users/me`, {
+      const profileResp = await fetch(`${API_URL}/users/me`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -158,7 +159,7 @@ function EditProfile() {
         formData.append("file", file);
 
         const imageResp = await fetch(
-          `http://localhost:3002/users/image/${profile.id}`,
+          `${API_URL}/users/image/${profile.id}`,
           {
             method: "POST",
             headers: {
@@ -214,7 +215,7 @@ function EditProfile() {
 
   const fetchDelete = async () => {
     try {
-      const resp = await fetch(`http://localhost:3002/users/${profile?.id}`, {
+      const resp = await fetch(`${API_URL}/users/${profile?.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

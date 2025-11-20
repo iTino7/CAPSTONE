@@ -14,7 +14,7 @@ function CustomAdv() {
       <Row>
         <Col className="d-flex flex-column align-items-center block">
           <div className="w-100 d-flex justify-content-center align-items-center scrollText mb-4">
-            <h1 className="text-white pt-5 mt-2 title w-50 text-center">
+            <h1 className="text-white pt-5 mt-2 title w-75 text-center" style={{ maxWidth: "100%" }}>
               <BlurText
                 text="Stories and series, anytime, anywhere."
                 delay={150}

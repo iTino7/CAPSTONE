@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
+import { API_URL } from "../../config/api";
 
 import Magnet from "../Magnet";
 import SplitText from "../SplitText";
@@ -17,7 +18,7 @@ function AdvFetchandMovies() {
   const fetchCard = async () => {
     try {
       setIsLoading(true);
-      const resp = await fetch("http://localhost:3002/movies/card", {
+      const resp = await fetch(`${API_URL}/movies/card`, {
         headers: {
           Authorization: `Bearer ${import.meta.env.API_KEY}`,
         },
@@ -51,8 +52,8 @@ function AdvFetchandMovies() {
   };
 
   return (
-    <Container fluid className="bg-black py-4">
-      <div className="d-flex flex-column align-items-center customTitleAdv">
+    <Container fluid className="bg-black py-4" style={{ position: "relative", isolation: "isolate" }}>
+      <div className="d-flex flex-column align-items-center customTitleAdv" style={{ isolation: "auto" }}>
         <Magnet padding={200} disabled={false} magnetStrength={5}>
           <h1
             className="text-center title text-white"
@@ -97,7 +98,7 @@ function AdvFetchandMovies() {
       {isLoading ? (
         <LoadingSpinner className="py-5" text="Loading featured content..." />
       ) : (
-        <Row className="textAdv d-flex justify-content-around">
+        <Row className="textAdv d-flex justify-content-around" style={{ position: "relative", zIndex: 2 }}>
           {movie.slice(0, 6).map((item) => (
           <React.Fragment key={item.id}>
             <Col key={item.id} xs={12} sm={6} md={4} lg={8}></Col>
@@ -106,7 +107,7 @@ function AdvFetchandMovies() {
                 onClick={() => setSelectedMovie(item)}
                 className="rounded-3"
                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                height={500}
+                height={400}
                 alt={item.name}
                 style={{
                   objectFit: "contain",
@@ -125,23 +126,48 @@ function AdvFetchandMovies() {
       <Modal
           show={!!selectMovie}
           onHide={() => setSelectedMovie(null)}
-          size="lg"
+          size="sm"
           aria-labelledby="contained-modal-title-vcenter"
           centered
           className="bg-transparent"
+          style={{ zIndex: 9999 }}
         >
           <Modal.Body
-            className="rounded-3 modal-background-responsive"
+            className="rounded-3 modal-background-responsive p-0"
             style={{
-              background: `linear-gradient(180deg,rgba(13, 13, 15, 0.10) 12%,rgba(255, 255, 255, 0) 56%,rgba(0, 0, 0, 100) 100%),url(https://image.tmdb.org/t/p/original${selectMovie?.backdrop_path})`,
+              background: selectMovie?.backdrop_path 
+                ? `linear-gradient(180deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%), url(https://image.tmdb.org/t/p/original${selectMovie.backdrop_path})`
+                : selectMovie?.poster_path
+                ? `linear-gradient(180deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%), url(https://image.tmdb.org/t/p/original${selectMovie.poster_path})`
+                : 'linear-gradient(180deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%)',
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              minHeight: "300px",
               width: "100%",
+              position: "relative",
             }}
-          ></Modal.Body>
-          <Modal.Footer className="bg-black border-0 justify-content-center">
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                background: `linear-gradient(180deg, rgba(13, 13, 15, 0.1) 12%, rgba(255, 255, 255, 0) 56%, rgba(0, 0, 0, 1) 100%)`,
+                zIndex: 1,
+              }}
+            />
+          </Modal.Body>
+          <Modal.Footer 
+            className="bg-black border-0 justify-content-center flex-column"
+            style={{ position: "relative", zIndex: 2 }}
+          >
             <div className="title text-center mb-3 text-white">
               <h1>{selectMovie?.name || selectMovie?.title}</h1>
             </div>
-            <h4 className=" text-white text-center fs-5 mb-3">
+            <h4 className="text-white text-center fs-5 mb-3">
               {selectMovie?.overview}
             </h4>
           </Modal.Footer>

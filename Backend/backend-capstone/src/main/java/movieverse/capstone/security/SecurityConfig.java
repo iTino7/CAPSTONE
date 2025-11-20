@@ -2,6 +2,7 @@ package movieverse.capstone.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,7 +29,7 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.sessionManagement(sessions -> sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authorizeHttpRequests(h -> h.requestMatchers("/**").permitAll());
-        httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+        httpSecurity.cors(Customizer.withDefaults());
         return httpSecurity.build();
     }
 
@@ -47,16 +48,20 @@ public class SecurityConfig {
         // Log per debugging (rimuovere dopo il fix)
         System.out.println("CORS_ALLOWED_ORIGINS env variable: " + allowedOriginsEnv);
 
+        // Log per debugging (rimuovere dopo il fix)
+        System.out.println("CORS_ALLOWED_ORIGINS env variable: " + allowedOriginsEnv);
+
         if (allowedOriginsEnv != null && !allowedOriginsEnv.isEmpty()) {
             // Produzione: usa variabile d'ambiente
             List<String> origins = Arrays.asList(allowedOriginsEnv.split(","));
             System.out.println("CORS allowed origins: " + origins);
             configuration.setAllowedOrigins(origins);
         } else {
-            // Sviluppo locale: default
+            // Sviluppo locale: default (include anche produzione temporaneamente)
             List<String> defaultOrigins = Arrays.asList(
                     "http://localhost:5173",
-                    "http://localhost:3000"
+                    "http://localhost:3000",
+                    "https://capstone-six-azure.vercel.app"
             );
             System.out.println("CORS using default origins: " + defaultOrigins);
             configuration.setAllowedOrigins(defaultOrigins);

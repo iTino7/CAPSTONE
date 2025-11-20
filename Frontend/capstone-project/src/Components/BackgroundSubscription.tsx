@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Plans } from "../Interface/PlansInterface";
 import { useNavigate } from "react-router-dom";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { API_URL } from "../config/api";
 
 interface BackgroundSubscriptionProps {
   textColorCustom: string;
@@ -17,7 +18,7 @@ function BackgroundSubscription({
   const fetchPlans = async () => {
     try {
       const resp = await fetch(
-        "http://localhost:3002/subscription/v1/stripe/plans",
+        `${API_URL}/subscription/v1/stripe/plans`,
         {}
       );
       if (resp.ok) {
@@ -41,7 +42,7 @@ function BackgroundSubscription({
 
     try {
       const resp = await fetch(
-        "http://localhost:3002/subscription/v1/checkout",
+        `${API_URL}/subscription/v1/checkout`,
         {
           method: "POST",
           headers: {

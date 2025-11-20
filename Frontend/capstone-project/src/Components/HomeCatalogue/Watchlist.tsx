@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import type { Content, Wishlist } from "../../Interface/Watchlist";
 import { XCircleFill } from "react-bootstrap-icons";
 import FallingText from "../FallingTextProps";
+import { API_URL } from "../../config/api";
 
 function Watchlist() {
   const [watchlist, setWatchlist] = useState<Content[]>([]);
@@ -12,7 +13,7 @@ function Watchlist() {
 
   const fetchWishlist = async () => {
     try {
-      const resp = await fetch("http://localhost:3002/watchlist/watchlist", {
+      const resp = await fetch(`${API_URL}/watchlist/watchlist`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -32,7 +33,7 @@ function Watchlist() {
 
   const deleteFilmWishlist = async (id: number) => {
     try {
-      const resp = await fetch(`http://localhost:3002/watchlist/${id}`, {
+      const resp = await fetch(`${API_URL}/watchlist/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -28,17 +28,23 @@ function PhrasesHome() {
 
   return (
     <>
-      <Container className="d-flex justify-content-center align-items-center h-100 w-100">
+      <Container className="d-flex justify-content-center align-items-center h-100 w-100" style={{ overflowX: "hidden" }}>
         <div
-          className="mx-2 d-md-flex mx-md-0 align-items-center justify-content-center w-100 "
-          style={{ bottom: "150px" }}
+          className="mx-2 d-flex flex-column align-items-center justify-content-center w-100"
+          style={{ bottom: "150px", maxWidth: "100%" }}
         >
           <h1
-            className="text-white m-0"
+            className="text-white m-0 text-center"
             style={{
-              maxWidth: "450px",
-              fontSize: "75px",
+              maxWidth: "100%",
+              fontSize: "clamp(28px, 8vw, 75px)",
               fontFamily: " DM Sans, sans-serif",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
             }}
           >
             <BlurText
@@ -50,12 +56,15 @@ function PhrasesHome() {
               className="text-2xl mb-8"
             />
           </h1>
-          <div className="ms-auto  d-flex flex-column justify-content-end align-items-start">
+          <div className="d-flex flex-column justify-content-center align-items-center mt-3">
             <p
-              className="text-white fw-bold fs-3"
+              className="text-white fw-bold text-center"
               style={{
                 fontFamily: " DM Sans, sans-serif",
-                maxWidth: "250px",
+                maxWidth: "100%",
+                fontSize: "clamp(16px, 4vw, 24px)",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
               }}
             >
               <BlurText

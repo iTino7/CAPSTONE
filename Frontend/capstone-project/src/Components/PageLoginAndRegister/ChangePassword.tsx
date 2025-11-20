@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BackgroundForm from "./BackgroundForm";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../config/api";
 
 function ChangePassword() {
   const title: string = "Repeat password";
@@ -23,7 +24,7 @@ function ChangePassword() {
 
     try {
       const resp = await fetch(
-        `http://localhost:3002/forgotPassword/changePassword/${email}`,
+        `${API_URL}/forgotPassword/changePassword/${email}`,
         {
           method: "POST",
           headers: {

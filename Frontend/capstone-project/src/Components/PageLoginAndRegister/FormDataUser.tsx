@@ -78,7 +78,10 @@ function FormDataUser({
         } else if (resp.status === 404) {
           throw new Error(errorData.message || "Ops! wrong credentials!");
         } else if (resp.status === 500) {
-          throw new Error(errorData.message || "Server error. Please try again later.");
+          // Mostra il messaggio del backend se disponibile
+          const errorMessage = errorData.message || "Server error. Please try again later.";
+          console.error("Backend Error Details:", errorData);
+          throw new Error(errorMessage);
         } else {
           throw new Error(errorData.message || `An error occurred (${resp.status}). Please try again.`);
         }

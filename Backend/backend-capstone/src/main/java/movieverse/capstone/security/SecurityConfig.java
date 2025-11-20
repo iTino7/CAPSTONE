@@ -54,10 +54,11 @@ public class SecurityConfig {
             System.out.println("CORS allowed origins: " + origins);
             configuration.setAllowedOrigins(origins);
         } else {
-            // Sviluppo locale: default
+            // Sviluppo locale: default (include anche produzione temporaneamente)
             List<String> defaultOrigins = Arrays.asList(
                     "http://localhost:5173",
-                    "http://localhost:3000"
+                    "http://localhost:3000",
+                    "https://capstone-six-azure.vercel.app"
             );
             System.out.println("CORS using default origins: " + defaultOrigins);
             configuration.setAllowedOrigins(defaultOrigins);

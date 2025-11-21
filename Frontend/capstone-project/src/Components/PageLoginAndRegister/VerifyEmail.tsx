@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form } from "react-bootstrap";
+import { Container, Form, Spinner } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import BlurText from "../BlurText";
 import Silk from "../Silk";
@@ -9,34 +9,69 @@ function VerifyEmail() {
   const title: string = "...so you forgot your password? 🙄";
   const [email, setEmail] = useState("");
   const [mess, setMess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const otpFetch = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const sendOtp = async () => {
+    if (!email || !email.trim()) {
+      setMess("Please enter a valid email address");
+      return;
+    }
 
+    setMess(""); // Clear previous messages
+    setIsLoading(true);
+    
     try {
+      const encodedEmail = encodeURIComponent(email.trim());
+      console.log("Sending OTP request for email:", email);
+      
       const resp = await fetch(
-        `${API_URL}/forgotPassword/verifyMail/${email}`,
+        `${API_URL}/forgotPassword/verifyMail/${encodedEmail}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ email: email.trim() }),
         }
       );
+      
+      console.log("Response status:", resp.status);
+      
       if (resp.ok) {
+        const data = await resp.json().catch(() => null);
+        console.log("OTP sent successfully:", data);
         setMess("OTP inviato!");
-        localStorage.setItem("forgotEmail", email);
-
+        localStorage.setItem("forgotEmail", email.trim());
         navigate(`/forgotPassword/verifyOtp`);
       } else {
-        setMess("Could not send OTP, please type an email valid ");
+        let errorMessage = "Could not send OTP. Please try again later.";
+        try {
+          const errorData = await resp.json();
+          console.error("Error response:", errorData);
+          // Mostra il messaggio di errore dal backend se disponibile
+          if (errorData.message) {
+            errorMessage = errorData.message;
+          }
+        } catch (parseError) {
+          console.error("Could not parse error response:", parseError);
+          if (resp.status === 500) {
+            errorMessage = "Server error. Please contact support or try again later.";
+          }
+        }
+        setMess(errorMessage);
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      setMess("error");
+      console.error("Error sending OTP:", error);
+      setMess("Network error. Please check your connection and try again.");
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const otpFetch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    sendOtp();
   };
 
   return (
@@ -59,7 +94,7 @@ function VerifyEmail() {
       </div>
       <Container fluid className="form-container" style={{ zIndex: "2" }}>
         <NavLink to={"/"} className="btn">
-          <h2>MovieVerse</h2>
+          <h2 className="movieverse-title">MovieVerse</h2>
         </NavLink>
         <div className="logo-container">
           <BlurText
@@ -84,9 +119,23 @@ function VerifyEmail() {
 
             <button
               type="submit"
-              className="d-flex justify-content-center w-100 bg-dark border-0 form-submit-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                sendOtp();
+              }}
+              disabled={isLoading}
+              className="d-flex justify-content-center align-items-center w-100 bg-dark border-0 form-submit-btn"
+              style={{ gap: "8px" }}
             >
-              Send
+              {isLoading && (
+                <Spinner
+                  animation="border"
+                  size="sm"
+                  variant="light"
+                  style={{ width: "16px", height: "16px" }}
+                />
+              )}
+              {isLoading ? "Sending..." : "Send"}
             </button>
             <p className="text-danger text-center">{mess}</p>
           </Form.Group>

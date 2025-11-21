@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Col, Container, Form, FormGroup, Modal, Row, Toast } from "react-bootstrap";
+import { Col, Container, Form, FormGroup, Modal, Row, Spinner, Toast } from "react-bootstrap";
 import type { Profile } from "../../Interface/Profile";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { API_URL } from "../../config/api";
@@ -14,6 +14,7 @@ function EditProfile() {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const handleClose = () => setShow(false);
@@ -201,6 +202,7 @@ function EditProfile() {
   }, [showBorder, handleClickOutside]);
 
   const fetchDelete = async () => {
+    setIsDeleting(true);
     try {
       const resp = await fetch(`${API_URL}/users/${profile?.id}`, {
         method: "DELETE",
@@ -215,6 +217,9 @@ function EditProfile() {
       }
     } catch (error) {
       console.log(error);
+      alert("Error deleting account. Please try again.");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -289,10 +294,18 @@ function EditProfile() {
                 Delete account
               </button>
               <button 
-                className="btn btn-primary ms-auto" 
+                className="btn btn-primary ms-auto d-flex align-items-center justify-content-center gap-2" 
                 onClick={handleSaveAll}
                 disabled={isSaving}
               >
+                {isSaving && (
+                  <Spinner
+                    animation="border"
+                    size="sm"
+                    variant="light"
+                    style={{ width: "16px", height: "16px" }}
+                  />
+                )}
                 {isSaving ? "Saving..." : "Save Changes"}
               </button>
             </div>
@@ -350,8 +363,20 @@ function EditProfile() {
           <button className="btn btn-secondary" onClick={handleClose}>
             Close
           </button>
-          <button className="btn btn-danger" onClick={fetchDelete}>
-            Delete account
+          <button 
+            className="btn btn-danger d-flex align-items-center justify-content-center gap-2" 
+            onClick={fetchDelete}
+            disabled={isDeleting}
+          >
+            {isDeleting && (
+              <Spinner
+                animation="border"
+                size="sm"
+                variant="light"
+                style={{ width: "16px", height: "16px" }}
+              />
+            )}
+            {isDeleting ? "Deleting..." : "Delete account"}
           </button>
         </Modal.Footer>
       </Modal>

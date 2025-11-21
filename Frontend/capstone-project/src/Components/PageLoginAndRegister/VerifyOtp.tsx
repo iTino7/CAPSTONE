@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BackgroundForm from "./BackgroundForm";
 
-import {  Form } from "react-bootstrap";
+import {  Form, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../config/api";
 
@@ -11,10 +11,13 @@ function VerifyOtp() {
   const title: string = "Verify OTP";
   const [otp, setOtp] = useState<number>(0);
   const [mess, setMess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const verifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    setMess("");
 
     try {
       const resp = await fetch(
@@ -36,6 +39,9 @@ function VerifyOtp() {
       }
     } catch (error) {
       console.log(error);
+      setMess("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -55,8 +61,21 @@ function VerifyOtp() {
           placeholder="Enter OTP"
           required
         />
-        <button type="submit" className="px-5 btn" style={{ backgroundColor: "#9e2a2b", color: "white" }}>
-          Send
+        <button 
+          type="submit" 
+          className="px-5 btn d-flex align-items-center justify-content-center gap-2" 
+          style={{ backgroundColor: "#9e2a2b", color: "white" }}
+          disabled={isLoading}
+        >
+          {isLoading && (
+            <Spinner
+              animation="border"
+              size="sm"
+              variant="light"
+              style={{ width: "16px", height: "16px" }}
+            />
+          )}
+          {isLoading ? "Verifying..." : "Send"}
         </button>
         <p className="my-2 text-danger">{mess}</p>
       </Form>

@@ -33,6 +33,7 @@ function BackgroundSubscription({
   const quantity: number = 1;
 
   const userId = localStorage.getItem("userId");
+  const [loadingButtonId, setLoadingButtonId] = useState<string | null>(null);
 
   const fetchStripe = async (priceId: string, plan: string) => {
     if (userId === "undefined" || userId === null) {
@@ -40,6 +41,7 @@ function BackgroundSubscription({
       return;
     }
 
+    setLoadingButtonId(priceId);
     try {
       const resp = await fetch(
         `${API_URL}/subscription/v1/checkout`,
@@ -68,6 +70,8 @@ function BackgroundSubscription({
       }
     } catch (error) {
       console.log(error);
+      alert("Error processing payment. Please try again.");
+      setLoadingButtonId(null);
     }
   };
 
@@ -166,10 +170,19 @@ function BackgroundSubscription({
                     );
                     console.log(item.name.toUpperCase().replace(/ /g, "_"));
                   }}
-                  className="btn text-white my-3"
+                  className="btn text-white my-3 d-flex align-items-center justify-content-center gap-2"
                   style={{ backgroundColor: "#e50914" }}
+                  disabled={loadingButtonId === item.prices[0].priceId}
                 >
-                  Next
+                  {loadingButtonId === item.prices[0].priceId && (
+                    <Spinner
+                      animation="border"
+                      size="sm"
+                      variant="light"
+                      style={{ width: "16px", height: "16px" }}
+                    />
+                  )}
+                  {loadingButtonId === item.prices[0].priceId ? "Processing..." : "Next"}
                 </button>
               </Col>
             ))

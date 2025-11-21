@@ -256,6 +256,20 @@ body::-webkit-scrollbar {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.99) 0%, rgba(10, 0, 0, 0.99) 100%);
 }
 
+
+@media (max-width: 991px) {
+    .movie-background-container {
+        position: relative !important;
+        top: auto !important;
+        min-height: 100vh !important;
+        height: 100vh !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 1 !important;
+    }
+}
+
 .modal-dialog-centered {
     max-height: 90vh;
     display: flex;

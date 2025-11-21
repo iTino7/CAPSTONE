@@ -62,13 +62,29 @@ function NavBarLogin() {
     fetchProfile();
   }, []);
 
+  
+  useEffect(() => {
+    const navbarCollapse = document.getElementById("navbarScroll");
+    const navbarToggle = document.querySelector('[aria-controls="navbarScroll"]') as HTMLElement;
+    
+    if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+      
+      navbarCollapse.classList.remove("show");
+      
+      if (navbarToggle) {
+        navbarToggle.setAttribute("aria-expanded", "false");
+        navbarToggle.classList.add("collapsed");
+      }
+    }
+  }, [location.pathname]);
+
   console.log(user);
 
   return (
     <>
-      <Container fluid style={{ backgroundColor: "#121212" }}>
-        <Navbar expand="lg" style={{ zIndex: 2 }}>
-          <Container fluid>
+      <Container fluid style={{ backgroundColor: "#121212", paddingLeft: 0, paddingRight: 0 }}>
+        <Navbar expand="lg" style={{ zIndex: 2, paddingLeft: "1rem", paddingRight: "1rem" }}>
+          <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
             <Navbar.Brand>
               <Link to={"/"} style={{ textDecoration: "none" }}>
                 <h1 className="mb-0 text-white">MovieVerse</h1>
@@ -125,7 +141,7 @@ function NavBarLogin() {
                 {user?.name}
               </button> */}
               <Dropdown className="me-3">
-                <Dropdown.Toggle className="d-flex justify-content-md-center align-items-center bg-transparent border-0">
+                <Dropdown.Toggle className="d-flex justify-content-md-center align-items-center bg-transparent border-0" style={{ paddingLeft: 0 }}>
                   <p className="d-none d-md-block text-white mb-0">
                     {user?.name}
                   </p>
@@ -135,8 +151,8 @@ function NavBarLogin() {
                       alt=""
                       width={45}
                       height={45}
-                      style={{ objectFit: "cover" }}
-                      className="rounded-circle ms-0 ms-md-3"
+                      style={{ objectFit: "cover", marginLeft: 0, paddingLeft: 0 }}
+                      className="rounded-circle"
                     />
                   ) : (
                     <></>

@@ -1,11 +1,8 @@
 import { Col, Container, Modal, Row } from "react-bootstrap";
-import CustomButton from "../CustomButton";
 import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
-import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
 import { API_URL } from "../../config/api";
-
 import Magnet from "../Magnet";
 import SplitText from "../SplitText";
 
@@ -54,17 +51,6 @@ function AdvFetchandMovies() {
     };
   }, []);
 
-  const navigate = useNavigate();
-
-  const handleClick = (page: string, pageNavigate: string) => {
-    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
-    if (isLoggedIn) {
-      navigate(page);
-    } else {
-      navigate(pageNavigate);
-    }
-  };
-
   return (
     <Container fluid className="bg-black py-4" style={{ position: "relative", isolation: "isolate" }}>
       <div className="d-flex flex-column align-items-center customTitleAdv" style={{ isolation: "auto" }}>
@@ -90,20 +76,6 @@ function AdvFetchandMovies() {
               onLetterAnimationComplete={undefined}
             />
           </h1>
-          <CustomButton
-            navigate={() => handleClick("/catalogue", "/auth/signin")}
-            text="Sign in"
-            classCustom="btn btn-button fancy-btn d-md-flex"
-            styleCustom={{
-              color: "white",
-              fontFamily: " DM Sans, sans-serif",
-              backgroundColor: "#9e2a2b",
-              fontSize: "28px",
-              marginRight: "10px",
-              borderRadius: "8px",
-              padding: ".2rem .7rem",
-            }}
-          />
         </Magnet>
       </div>
 

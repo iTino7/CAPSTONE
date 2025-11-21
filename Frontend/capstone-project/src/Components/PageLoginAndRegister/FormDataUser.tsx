@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../../config/api";
 
@@ -19,14 +19,17 @@ function FormDataUser({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
-  const body = nameForm
-    ? { username, name, email, password }
-    : { email, password };
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    const body = nameForm
+      ? { username, name, email, password }
+      : { email, password };
 
     const url = `${API_URL}/auth/${fetchNavigate}`;
     const requestBody = JSON.stringify(body);
@@ -99,6 +102,8 @@ function FormDataUser({
       } else {
         setError((error as Error).message);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -198,10 +203,12 @@ function FormDataUser({
                 backgroundColor: "#9e2a2b",
                 fontFamily: " DM Sans, sans-serif",
               }}
-              className=" btn border-0 text-white"
+              className=" btn border-0 text-white d-flex align-items-center justify-content-center gap-2"
               type="submit"
+              disabled={isLoading}
             >
-              Send
+              {isLoading && <Spinner animation="border" size="sm" variant="light" />}
+              {isLoading ? "Loading..." : "Send"}
             </button>
           </Col>
         </Row>

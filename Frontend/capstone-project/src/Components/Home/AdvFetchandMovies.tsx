@@ -14,6 +14,7 @@ function AdvFetchandMovies() {
   const [error, setError] = useState<null | string>(null);
   const [selectMovie, setSelectedMovie] = useState<Result | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const fetchCard = async () => {
     try {
@@ -38,6 +39,19 @@ function AdvFetchandMovies() {
 
   useEffect(() => {
     fetchCard();
+  }, []);
+
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768); // 768px è il breakpoint md di Bootstrap
+    };
+
+    checkIsDesktop();
+    window.addEventListener('resize', checkIsDesktop);
+
+    return () => {
+      window.removeEventListener('resize', checkIsDesktop);
+    };
   }, []);
 
   const navigate = useNavigate();
@@ -126,10 +140,11 @@ function AdvFetchandMovies() {
       <Modal
           show={!!selectMovie}
           onHide={() => setSelectedMovie(null)}
-          size="sm"
+          size={isDesktop ? "lg" : "sm"}
           aria-labelledby="contained-modal-title-vcenter"
           centered
           className="bg-transparent"
+          dialogClassName="modal-dialog-centered"
           style={{ zIndex: 9999 }}
         >
           <Modal.Body
@@ -143,7 +158,8 @@ function AdvFetchandMovies() {
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
-              minHeight: "300px",
+              height: isDesktop ? "60vh" : "300px",
+              maxHeight: isDesktop ? "60vh" : "300px",
               width: "100%",
               position: "relative",
             }}
@@ -159,13 +175,35 @@ function AdvFetchandMovies() {
                 zIndex: 1,
               }}
             />
+            <button
+              onClick={() => setSelectedMovie(null)}
+              style={{
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+                zIndex: 10,
+                backgroundColor: "transparent",
+                border: "none",
+                width: "40px",
+                height: "40px",
+                color: "white",
+                fontSize: "32px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              aria-label="Close"
+            >
+              ×
+            </button>
           </Modal.Body>
           <Modal.Footer 
             className="border-0 justify-content-center flex-column p-0"
             style={{ 
               position: "relative", 
               zIndex: 2,
-              background: "linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0) 100%)",
+              backgroundColor: "rgba(0, 0, 0, 0.95)",
               paddingTop: "20px",
               paddingBottom: "20px"
             }}

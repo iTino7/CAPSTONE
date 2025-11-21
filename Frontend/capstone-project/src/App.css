@@ -256,6 +256,19 @@ body::-webkit-scrollbar {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.99) 0%, rgba(10, 0, 0, 0.99) 100%);
 }
 
+.modal-dialog-centered {
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .modal-dialog-centered .modal-content {
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+}
+
 .squares-canvas {
     position: absolute;
     top: 0;

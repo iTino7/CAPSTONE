@@ -83,7 +83,7 @@ function NavBarLogin() {
         <Navbar expand="lg" style={{ zIndex: 2, paddingLeft: "1rem", paddingRight: "1rem" }}>
           <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
             <Navbar.Brand>
-              <Link to={"/"} style={{ textDecoration: "none" }}>
+              <Link to={"/catalogue"} style={{ textDecoration: "none" }}>
                 <h1 className="mb-0 text-white">MovieVerse</h1>
               </Link>
             </Navbar.Brand>

@@ -9,15 +9,40 @@ function Search() {
   const [searchInput, setSearchInput] = useState("");
   const [data, setData] = useState<Result[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const getTmdbApiKey = (): string | null => {
+    const tmdbApiKey = import.meta.env.VITE_TMDB_API_KEY;
+    
+    if (tmdbApiKey) {
+      return tmdbApiKey;
+    }
+
+    try {
+      const apiKey = import.meta.env.VITE_API_KEY || import.meta.env.API_KEY;
+      if (apiKey && typeof apiKey === 'string' && apiKey.startsWith("eyJ")) {
+        const payload = JSON.parse(atob(apiKey.split('.')[1]));
+        if (payload.aud && typeof payload.aud === 'string') {
+          return payload.aud;
+        }
+      }
+    } catch (error) {
+      console.log("Error extracting API key from JWT:", error);
+    }
+
+    return null;
+  };
 
   const performSearch = async (query: string) => {
     if (!query.trim()) {
       setData([]);
       setIsSearching(false);
+      setError(null);
       return;
     }
 
     setIsSearching(true);
+    setError(null);
     try {
       let resp = await fetch(
         `${API_URL}/movies/search?query=${encodeURIComponent(query)}`,
@@ -29,30 +54,28 @@ function Search() {
       );
 
       if (!resp.ok) {
-        let tmdbApiKey = import.meta.env.VITE_TMDB_API_KEY;
+        console.warn(`Backend search failed with status ${resp.status}, attempting fallback to TMDB API`);
+        const tmdbApiKey = getTmdbApiKey();
         
         if (!tmdbApiKey) {
-          try {
-            const apiKey = import.meta.env.VITE_API_KEY || import.meta.env.API_KEY;
-            if (apiKey && apiKey.startsWith("eyJ")) {
-              const payload = JSON.parse(atob(apiKey.split('.')[1]));
-              if (payload.aud && typeof payload.aud === 'string') {
-                tmdbApiKey = payload.aud;
-              }
-            }
-          } catch {
-          }
-        }
-        
-        if (!tmdbApiKey) {
-          console.error("TMDB API key not found");
+          console.error("TMDB API key not found - backend search failed and no fallback available");
+          setError("Search service is currently unavailable. Please try again later.");
           setData([]);
+          setIsSearching(false);
           return;
         }
         
-        resp = await fetch(
-          `https://api.themoviedb.org/3/search/multi?api_key=${tmdbApiKey}&query=${encodeURIComponent(query)}`
-        );
+        try {
+          resp = await fetch(
+            `https://api.themoviedb.org/3/search/multi?api_key=${tmdbApiKey}&query=${encodeURIComponent(query)}`
+          );
+        } catch (fetchError) {
+          console.error("Error fetching from TMDB:", fetchError);
+          setError("Unable to search. Please try again later.");
+          setData([]);
+          setIsSearching(false);
+          return;
+        }
       }
 
       if (resp.ok) {
@@ -68,12 +91,17 @@ function Search() {
         });
 
         setData(filtered);
+        if (filtered.length === 0) {
+          setError("No results found for your search.");
+        }
       } else {
         console.error("Error searching:", resp.statusText);
+        setError("Search failed. Please try again.");
         setData([]);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Search error:", error);
+      setError("An error occurred while searching. Please try again.");
       setData([]);
     } finally {
       setIsSearching(false);
@@ -117,6 +145,10 @@ function Search() {
                     title=""
                     results={data}
                   />
+                </div>
+              ) : error ? (
+                <div className="text-white text-center mb-5">
+                  <p className="text-danger">{error}</p>
                 </div>
               ) : (
                 <div className="text-white text-center mb-5">

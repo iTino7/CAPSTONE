@@ -28,9 +28,6 @@ function MovieandSerieBackground({
   const [isImageLoading, setIsImageLoading] = useState(true);
   const toggleShowA = () => setShowA(!showA);
 
-  
-
-  // Controlla se il film è già nella watchlist
   const checkIfInWatchlist = useCallback(async () => {
     try {
       const resp = await fetch(`${API_URL}/watchlist/watchlist`, {
@@ -55,7 +52,6 @@ function MovieandSerieBackground({
     checkIfInWatchlist();
   }, [movieId, checkIfInWatchlist]);
 
-  // Pre-carica l'immagine di sfondo
   useEffect(() => {
     const imageUrl = `https://image.tmdb.org/t/p/original${img}`;
     const image = new Image();
@@ -74,7 +70,6 @@ function MovieandSerieBackground({
   const toggleWatchlist = async () => {
     try {
       if (isInWatchlist && watchlistItemId) {
-        // Rimuovi dalla watchlist
         const resp = await fetch(`${API_URL}/watchlist/${watchlistItemId}`, {
           method: "DELETE",
           headers: {
@@ -88,7 +83,6 @@ function MovieandSerieBackground({
           toggleShowA();
         }
       } else {
-        // Aggiungi alla watchlist
         const resp = await fetch(`${API_URL}/watchlist/watchlist`, {
           method: "POST",
           headers: {
@@ -149,7 +143,6 @@ function MovieandSerieBackground({
           left: 0,
         }}
       >
-      {/* Loading Overlay */}
       {isImageLoading && (
         <div
           style={{

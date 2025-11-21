@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Dropdown, Nav, Navbar } from "react-bootstrap";
 import {
   Link,
@@ -68,9 +67,7 @@ function NavBarLogin() {
     const navbarToggle = document.querySelector('[aria-controls="navbarScroll"]') as HTMLElement;
     
     if (navbarCollapse && navbarCollapse.classList.contains("show")) {
-      
       navbarCollapse.classList.remove("show");
-      
       if (navbarToggle) {
         navbarToggle.setAttribute("aria-expanded", "false");
         navbarToggle.classList.add("collapsed");
@@ -134,12 +131,6 @@ function NavBarLogin() {
                   Series
                 </NavLink>
               </Nav>
-              {/* <button
-                onClick={handleLogout}
-                className="ms-auto btn btn-primary"
-              >
-                {user?.name}
-              </button> */}
               <Dropdown className="me-3">
                 <Dropdown.Toggle className="d-flex justify-content-md-center align-items-center bg-transparent border-0" style={{ paddingLeft: 0 }}>
                   <p className="d-none d-md-block text-white mb-0" style={{ marginRight: "15px" }}>

@@ -24,7 +24,6 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
 
   const navigate = useNavigate();
 
-  // Settings solo per mobile (uno alla volta, senza autoplay)
   const mobileSettings = {
     dots: true,
     infinite: false,
@@ -46,7 +45,8 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
   };
 
   const handleClick = (item: Result) => {
-    navigate(`/${filterCategory}/${item.name}`, { state: item });
+    const title = (item.name || item.title).replace(/\s+/g, '_');
+    navigate(`/${filterCategory}/${title}`, { state: item });
   };
 
   const fetchMovie = async () => {
@@ -73,7 +73,6 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
 
   useEffect(() => {
     fetchMovie();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -99,7 +98,6 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
     const x = e.pageX - scrollContainerRef.current.offsetLeft;
     const walk = (x - startX) * 2;
     
-    // Se c'è movimento significativo, è un drag
     if (Math.abs(walk) > 5) {
       setHasMoved(true);
       e.preventDefault();
@@ -149,9 +147,8 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
             }
           }
         `}
-      </style>
-      {/* Desktop: 6 film visibili con scroll orizzontale */}
-      <div 
+        </style>
+      <div
         ref={scrollContainerRef}
         className="d-none d-md-flex desktop-scroll-container"
         onMouseDown={handleMouseDown}
@@ -188,7 +185,6 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
               <img
                 className="imgHover"
                 onClick={(e) => {
-                  // Se non c'è stato movimento durante il drag, è un click
                   if (!hasMoved) {
                     e.stopPropagation();
                     handleClick(item);
@@ -204,7 +200,6 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
         ))}
       </div>
 
-      {/* Mobile: slider uno alla volta senza autoplay */}
       <div className="d-md-none" style={{ textAlign: "center" }}>
         <style>
           {`

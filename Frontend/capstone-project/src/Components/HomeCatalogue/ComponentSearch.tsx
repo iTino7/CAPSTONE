@@ -30,10 +30,25 @@ function ComponentSearch({
   const navigate = useNavigate();
 
   const handleClick = (item: Result) => {
-    navigate(`/${filterCategory}/${item.name || item.title}`, { state: item });
-  };
+    const hasFirstAirDate = !!item.first_air_date;
+    const hasReleaseDate = !!item.release_date;
 
-  // Settings solo per mobile (uno alla volta, senza autoplay)
+    let category: string;
+    if (results) {
+      if (hasFirstAirDate && !hasReleaseDate) {
+        category = 'series';
+      } else if (hasReleaseDate && !hasFirstAirDate) {
+        category = 'movie';
+      } else {
+        category = item.name && !item.title ? 'series' : 'movie';
+      }
+    } else {
+      category = filterCategory || (hasFirstAirDate ? 'series' : 'movie');
+    }
+    
+    const title = (item.name || item.title).replace(/\s+/g, '_');
+    navigate(`/${category}/${title}`, { state: item });
+  };
   const mobileSettings = {
     dots: true,
     infinite: false,
@@ -77,7 +92,6 @@ function ComponentSearch({
     const x = e.pageX - scrollContainerRef.current.offsetLeft;
     const walk = (x - startX) * 2;
     
-    // Se c'è movimento significativo, è un drag
     if (Math.abs(walk) > 5) {
       setHasMoved(true);
       e.preventDefault();
@@ -137,7 +151,6 @@ function ComponentSearch({
     } else {
       setData(results);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchCategory, results]);
 
   console.log(data);
@@ -175,7 +188,6 @@ function ComponentSearch({
             }
           `}
         </style>
-        {/* Desktop: 6 film visibili con scroll orizzontale */}
         <div 
           ref={scrollContainerRef}
           className="d-none d-md-flex search-scroll-container"
@@ -222,7 +234,6 @@ function ComponentSearch({
           ))}
         </div>
 
-        {/* Mobile: slider uno alla volta senza autoplay */}
         <div className="d-md-none" style={{ textAlign: "center" }}>
           <div style={{ maxWidth: "100%", width: "100%", textAlign: "center" }}>
             <Slider {...mobileSettings}>

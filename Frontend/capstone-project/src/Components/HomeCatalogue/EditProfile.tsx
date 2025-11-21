@@ -32,15 +32,13 @@ function EditProfile() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
-      const maxSize = 1048576; // 1MB in bytes
+      const maxSize = 1048576;
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp'];
       
-      // Controlla il tipo di file
       if (!allowedTypes.includes(selectedFile.type)) {
         setErrorMessage("Only jpg, png, gif, bmp files are allowed");
         setShowErrorToast(true);
         
-        // Reset del file input
         e.target.value = '';
         setFile(null);
         setPreviewUrl(null);
@@ -48,12 +46,10 @@ function EditProfile() {
         return;
       }
       
-      // Controlla la dimensione del file
       if (selectedFile.size > maxSize) {
         setErrorMessage("File size too large. Please select an image smaller than 1MB.");
         setShowErrorToast(true);
         
-        // Reset del file input
         e.target.value = '';
         setFile(null);
         setPreviewUrl(null);
@@ -63,11 +59,9 @@ function EditProfile() {
       
       setFile(selectedFile);
       
-      // Crea un URL per l'anteprima
       const url = URL.createObjectURL(selectedFile);
       setPreviewUrl(url);
       
-      // Mostra il bordo verde
       setShowBorder(true);
     }
   };
@@ -76,12 +70,10 @@ function EditProfile() {
     const target = event.target as Element;
     const imageContainer = document.querySelector('.image-container');
     
-    // Se il click è fuori dal container dell'immagine e c'è un bordo visibile
     if (showBorder && imageContainer && !imageContainer.contains(target)) {
-      // Timer per far sparire lentamente il bordo
       setTimeout(() => {
         setShowBorder(false);
-      }, 1000); // 1 secondo di delay
+      }, 1000);
     }
   }, [showBorder]);
 
@@ -135,7 +127,6 @@ function EditProfile() {
     setIsSaving(true);
     
     try {
-      // Prima aggiorna i dati del profilo
       const update: Partial<Profile> = { name, username };
       const profileResp = await fetch(`${API_URL}/users/me`, {
         method: "PUT",
@@ -153,7 +144,6 @@ function EditProfile() {
       const updatedProfile: Profile = await profileResp.json();
       setProfile(updatedProfile);
 
-      // Se c'è un'immagine da caricare, caricala
       if (file && profile?.id) {
         const formData = new FormData();
         formData.append("file", file);
@@ -178,7 +168,6 @@ function EditProfile() {
         setShowBorder(false);
       }
 
-      // Ricarica la pagina per mostrare le modifiche
       refreshPage();
     } catch (error) {
       console.log(error);
@@ -193,7 +182,6 @@ function EditProfile() {
     fetchProfile();
   }, []);
 
-  // Cleanup dell'URL dell'anteprima quando il componente viene smontato
   useEffect(() => {
     return () => {
       if (previewUrl) {
@@ -202,7 +190,6 @@ function EditProfile() {
     };
   }, [previewUrl]);
 
-  // Event listener per click fuori dall'immagine
   useEffect(() => {
     if (showBorder) {
       document.addEventListener('click', handleClickOutside);
@@ -369,7 +356,6 @@ function EditProfile() {
         </Modal.Footer>
       </Modal>
       
-      {/* Toast di errore per file troppo grande */}
       <Toast
         show={showErrorToast}
         onClose={() => setShowErrorToast(false)}

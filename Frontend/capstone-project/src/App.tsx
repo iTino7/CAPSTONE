@@ -17,9 +17,10 @@ import PageRegister from "./Components/PageLoginAndRegister/PageRegister";
 import PageLogin from "./Components/PageLoginAndRegister/PageLogin";
 
 import NavBarLogin from "./Components/HomeCatalogue/NavBarLogin";
-import VerifyEmail from "./Components/PageLoginAndRegister/VerifyEmail";
-import VerifyOtp from "./Components/PageLoginAndRegister/VerifyOtp";
-import ChangePassword from "./Components/PageLoginAndRegister/ChangePassword";
+// Temporarily disabled - Forgot password imports
+// import VerifyEmail from "./Components/PageLoginAndRegister/VerifyEmail";
+// import VerifyOtp from "./Components/PageLoginAndRegister/VerifyOtp";
+// import ChangePassword from "./Components/PageLoginAndRegister/ChangePassword";
 import Subscription from "./Components/PageLoginAndRegister/Subscription";
 import PlansHome from "./Components/Home/PlansHome";
 import FAQ from "./Components/Home/Faq";

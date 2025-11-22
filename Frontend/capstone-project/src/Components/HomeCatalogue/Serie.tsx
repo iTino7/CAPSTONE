@@ -35,7 +35,7 @@ function Series() {
         throw new Error("errore");
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching series
     } finally {
       setIsLoading(false);
     }

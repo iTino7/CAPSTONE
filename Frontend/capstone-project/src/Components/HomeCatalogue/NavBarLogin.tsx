@@ -49,11 +49,9 @@ function NavBarLogin() {
       if (resp.ok) {
         const data = await resp.json();
         setUser(data);
-      } else {
-        console.error("Failed to fetch user profile");
       }
     } catch (error) {
-      console.error("Error fetching user profile:", error);
+      // Error fetching user profile
     }
   };
 
@@ -74,8 +72,6 @@ function NavBarLogin() {
       }
     }
   }, [location.pathname]);
-
-  console.log(user);
 
   return (
     <>

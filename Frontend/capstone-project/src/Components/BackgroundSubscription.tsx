@@ -26,7 +26,7 @@ function BackgroundSubscription({
         setPlans(data);
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching plans
     }
   };
 
@@ -69,7 +69,6 @@ function BackgroundSubscription({
         window.location.href = data.sessionUrl;
       }
     } catch (error) {
-      console.log(error);
       alert("Error processing payment. Please try again.");
       setLoadingButtonId(null);
     }
@@ -168,7 +167,6 @@ function BackgroundSubscription({
                       item.prices[0].priceId,
                       item.name.toUpperCase().replace(/ /g, "_")
                     );
-                    console.log(item.name.toUpperCase().replace(/ /g, "_"));
                   }}
                   className="btn text-white my-3 d-flex align-items-center justify-content-center gap-2"
                   style={{ backgroundColor: "#e50914" }}

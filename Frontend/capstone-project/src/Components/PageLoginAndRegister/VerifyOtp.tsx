@@ -38,7 +38,6 @@ function VerifyOtp() {
         setMess("OTP not correct!");
       }
     } catch (error) {
-      console.log(error);
       setMess("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);

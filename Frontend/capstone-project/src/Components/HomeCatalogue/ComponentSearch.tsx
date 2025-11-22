@@ -137,11 +137,9 @@ function ComponentSearch({
       if (resp.ok) {
         const respData: MovieCard = await resp.json();
         setData(respData.parts || respData.results);
-      } else {
-        console.error("Error fetching data:", resp.statusText);
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
+      // Error fetching data
     }
   };
 
@@ -151,9 +149,8 @@ function ComponentSearch({
     } else {
       setData(results);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchCategory, results]);
-
-  console.log(data);
 
   return (
     <Col>

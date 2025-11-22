@@ -43,7 +43,6 @@ function ChangePassword() {
         setMess("password don't match!");
       }
     } catch (error) {
-      console.log(error);
       setMess("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);

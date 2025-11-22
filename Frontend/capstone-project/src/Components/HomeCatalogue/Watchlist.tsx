@@ -25,7 +25,7 @@ function Watchlist() {
         setWatchlist(data.content);
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching watchlist
     }
   };
 
@@ -46,14 +46,12 @@ function Watchlist() {
         setWatchlist((prev) => prev.filter((item) => item.id !== id));
       }
     } catch (error) {
-      console.log(error);
+      // Error deleting from watchlist
     }
   };
 
   const handleClick = async (item: Content) => {
     try {
-      console.log("Clicking on watchlist item:", item);
-      
       const mapTmdbToResult = (tmdbData: any, isMovie: boolean): Result => {
         return {
           adult: tmdbData.adult || false,
@@ -91,7 +89,7 @@ function Watchlist() {
             }
           }
         } catch (error) {
-          console.log("Error extracting API key from JWT:", error);
+          // Error extracting API key from JWT
         }
 
         return null;
@@ -100,8 +98,6 @@ function Watchlist() {
       const tmdbApiKey = getTmdbApiKey();
 
       if (!tmdbApiKey) {
-        console.error("TMDB API key not found. Trying to use backend API...");
-        
         try {
           const searchResp = await fetch(
             `${API_URL}/movies/search?query=${encodeURIComponent(item.title)}`,
@@ -128,50 +124,37 @@ function Watchlist() {
             }
           }
         } catch (error) {
-          console.error("Error searching via backend:", error);
+          // Error searching via backend
         }
 
-        console.error("Cannot fetch item details - no API key available");
         return;
       }
 
-      console.log("Trying to fetch as movie:", item.movieId);
       let resp = await fetch(
         `https://api.themoviedb.org/3/movie/${item.movieId}?api_key=${tmdbApiKey}`
       );
 
       if (resp.ok) {
         const movieData = await resp.json();
-        console.log("Movie data received:", movieData);
         const mappedData = mapTmdbToResult(movieData, true);
         const movieTitle = mappedData.title.replace(/\s+/g, '_');
-        console.log("Navigating to:", `/movie/${movieTitle}`);
         navigate(`/movie/${movieTitle}`, { state: mappedData });
         return;
-      } else {
-        console.log("Movie fetch failed, status:", resp.status);
       }
 
-      console.log("Trying to fetch as series:", item.movieId);
       resp = await fetch(
         `https://api.themoviedb.org/3/tv/${item.movieId}?api_key=${tmdbApiKey}`
       );
 
       if (resp.ok) {
         const seriesData = await resp.json();
-        console.log("Series data received:", seriesData);
         const mappedData = mapTmdbToResult(seriesData, false);
         const seriesName = mappedData.name.replace(/\s+/g, '_');
-        console.log("Navigating to:", `/series/${seriesName}`);
         navigate(`/series/${seriesName}`, { state: mappedData });
         return;
-      } else {
-        console.log("Series fetch failed, status:", resp.status);
       }
-
-      console.error("Could not determine if item is movie or series. MovieId:", item.movieId);
     } catch (error) {
-      console.error("Error fetching item details:", error);
+      // Error fetching item details
     }
   };
 

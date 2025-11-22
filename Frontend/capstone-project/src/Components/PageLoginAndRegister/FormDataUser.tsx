@@ -33,15 +33,6 @@ function FormDataUser({
 
     const url = `${API_URL}/auth/${fetchNavigate}`;
     const requestBody = JSON.stringify(body);
-    
-    // Debug logging
-    console.log("=== LOGIN REQUEST DEBUG ===");
-    console.log("URL:", url);
-    console.log("Method: POST");
-    console.log("Body:", body);
-    console.log("Stringified Body:", requestBody);
-    console.log("API_URL:", API_URL);
-    console.log("fetchNavigate:", fetchNavigate);
 
     try {
       const resp = await fetch(url, {
@@ -50,12 +41,8 @@ function FormDataUser({
         body: requestBody,
       });
       
-      console.log("Response Status:", resp.status);
-      console.log("Response Headers:", Object.fromEntries(resp.headers.entries()));
-      
       if (resp.ok) {
         const data = await resp.json();
-        console.log("Response Data:", data);
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("token", data.accessToken);
         if (data.id) {
@@ -67,14 +54,10 @@ function FormDataUser({
         let errorData;
         try {
           const text = await resp.text();
-          console.log("Error Response Text:", text);
           errorData = text ? JSON.parse(text) : { message: "Unknown error" };
         } catch (parseError) {
-          console.log("Failed to parse error response:", parseError);
           errorData = { message: "Unknown error" };
         }
-        
-        console.log("Error Data:", errorData);
         
         if (resp.status === 400) {
           throw new Error(errorData.message || "Ops! email address is already in use!");
@@ -83,20 +66,12 @@ function FormDataUser({
         } else if (resp.status === 500) {
           // Mostra il messaggio del backend se disponibile
           const errorMessage = errorData.message || "Server error. Please try again later.";
-          console.error("Backend Error Details:", errorData);
-          console.error("Full error response:", {
-            status: resp.status,
-            statusText: resp.statusText,
-            headers: Object.fromEntries(resp.headers.entries()),
-            body: errorData
-          });
           throw new Error(errorMessage);
         } else {
           throw new Error(errorData.message || `An error occurred (${resp.status}). Please try again.`);
         }
       }
     } catch (error) {
-      console.error("Request Error:", error);
       if (error instanceof TypeError && error.message.includes("fetch")) {
         setError("Network error. Please check your connection.");
       } else {

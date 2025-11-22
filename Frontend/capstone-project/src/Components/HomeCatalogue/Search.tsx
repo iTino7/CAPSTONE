@@ -26,8 +26,8 @@ function Search() {
           return payload.aud;
         }
       }
-    } catch (error) {
-      console.log("Error extracting API key from JWT:", error);
+    } catch {
+      // Error extracting API key from JWT
     }
 
     return null;
@@ -54,11 +54,9 @@ function Search() {
       );
 
       if (!resp.ok) {
-        console.warn(`Backend search failed with status ${resp.status}, attempting fallback to TMDB API`);
         const tmdbApiKey = getTmdbApiKey();
         
         if (!tmdbApiKey) {
-          console.error("TMDB API key not found - backend search failed and no fallback available");
           setError("Search service is currently unavailable. Please try again later.");
           setData([]);
           setIsSearching(false);
@@ -69,8 +67,7 @@ function Search() {
           resp = await fetch(
             `https://api.themoviedb.org/3/search/multi?api_key=${tmdbApiKey}&query=${encodeURIComponent(query)}`
           );
-        } catch (fetchError) {
-          console.error("Error fetching from TMDB:", fetchError);
+        } catch {
           setError("Unable to search. Please try again later.");
           setData([]);
           setIsSearching(false);
@@ -95,12 +92,10 @@ function Search() {
           setError("No results found for your search.");
         }
       } else {
-        console.error("Error searching:", resp.statusText);
         setError("Search failed. Please try again.");
         setData([]);
       }
-    } catch (error) {
-      console.error("Search error:", error);
+    } catch {
       setError("An error occurred while searching. Please try again.");
       setData([]);
     } finally {

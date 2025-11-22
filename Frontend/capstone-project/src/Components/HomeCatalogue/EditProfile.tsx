@@ -95,7 +95,6 @@ function EditProfile() {
         throw new Error("error");
       }
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   };
@@ -120,7 +119,7 @@ function EditProfile() {
         throw new Error("error");
       }
     } catch (error) {
-      console.log(error);
+      // Error updating profile
     }
   };
 
@@ -171,7 +170,6 @@ function EditProfile() {
 
       refreshPage();
     } catch (error) {
-      console.log(error);
       alert("Error saving changes. Please try again.");
     } finally {
       setIsSaving(false);
@@ -216,7 +214,6 @@ function EditProfile() {
         throw new Error("Error delete account!");
       }
     } catch (error) {
-      console.log(error);
       alert("Error deleting account. Please try again.");
     } finally {
       setIsDeleting(false);

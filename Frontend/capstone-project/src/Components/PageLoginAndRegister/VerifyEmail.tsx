@@ -21,40 +21,52 @@ function VerifyEmail() {
     setMess(""); // Clear previous messages
     setIsLoading(true);
     
+    const trimmedEmail = email.trim();
+    
     try {
-      const encodedEmail = encodeURIComponent(email.trim());
-      console.log("Sending OTP request for email:", email);
+      // Try with email in URL (original approach)
+      const encodedEmail = encodeURIComponent(trimmedEmail);
       
-      const resp = await fetch(
+      let resp = await fetch(
         `${API_URL}/forgotPassword/verifyMail/${encodedEmail}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email: email.trim() }),
+          body: JSON.stringify({ email: trimmedEmail }),
         }
       );
       
-      console.log("Response status:", resp.status);
+      // If 500 error, try alternative approach without email in URL
+      if (!resp.ok && resp.status === 500) {
+        console.log("First attempt failed with 500, trying alternative endpoint...");
+        resp = await fetch(
+          `${API_URL}/forgotPassword/verifyMail`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: trimmedEmail }),
+          }
+        );
+      }
       
       if (resp.ok) {
-        const data = await resp.json().catch(() => null);
-        console.log("OTP sent successfully:", data);
+        await resp.json().catch(() => null);
         setMess("OTP inviato!");
-        localStorage.setItem("forgotEmail", email.trim());
+        localStorage.setItem("forgotEmail", trimmedEmail);
         navigate(`/forgotPassword/verifyOtp`);
       } else {
         let errorMessage = "Could not send OTP. Please try again later.";
         try {
           const errorData = await resp.json();
-          console.error("Error response:", errorData);
           // Mostra il messaggio di errore dal backend se disponibile
           if (errorData.message) {
             errorMessage = errorData.message;
           }
-        } catch (parseError) {
-          console.error("Could not parse error response:", parseError);
+        } catch {
           if (resp.status === 500) {
             errorMessage = "Server error. Please contact support or try again later.";
           }

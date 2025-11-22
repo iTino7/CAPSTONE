@@ -65,7 +65,7 @@ function CarouselInfinite({ filterFetch, filterCategory }: FilterSearch) {
         throw new Error("Errore");
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching data
     } finally {
       setIsLoading(false);
     }

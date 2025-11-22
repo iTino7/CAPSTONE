@@ -17,12 +17,8 @@ function CustomButton({
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("CustomButton handleClick called", navigate);
     if (navigate) {
-      console.log("Calling navigate function");
       navigate();
-    } else {
-      console.log("No navigate function provided");
     }
   };
 

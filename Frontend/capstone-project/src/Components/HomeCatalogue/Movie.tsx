@@ -30,7 +30,7 @@ function Movie() {
         throw new Error("errore");
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching movies
     } finally {
       setIsLoading(false);
     }

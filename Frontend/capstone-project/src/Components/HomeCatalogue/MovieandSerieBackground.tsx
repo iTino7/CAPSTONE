@@ -44,7 +44,7 @@ function MovieandSerieBackground({
         }
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching movie details
     }
   }, [movieId]);
 
@@ -104,7 +104,7 @@ function MovieandSerieBackground({
         }
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching series details
     }
   };
 

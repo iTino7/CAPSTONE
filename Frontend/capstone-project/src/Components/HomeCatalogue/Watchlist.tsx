@@ -7,11 +7,29 @@ import FallingText from "../FallingTextProps";
 import { API_URL } from "../../config/api";
 import type { Result } from "../../Interface/Movie";
 
+// Hook per rilevare se siamo su mobile
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint di Bootstrap
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
+
 function Watchlist() {
   const [watchlist, setWatchlist] = useState<Content[]>([]);
   const [showA, setShowA] = useState(false);
   const toggleShowB = () => setShowA(!showA);
   const navigate: NavigateFunction = useNavigate();
+  const isMobile = useIsMobile();
 
   const fetchWishlist = async () => {
     try {
@@ -192,21 +210,25 @@ function Watchlist() {
           ))
         ) : (
           <h4 className="text-white mt-4 fw-semibold">
-            <FallingText
-              text={`Add a movie or series...`}
-              highlightWords={[
-                "React",
-                "Bits",
-                "animated",
-                "components",
-                "simplify",
-              ]}
-              highlightClass="highlighted"
-              trigger="hover"
-              gravity={0.39}
-              fontSize="2rem"
-              mouseConstraintStiffness={0.1}
-            />
+            {isMobile ? (
+              "Add a movie or series..."
+            ) : (
+              <FallingText
+                text={`Add a movie or series...`}
+                highlightWords={[
+                  "React",
+                  "Bits",
+                  "animated",
+                  "components",
+                  "simplify",
+                ]}
+                highlightClass="highlighted"
+                trigger="hover"
+                gravity={0.39}
+                fontSize="2rem"
+                mouseConstraintStiffness={0.1}
+              />
+            )}
           </h4>
         )}
       </Row>

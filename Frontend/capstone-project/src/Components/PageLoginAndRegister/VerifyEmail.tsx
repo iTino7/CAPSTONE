@@ -21,48 +21,29 @@ function VerifyEmail() {
     setMess(""); // Clear previous messages
     setIsLoading(true);
     
-    const trimmedEmail = email.trim();
-    
     try {
-      // Try with email in URL (original approach)
-      const encodedEmail = encodeURIComponent(trimmedEmail);
+      const encodedEmail = encodeURIComponent(email.trim());
       
-      let resp = await fetch(
+      const resp = await fetch(
         `${API_URL}/forgotPassword/verifyMail/${encodedEmail}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email: trimmedEmail }),
+          body: JSON.stringify({ email: email.trim() }),
         }
       );
-      
-      // If 500 error, try alternative approach without email in URL
-      if (!resp.ok && resp.status === 500) {
-        console.log("First attempt failed with 500, trying alternative endpoint...");
-        resp = await fetch(
-          `${API_URL}/forgotPassword/verifyMail`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email: trimmedEmail }),
-          }
-        );
-      }
       
       if (resp.ok) {
         await resp.json().catch(() => null);
         setMess("OTP inviato!");
-        localStorage.setItem("forgotEmail", trimmedEmail);
+        localStorage.setItem("forgotEmail", email.trim());
         navigate(`/forgotPassword/verifyOtp`);
       } else {
         let errorMessage = "Could not send OTP. Please try again later.";
         try {
           const errorData = await resp.json();
-          // Mostra il messaggio di errore dal backend se disponibile
           if (errorData.message) {
             errorMessage = errorData.message;
           }
@@ -73,14 +54,8 @@ function VerifyEmail() {
         }
         setMess(errorMessage);
       }
-    } catch (error) {
-      console.error("Error sending OTP:", error);
-      // Check if it's a CORS error
-      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-        setMess("Errore di connessione con il server. Controlla la configurazione CORS del backend.");
-      } else {
-        setMess("Network error. Please check your connection and try again.");
-      }
+    } catch {
+      setMess("Network error. Please check your connection and try again.");
     } finally {
       setIsLoading(false);
     }

@@ -90,9 +90,13 @@ public class ForgotPasswordController {
                 emailService.sendMessage(mailBody);
                 System.out.println("Email sent successfully!");
             } catch (Exception emailException) {
-                System.out.println("ERROR SENDING EMAIL:");
+                System.out.println("=== EMAIL ERROR DETAILS ===");
                 System.out.println("Exception type: " + emailException.getClass().getName());
                 System.out.println("Exception message: " + emailException.getMessage());
+                if (emailException.getCause() != null) {
+                    System.out.println("Cause: " + emailException.getCause().getClass().getName());
+                    System.out.println("Cause message: " + emailException.getCause().getMessage());
+                }
                 emailException.printStackTrace();
 
                 // Anche se l'email fallisce, l'OTP è salvato

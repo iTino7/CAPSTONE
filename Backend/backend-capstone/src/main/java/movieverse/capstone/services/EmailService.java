@@ -1,25 +1,31 @@
 package movieverse.capstone.services;
 
+import com.resend.Resend;
+import com.resend.core.exception.ResendException;
+import com.resend.services.emails.model.SendEmailRequest;
 import movieverse.capstone.payloads.MailBodyDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
 
+    @Value("${resend.api.key}")
+    private String resendApiKey;
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    @Value("${resend.from.email}")
+    private String fromEmail;
 
-    public void sendMessage(MailBodyDTO mailBody) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(mailBody.to());
-        message.setFrom("sabatino.b007@gmail.com");
-        message.setSubject(mailBody.subject());
-        message.setText(mailBody.text());
+    public void sendMessage(MailBodyDTO mailBody) throws ResendException {
+        Resend resend = new Resend(resendApiKey);
 
-        javaMailSender.send(message);
+        SendEmailRequest sendEmailRequest = SendEmailRequest.builder()
+                .from(fromEmail)
+                .to(mailBody.to())
+                .subject(mailBody.subject())
+                .html("<p>" + mailBody.text() + "</p>")
+                .build();
+
+        resend.emails().send(sendEmailRequest);
     }
 }

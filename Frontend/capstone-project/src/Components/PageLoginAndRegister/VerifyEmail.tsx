@@ -22,10 +22,9 @@ function VerifyEmail() {
     setIsLoading(true);
     
     try {
-      const encodedEmail = encodeURIComponent(email.trim());
-      
+      // Invia l'email solo nel body, non nell'URL per evitare problemi di encoding
       const resp = await fetch(
-        `${API_URL}/forgotPassword/verifyMail/${encodedEmail}`,
+        `${API_URL}/forgotPassword/verifyMail`,
         {
           method: "POST",
           headers: {
@@ -44,12 +43,17 @@ function VerifyEmail() {
         let errorMessage = "Could not send OTP. Please try again later.";
         try {
           const errorData = await resp.json();
+          console.error("Error response:", errorData);
           if (errorData.message) {
             errorMessage = errorData.message;
+          } else if (errorData.error) {
+            errorMessage = errorData.error;
           }
-        } catch {
+        } catch (parseError) {
+          console.error("Failed to parse error response:", parseError);
+          console.error("Response status:", resp.status);
           if (resp.status === 500) {
-            errorMessage = "Server error. Please contact support or try again later.";
+            errorMessage = "Errore interno del server (500). Controlla i log del backend per maggiori dettagli.";
           }
         }
         setMess(errorMessage);

@@ -40,24 +40,34 @@ public class ForgotPasswordController {
         System.out.println("Received request body: " + request);
         System.out.println("Request keys: " + (request != null ? request.keySet() : "null"));
 
-        String email = request != null ? request.get("email") : null;
-        System.out.println("Extracted email: " + email);
+        if (request == null) {
+            System.out.println("Request body is null!");
+            return new ResponseEntity<>("Request body is required", HttpStatus.BAD_REQUEST);
+        }
 
-        if (email == null || email.trim().isEmpty()) {
+        String emailAddress = request.get("email");
+        System.out.println("Extracted email: " + emailAddress);
+
+        if (emailAddress == null || emailAddress.trim().isEmpty()) {
             System.out.println("Email is null or empty!");
             return new ResponseEntity<>("Email is required", HttpStatus.BAD_REQUEST);
         }
 
-        email = email.trim();
-        System.out.println("Processing email: " + email);
+        String trimmedEmail = emailAddress.trim();
+        System.out.println("Processing email: " + trimmedEmail);
 
         try {
-            User user = userRepository.findByEmail(email)
-                    .orElseThrow(() -> new UsernameNotFoundException("Please provide a valid email"));
+            User user = userRepository.findByEmail(trimmedEmail)
+                    .orElseThrow(() -> {
+                        System.out.println("User not found for email: " + trimmedEmail);
+                        return new UsernameNotFoundException("Please provide a valid email");
+                    });
 
             int otp = otpGenerator();
+            System.out.println("Generated OTP: " + otp);
+
             MailBodyDTO mailBody = MailBodyDTO.builder()
-                    .to(email)
+                    .to(trimmedEmail)
                     .text("This is the OTP for your forgot password request: " + otp)
                     .subject("OTP for forgot Password")
                     .build();
@@ -70,15 +80,37 @@ public class ForgotPasswordController {
             forgotPassword.setOtp(otp);
             forgotPassword.setExpitationTime(new Date(System.currentTimeMillis() + 10 * 60 * 1000));
 
-            System.out.println("Sending email to: " + email);
-            emailService.sendMessage(mailBody);
+            // Salva prima l'OTP nel database
             forgotPasswordRepository.save(forgotPassword);
+            System.out.println("OTP saved to database");
+
+            // Prova a inviare l'email
+            try {
+                System.out.println("Attempting to send email to: " + trimmedEmail);
+                emailService.sendMessage(mailBody);
+                System.out.println("Email sent successfully!");
+            } catch (Exception emailException) {
+                System.out.println("ERROR SENDING EMAIL:");
+                System.out.println("Exception type: " + emailException.getClass().getName());
+                System.out.println("Exception message: " + emailException.getMessage());
+                emailException.printStackTrace();
+
+                // Anche se l'email fallisce, l'OTP è salvato
+                System.out.println("Email failed but OTP is saved. Returning success.");
+            }
 
             return ResponseEntity.ok("Email sent for verification");
+
+        } catch (UsernameNotFoundException e) {
+            System.out.println("UsernameNotFoundException: " + e.getMessage());
+            throw e;
         } catch (Exception e) {
-            System.out.println("Error in verifyEmail: " + e.getMessage());
+            System.out.println("=== GENERAL EXCEPTION IN verifyEmail ===");
+            System.out.println("Exception type: " + e.getClass().getName());
+            System.out.println("Exception message: " + e.getMessage());
+            System.out.println("Exception cause: " + (e.getCause() != null ? e.getCause().getMessage() : "null"));
             e.printStackTrace();
-            throw e; // Rilancia per vedere l'errore completo nei log
+            throw e;
         }
     }
 

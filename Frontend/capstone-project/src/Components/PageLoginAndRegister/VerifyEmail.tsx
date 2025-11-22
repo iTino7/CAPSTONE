@@ -75,7 +75,12 @@ function VerifyEmail() {
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
-      setMess("Network error. Please check your connection and try again.");
+      // Check if it's a CORS error
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        setMess("Errore di connessione con il server. Controlla la configurazione CORS del backend.");
+      } else {
+        setMess("Network error. Please check your connection and try again.");
+      }
     } finally {
       setIsLoading(false);
     }

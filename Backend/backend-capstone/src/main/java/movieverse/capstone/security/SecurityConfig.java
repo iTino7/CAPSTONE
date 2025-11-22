@@ -42,22 +42,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Leggi gli origin permessi dalle variabili d'ambiente o usa default
         String allowedOriginsEnv = System.getenv("CORS_ALLOWED_ORIGINS");
-
-        // Log per debugging (rimuovere dopo il fix)
-        System.out.println("CORS_ALLOWED_ORIGINS env variable: " + allowedOriginsEnv);
-
-        // Log per debugging (rimuovere dopo il fix)
         System.out.println("CORS_ALLOWED_ORIGINS env variable: " + allowedOriginsEnv);
 
         if (allowedOriginsEnv != null && !allowedOriginsEnv.isEmpty()) {
-            // Produzione: usa variabile d'ambiente
             List<String> origins = Arrays.asList(allowedOriginsEnv.split(","));
             System.out.println("CORS allowed origins: " + origins);
             configuration.setAllowedOrigins(origins);
         } else {
-            // Sviluppo locale: default (include anche produzione temporaneamente)
             List<String> defaultOrigins = Arrays.asList(
                     "http://localhost:5173",
                     "http://localhost:3000",
@@ -67,9 +59,13 @@ public class SecurityConfig {
             configuration.setAllowedOrigins(defaultOrigins);
         }
 
-        configuration.setAllowedMethods(List.of("*"));
-        configuration.setAllowedHeaders(List.of("*"));
+        
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
+
+
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

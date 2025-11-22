@@ -97,4 +97,17 @@ public class TmdbService {
                 .bodyToMono(String.class)
                 .block();
     }
+
+    public String searchMulti(String query) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/search/multi")
+                        .queryParam("query", query)
+                        .queryParam("language", "en-US")
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
 }
+

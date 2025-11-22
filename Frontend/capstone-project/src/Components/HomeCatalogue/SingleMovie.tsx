@@ -1,10 +1,16 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { Result } from "../../Interface/Movie";
 import MovieandSerieBackground from "./MovieandSerieBackground";
 
 function SingleMovie() {
   const location = useLocation();
-  const movie: Result = location.state as Result;
+  const navigate = useNavigate();
+  const movie: Result | null = location.state as Result | null;
+
+  if (!movie) {
+    navigate("/movie");
+    return null;
+  }
 
   return (
     <MovieandSerieBackground

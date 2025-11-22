@@ -16,6 +16,7 @@ function CustomButton({
 }: ButtonCustom) {
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     if (navigate) {
       navigate();
     }
@@ -26,6 +27,7 @@ function CustomButton({
 
   return (
     <ButtonComponent
+      type="button"
       onClick={handleClick}
       className={classCustom}
       style={styleCustom}

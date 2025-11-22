@@ -5,7 +5,8 @@ import BlurText from "./BlurText";
 import { useEffect, useState } from "react";
 
 function PhrasesHome() {
-  const title: string = "Escape reality, enter imagination.";
+  const title: string = "Escape reality,";
+  const titleSecond: string = "enter imagination.";
   const titleButton: string = `Endless stories. One platform`;
 
   const navigate = useNavigate();
@@ -30,25 +31,21 @@ function PhrasesHome() {
     <>
       <Container className="d-flex justify-content-center align-items-center h-100 w-100" style={{ overflowX: "hidden" }}>
         <div
-          className="mx-2 d-flex flex-column align-items-center justify-content-center w-100"
+          className="mx-2 d-md-flex mx-md-0 align-items-center justify-content-center w-100 flex-column flex-md-row"
           style={{ bottom: "150px", maxWidth: "100%" }}
         >
           <h1
-            className="text-white m-0 text-center"
+            className="text-white m-0 text-center text-md-start"
             style={{
-              maxWidth: "100%",
+              maxWidth: "450px",
               fontSize: "clamp(28px, 8vw, 75px)",
               fontFamily: " DM Sans, sans-serif",
               wordWrap: "break-word",
               overflowWrap: "break-word",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
             }}
           >
             <BlurText
-              text={title}
+              text={`${title} ${titleSecond}`}
               delay={250}
               animateBy="words"
               direction="top"
@@ -56,12 +53,12 @@ function PhrasesHome() {
               className="text-2xl mb-8"
             />
           </h1>
-          <div className="d-flex flex-column justify-content-center align-items-center mt-3">
+          <div className="ms-auto d-flex flex-column justify-content-end align-items-center mt-3 mt-md-0">
             <p
               className="text-white fw-bold text-center"
               style={{
                 fontFamily: " DM Sans, sans-serif",
-                maxWidth: "100%",
+                maxWidth: "250px",
                 fontSize: "clamp(16px, 4vw, 24px)",
                 wordWrap: "break-word",
                 overflowWrap: "break-word",

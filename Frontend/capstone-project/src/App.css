@@ -1,3 +1,21 @@
+/* Mobile description scrollbar styling */
+@media (max-width: 767px) {
+  .movie-description-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  .movie-description-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
+  .movie-description-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+  .movie-description-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
 body::-webkit-scrollbar {
     display: none;
 }
@@ -238,6 +256,33 @@ body::-webkit-scrollbar {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.99) 0%, rgba(10, 0, 0, 0.99) 100%);
 }
 
+
+@media (max-width: 991px) {
+    .movie-background-container {
+        position: relative !important;
+        top: auto !important;
+        min-height: 100vh !important;
+        height: 100vh !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 1 !important;
+    }
+}
+
+.modal-dialog-centered {
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .modal-dialog-centered .modal-content {
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+}
+
 .squares-canvas {
     position: absolute;
     top: 0;
@@ -337,6 +382,56 @@ body::-webkit-scrollbar {
     box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        max-width: 90%;
+        padding: 24px 16px;
+        margin: 0 auto;
+        gap: 16px;
+        width: calc(100% - 32px);
+    }
+    
+    .form-container.background-form-container {
+        max-width: 95%;
+        width: calc(100% - 24px);
+        padding: 20px 16px;
+    }
+    
+    .form-container .logo-container {
+        font-size: 16px;
+    }
+    
+    .form-container .movieverse-title,
+    .form-container h2 {
+        font-size: clamp(1.25rem, 4vw, 1.5rem) !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-container h1 {
+        font-size: clamp(1.5rem, 5vw, 2rem) !important;
+    }
+    
+    .form-container .form-group input {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+    
+    .form-container .form-submit-btn {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+    
+    .form-container input[type="number"],
+    .form-container input[type="email"],
+    .form-container input[type="password"],
+    .form-container input[type="text"] {
+        width: 100%;
+        max-width: 100%;
+        padding: 12px 16px;
+        font-size: 16px; /* Evita zoom su iOS */
+    }
 }
 
 .form-container button:active {

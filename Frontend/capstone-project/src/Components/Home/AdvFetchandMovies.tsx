@@ -1,11 +1,8 @@
 import { Col, Container, Modal, Row } from "react-bootstrap";
-import CustomButton from "../CustomButton";
 import React, { useEffect, useState } from "react";
 import type { MovieCard, Result } from "../../Interface/Movie";
-import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
 import { API_URL } from "../../config/api";
-
 import Magnet from "../Magnet";
 import SplitText from "../SplitText";
 
@@ -14,6 +11,7 @@ function AdvFetchandMovies() {
   const [error, setError] = useState<null | string>(null);
   const [selectMovie, setSelectedMovie] = useState<Result | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const fetchCard = async () => {
     try {
@@ -40,16 +38,18 @@ function AdvFetchandMovies() {
     fetchCard();
   }, []);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768); // 768px è il breakpoint md di Bootstrap
+    };
 
-  const handleClick = (page: string, pageNavigate: string) => {
-    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
-    if (isLoggedIn) {
-      navigate(page);
-    } else {
-      navigate(pageNavigate);
-    }
-  };
+    checkIsDesktop();
+    window.addEventListener('resize', checkIsDesktop);
+
+    return () => {
+      window.removeEventListener('resize', checkIsDesktop);
+    };
+  }, []);
 
   return (
     <Container fluid className="bg-black py-4" style={{ position: "relative", isolation: "isolate" }}>
@@ -76,20 +76,6 @@ function AdvFetchandMovies() {
               onLetterAnimationComplete={undefined}
             />
           </h1>
-          <CustomButton
-            navigate={() => handleClick("/catalogue", "/auth/signin")}
-            text="Sign in"
-            classCustom="btn btn-button fancy-btn d-md-flex"
-            styleCustom={{
-              color: "white",
-              fontFamily: " DM Sans, sans-serif",
-              backgroundColor: "#9e2a2b",
-              fontSize: "28px",
-              marginRight: "10px",
-              borderRadius: "8px",
-              padding: ".2rem .7rem",
-            }}
-          />
         </Magnet>
       </div>
 
@@ -126,10 +112,11 @@ function AdvFetchandMovies() {
       <Modal
           show={!!selectMovie}
           onHide={() => setSelectedMovie(null)}
-          size="sm"
+          size={isDesktop ? "lg" : "sm"}
           aria-labelledby="contained-modal-title-vcenter"
           centered
           className="bg-transparent"
+          dialogClassName="modal-dialog-centered"
           style={{ zIndex: 9999 }}
         >
           <Modal.Body
@@ -143,7 +130,8 @@ function AdvFetchandMovies() {
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
-              minHeight: "300px",
+              height: isDesktop ? "60vh" : "300px",
+              maxHeight: isDesktop ? "60vh" : "300px",
               width: "100%",
               position: "relative",
             }}
@@ -159,17 +147,56 @@ function AdvFetchandMovies() {
                 zIndex: 1,
               }}
             />
+            <button
+              onClick={() => setSelectedMovie(null)}
+              style={{
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+                zIndex: 10,
+                backgroundColor: "transparent",
+                border: "none",
+                width: "40px",
+                height: "40px",
+                color: "white",
+                fontSize: "32px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              aria-label="Close"
+            >
+              ×
+            </button>
           </Modal.Body>
           <Modal.Footer 
-            className="bg-black border-0 justify-content-center flex-column"
-            style={{ position: "relative", zIndex: 2 }}
+            className="border-0 justify-content-center flex-column p-0"
+            style={{ 
+              position: "relative", 
+              zIndex: 2,
+              backgroundColor: "rgba(0, 0, 0, 0.95)",
+              paddingTop: "20px",
+              paddingBottom: "20px"
+            }}
           >
-            <div className="title text-center mb-3 text-white">
-              <h1>{selectMovie?.name || selectMovie?.title}</h1>
+            <div className="title text-center mb-3 text-white px-3">
+              <h1 style={{ fontSize: "clamp(1.2rem, 4vw, 1.8rem)" }}>
+                {selectMovie?.name || selectMovie?.title}
+              </h1>
             </div>
-            <h4 className="text-white text-center fs-5 mb-3">
+            <div 
+              className="text-white text-center px-3 movie-description-scroll"
+              style={{ 
+                fontSize: "clamp(0.85rem, 2.5vw, 1rem)",
+                lineHeight: "1.6",
+                maxHeight: "40vh",
+                overflowY: "auto",
+                paddingBottom: "10px"
+              }}
+            >
               {selectMovie?.overview}
-            </h4>
+            </div>
           </Modal.Footer>
         </Modal>
     </Container>

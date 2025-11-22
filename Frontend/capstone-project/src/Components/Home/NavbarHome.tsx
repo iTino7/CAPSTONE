@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import CustomButton from "../CustomButton";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function NavbarHome() {
   const title: string = "MovieVerse";
@@ -46,16 +46,15 @@ function NavbarHome() {
                 text="Sign in"
               />
 
-              <Link to={"/auth/signup"} style={{ textDecoration: "none" }}>
-                <CustomButton
-                  classCustom=" btn btn-button py-2 border-0 text-white fancy-btn"
-                  styleCustom={{
-                    backgroundColor: "#9e2a2b",
-                    fontFamily: " DM Sans, sans-serif",
-                  }}
-                  text="Sign up"
-                />
-              </Link>
+              <CustomButton
+                navigate={() => handleClick("/catalogue", "/auth/signup")}
+                classCustom=" btn btn-button py-2 border-0 text-white fancy-btn"
+                styleCustom={{
+                  backgroundColor: "#9e2a2b",
+                  fontFamily: " DM Sans, sans-serif",
+                }}
+                text="Sign up"
+              />
             </div>
           </Nav>
         </Navbar.Collapse>

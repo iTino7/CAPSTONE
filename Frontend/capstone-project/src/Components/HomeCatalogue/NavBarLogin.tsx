@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Dropdown, Nav, Navbar } from "react-bootstrap";
 import {
   Link,
@@ -50,11 +49,9 @@ function NavBarLogin() {
       if (resp.ok) {
         const data = await resp.json();
         setUser(data);
-      } else {
-        console.error("Failed to fetch user profile");
       }
     } catch (error) {
-      console.error("Error fetching user profile:", error);
+      // Error fetching user profile
     }
   };
 
@@ -62,15 +59,27 @@ function NavBarLogin() {
     fetchProfile();
   }, []);
 
-  console.log(user);
+  
+  useEffect(() => {
+    const navbarCollapse = document.getElementById("navbarScroll");
+    const navbarToggle = document.querySelector('[aria-controls="navbarScroll"]') as HTMLElement;
+    
+    if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+      navbarCollapse.classList.remove("show");
+      if (navbarToggle) {
+        navbarToggle.setAttribute("aria-expanded", "false");
+        navbarToggle.classList.add("collapsed");
+      }
+    }
+  }, [location.pathname]);
 
   return (
     <>
-      <Container fluid style={{ backgroundColor: "#121212" }}>
-        <Navbar expand="lg" style={{ zIndex: 2 }}>
-          <Container fluid>
+      <Container fluid style={{ backgroundColor: "#121212", paddingLeft: 0, paddingRight: 0 }}>
+        <Navbar expand="lg" style={{ zIndex: 2, paddingLeft: "1rem", paddingRight: "1rem" }}>
+          <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
             <Navbar.Brand>
-              <Link to={"/"} style={{ textDecoration: "none" }}>
+              <Link to={"/catalogue"} style={{ textDecoration: "none" }}>
                 <h1 className="mb-0 text-white">MovieVerse</h1>
               </Link>
             </Navbar.Brand>
@@ -118,15 +127,9 @@ function NavBarLogin() {
                   Series
                 </NavLink>
               </Nav>
-              {/* <button
-                onClick={handleLogout}
-                className="ms-auto btn btn-primary"
-              >
-                {user?.name}
-              </button> */}
               <Dropdown className="me-3">
-                <Dropdown.Toggle className="d-flex justify-content-md-center align-items-center bg-transparent border-0">
-                  <p className="d-none d-md-block text-white mb-0">
+                <Dropdown.Toggle className="d-flex justify-content-md-center align-items-center bg-transparent border-0" style={{ paddingLeft: 0 }}>
+                  <p className="d-none d-md-block text-white mb-0" style={{ marginRight: "15px" }}>
                     {user?.name}
                   </p>
                   {user?.avatar ? (
@@ -135,8 +138,8 @@ function NavBarLogin() {
                       alt=""
                       width={45}
                       height={45}
-                      style={{ objectFit: "cover" }}
-                      className="rounded-circle ms-0 ms-md-3"
+                      style={{ objectFit: "cover", marginLeft: 0, paddingLeft: 0 }}
+                      className="rounded-circle"
                     />
                   ) : (
                     <></>

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Col, Container, Form, FormGroup, Modal, Row, Toast } from "react-bootstrap";
+import { Col, Container, Form, FormGroup, Modal, Row, Spinner, Toast } from "react-bootstrap";
 import type { Profile } from "../../Interface/Profile";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { API_URL } from "../../config/api";
@@ -14,6 +14,7 @@ function EditProfile() {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const handleClose = () => setShow(false);
@@ -32,15 +33,13 @@ function EditProfile() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
-      const maxSize = 1048576; // 1MB in bytes
+      const maxSize = 1048576;
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp'];
       
-      // Controlla il tipo di file
       if (!allowedTypes.includes(selectedFile.type)) {
         setErrorMessage("Only jpg, png, gif, bmp files are allowed");
         setShowErrorToast(true);
         
-        // Reset del file input
         e.target.value = '';
         setFile(null);
         setPreviewUrl(null);
@@ -48,12 +47,10 @@ function EditProfile() {
         return;
       }
       
-      // Controlla la dimensione del file
       if (selectedFile.size > maxSize) {
         setErrorMessage("File size too large. Please select an image smaller than 1MB.");
         setShowErrorToast(true);
         
-        // Reset del file input
         e.target.value = '';
         setFile(null);
         setPreviewUrl(null);
@@ -63,11 +60,9 @@ function EditProfile() {
       
       setFile(selectedFile);
       
-      // Crea un URL per l'anteprima
       const url = URL.createObjectURL(selectedFile);
       setPreviewUrl(url);
       
-      // Mostra il bordo verde
       setShowBorder(true);
     }
   };
@@ -76,12 +71,10 @@ function EditProfile() {
     const target = event.target as Element;
     const imageContainer = document.querySelector('.image-container');
     
-    // Se il click è fuori dal container dell'immagine e c'è un bordo visibile
     if (showBorder && imageContainer && !imageContainer.contains(target)) {
-      // Timer per far sparire lentamente il bordo
       setTimeout(() => {
         setShowBorder(false);
-      }, 1000); // 1 secondo di delay
+      }, 1000);
     }
   }, [showBorder]);
 
@@ -102,7 +95,6 @@ function EditProfile() {
         throw new Error("error");
       }
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   };
@@ -127,7 +119,7 @@ function EditProfile() {
         throw new Error("error");
       }
     } catch (error) {
-      console.log(error);
+      // Error updating profile
     }
   };
 
@@ -135,7 +127,6 @@ function EditProfile() {
     setIsSaving(true);
     
     try {
-      // Prima aggiorna i dati del profilo
       const update: Partial<Profile> = { name, username };
       const profileResp = await fetch(`${API_URL}/users/me`, {
         method: "PUT",
@@ -153,7 +144,6 @@ function EditProfile() {
       const updatedProfile: Profile = await profileResp.json();
       setProfile(updatedProfile);
 
-      // Se c'è un'immagine da caricare, caricala
       if (file && profile?.id) {
         const formData = new FormData();
         formData.append("file", file);
@@ -178,10 +168,8 @@ function EditProfile() {
         setShowBorder(false);
       }
 
-      // Ricarica la pagina per mostrare le modifiche
       refreshPage();
     } catch (error) {
-      console.log(error);
       alert("Error saving changes. Please try again.");
     } finally {
       setIsSaving(false);
@@ -193,7 +181,6 @@ function EditProfile() {
     fetchProfile();
   }, []);
 
-  // Cleanup dell'URL dell'anteprima quando il componente viene smontato
   useEffect(() => {
     return () => {
       if (previewUrl) {
@@ -202,7 +189,6 @@ function EditProfile() {
     };
   }, [previewUrl]);
 
-  // Event listener per click fuori dall'immagine
   useEffect(() => {
     if (showBorder) {
       document.addEventListener('click', handleClickOutside);
@@ -214,6 +200,7 @@ function EditProfile() {
   }, [showBorder, handleClickOutside]);
 
   const fetchDelete = async () => {
+    setIsDeleting(true);
     try {
       const resp = await fetch(`${API_URL}/users/${profile?.id}`, {
         method: "DELETE",
@@ -227,7 +214,9 @@ function EditProfile() {
         throw new Error("Error delete account!");
       }
     } catch (error) {
-      console.log(error);
+      alert("Error deleting account. Please try again.");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -302,10 +291,18 @@ function EditProfile() {
                 Delete account
               </button>
               <button 
-                className="btn btn-primary ms-auto" 
+                className="btn btn-primary ms-auto d-flex align-items-center justify-content-center gap-2" 
                 onClick={handleSaveAll}
                 disabled={isSaving}
               >
+                {isSaving && (
+                  <Spinner
+                    animation="border"
+                    size="sm"
+                    variant="light"
+                    style={{ width: "16px", height: "16px" }}
+                  />
+                )}
                 {isSaving ? "Saving..." : "Save Changes"}
               </button>
             </div>
@@ -363,13 +360,24 @@ function EditProfile() {
           <button className="btn btn-secondary" onClick={handleClose}>
             Close
           </button>
-          <button className="btn btn-danger" onClick={fetchDelete}>
-            Delete account
+          <button 
+            className="btn btn-danger d-flex align-items-center justify-content-center gap-2" 
+            onClick={fetchDelete}
+            disabled={isDeleting}
+          >
+            {isDeleting && (
+              <Spinner
+                animation="border"
+                size="sm"
+                variant="light"
+                style={{ width: "16px", height: "16px" }}
+              />
+            )}
+            {isDeleting ? "Deleting..." : "Delete account"}
           </button>
         </Modal.Footer>
       </Modal>
       
-      {/* Toast di errore per file troppo grande */}
       <Toast
         show={showErrorToast}
         onClose={() => setShowErrorToast(false)}

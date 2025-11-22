@@ -37,13 +37,14 @@ function BackgroundForm({ children, subTitle }: TitleRegister) {
       <Row className="m-0 d-flex justify-content-center">
         <div />
         <Col
-          xs={10}
-          sm={6}
-          lg={8}
+          xs={12}
+          sm={8}
+          md={6}
+          lg={5}
           className="d-flex justify-content-center align-items-center"
           style={{ height: "100vh" }}
         >
-          <div className="form-container text-black" style={{ zIndex: "1" }}>
+          <div className="form-container text-black background-form-container" style={{ zIndex: "1" }}>
             <Link
               to="/"
               className="text-black"

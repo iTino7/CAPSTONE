@@ -1,0 +1,130 @@
+{
+  "hash": "c07d5faa",
+  "configHash": "c8107145",
+  "lockfileHash": "a41b68ab",
+  "browserHash": "22cc07e6",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "a4aba587",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "ee37e185",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "3bec568f",
+      "needsInterop": false
+    },
+    "react-bootstrap": {
+      "src": "../../node_modules/react-bootstrap/esm/index.js",
+      "file": "react-bootstrap.js",
+      "fileHash": "b1359109",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "19d45574",
+      "needsInterop": true
+    },
+    "react-bootstrap-icons": {
+      "src": "../../node_modules/react-bootstrap-icons/dist/index.js",
+      "file": "react-bootstrap-icons.js",
+      "fileHash": "a459c5b2",
+      "needsInterop": false
+    },
+    "motion/react": {
+      "src": "../../node_modules/motion/dist/es/react.mjs",
+      "file": "motion_react.js",
+      "fileHash": "84322c8f",
+      "needsInterop": false
+    },
+    "react-slick": {
+      "src": "../../node_modules/react-slick/lib/index.js",
+      "file": "react-slick.js",
+      "fileHash": "3e60bf74",
+      "needsInterop": true
+    },
+    "matter-js": {
+      "src": "../../node_modules/matter-js/build/matter.js",
+      "file": "matter-js.js",
+      "fileHash": "7b2c58a3",
+      "needsInterop": true
+    },
+    "gsap": {
+      "src": "../../node_modules/gsap/index.js",
+      "file": "gsap.js",
+      "fileHash": "eb5e0256",
+      "needsInterop": false
+    },
+    "gsap/ScrollTrigger": {
+      "src": "../../node_modules/gsap/ScrollTrigger.js",
+      "file": "gsap_ScrollTrigger.js",
+      "fileHash": "a56f2af4",
+      "needsInterop": false
+    },
+    "gsap/SplitText": {
+      "src": "../../node_modules/gsap/SplitText.js",
+      "file": "gsap_SplitText.js",
+      "fileHash": "622a349d",
+      "needsInterop": false
+    },
+    "@gsap/react": {
+      "src": "../../node_modules/@gsap/react/src/index.js",
+      "file": "@gsap_react.js",
+      "fileHash": "539fb273",
+      "needsInterop": false
+    },
+    "@react-three/fiber": {
+      "src": "../../node_modules/@react-three/fiber/dist/react-three-fiber.esm.js",
+      "file": "@react-three_fiber.js",
+      "fileHash": "e26f9416",
+      "needsInterop": false
+    },
+    "three": {
+      "src": "../../node_modules/three/build/three.module.js",
+      "file": "three.js",
+      "fileHash": "47005296",
+      "needsInterop": false
+    },
+    "ogl": {
+      "src": "../../node_modules/ogl/src/index.js",
+      "file": "ogl.js",
+      "fileHash": "25956e09",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-PCR4Y2WZ": {
+      "file": "chunk-PCR4Y2WZ.js"
+    },
+    "chunk-F6675Q4O": {
+      "file": "chunk-F6675Q4O.js"
+    },
+    "chunk-RZVJAJWH": {
+      "file": "chunk-RZVJAJWH.js"
+    },
+    "chunk-JCLCNUIU": {
+      "file": "chunk-JCLCNUIU.js"
+    },
+    "chunk-X3CSSOCZ": {
+      "file": "chunk-X3CSSOCZ.js"
+    },
+    "chunk-K4NLKXWU": {
+      "file": "chunk-K4NLKXWU.js"
+    },
+    "chunk-M5XIBDSQ": {
+      "file": "chunk-M5XIBDSQ.js"
+    },
+    "chunk-V4OQ3NZ2": {
+      "file": "chunk-V4OQ3NZ2.js"
+    }
+  }
+}

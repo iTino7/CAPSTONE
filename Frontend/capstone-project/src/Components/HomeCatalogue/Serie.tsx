@@ -13,7 +13,7 @@ function Series() {
   const navigate: NavigateFunction = useNavigate();
 
   const handleClick = (item: Result) => {
-    navigate(`/series/${item.name}`, { state: item });
+    navigate(`/series/${item.name.replace(/\s+/g, '_')}`, { state: item });
   };
 
   const fetchSerie = async () => {
@@ -35,7 +35,7 @@ function Series() {
         throw new Error("errore");
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching series
     } finally {
       setIsLoading(false);
     }

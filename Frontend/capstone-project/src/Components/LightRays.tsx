@@ -322,8 +322,7 @@ void main() {
         try {
           renderer.render({ scene: mesh });
           animationIdRef.current = requestAnimationFrame(loop);
-        } catch (error) {
-          console.warn("WebGL rendering error:", error);
+        } catch {
           return;
         }
       };
@@ -352,8 +351,8 @@ void main() {
             if (canvas && canvas.parentNode) {
               canvas.parentNode.removeChild(canvas);
             }
-          } catch (error) {
-            console.warn("Error during WebGL cleanup:", error);
+          } catch {
+            // Error during WebGL cleanup
           }
         }
 

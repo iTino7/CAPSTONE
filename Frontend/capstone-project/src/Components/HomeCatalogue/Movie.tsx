@@ -12,7 +12,7 @@ function Movie() {
   const navigate: NavigateFunction = useNavigate();
 
   const handleClick = (item: Result) => {
-    navigate(`/movie/${item.title}`, { state: item });
+    navigate(`/movie/${item.title.replace(/\s+/g, '_')}`, { state: item });
   };
 
   const fetchMovie = async () => {
@@ -30,7 +30,7 @@ function Movie() {
         throw new Error("errore");
       }
     } catch (error) {
-      console.log(error);
+      // Error fetching movies
     } finally {
       setIsLoading(false);
     }

@@ -22,6 +22,10 @@ function VerifyEmail() {
     setIsLoading(true);
     
     try {
+      const emailData = { email: email.trim() };
+      console.log("Sending request to:", `${API_URL}/forgotPassword/verifyMail`);
+      console.log("Request body:", emailData);
+      
       // Invia l'email solo nel body, non nell'URL per evitare problemi di encoding
       const resp = await fetch(
         `${API_URL}/forgotPassword/verifyMail`,
@@ -30,9 +34,11 @@ function VerifyEmail() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email: email.trim() }),
+          body: JSON.stringify(emailData),
         }
       );
+      
+      console.log("Response status:", resp.status);
       
       if (resp.ok) {
         await resp.json().catch(() => null);

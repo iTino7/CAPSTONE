@@ -159,13 +159,13 @@ function FormDataUser({
             ) : (
               <>
                 <div className="d-flex">
-                  <Link
-                    target="_blank"
+                  {/* Temporarily disabled - Forgot password functionality */}
+                  {/* <Link
                     to={"/forgotPassword/verifyEmail"}
                     style={{ textDecoration: "none" }}
                   >
                     <p>Forgot password ? </p>
-                  </Link>
+                  </Link> */}
                   <Link to={"/auth/signup"} style={{ marginLeft: "auto" }}>
                     <p>Create an Account </p>
                   </Link>

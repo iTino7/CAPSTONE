@@ -65,12 +65,13 @@ function App() {
               <Route path="/series/:serieId" element={<SingleSerie />} />
             </Route>
           </Route>
-          <Route path="/forgotPassword/verifyEmail" element={<VerifyEmail />} />
+          {/* Temporarily disabled - Forgot password routes */}
+          {/* <Route path="/forgotPassword/verifyEmail" element={<VerifyEmail />} />
           <Route path="/forgotPassword/verifyOtp" element={<VerifyOtp />} />
           <Route
             path="/forgotPassword/changePassword"
             element={<ChangePassword />}
-          />
+          /> */}
         </Routes>
       </BrowserRouter>
     </>
